@@ -1,0 +1,70 @@
+UIXGridView grid view for Cocoa Touch
+
+1) License
+2) What it is 
+3) What still needs to be done
+4) Contact
+5) Versions
+
+1) License
+===========
+
+UIXGridView is released under a BSD license.  The project that prompted its creation was itself using a number of other open source packages and we thought this would be a good way to give back.
+
+Here is the license proper:
+
+ Copyright (c) 2009, Guy Umbright
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ * Neither the name of the <organization> nor the
+ names of its contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY Guy Umbright ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL Guy Umbright BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+2) What it is
+==============
+
+UIXGridView implements a row/column type view that can be constrained to the screen horizontally, vertically, both or neither.  It follows a model similar to UITableView in that it has a datasource and delegate that affect what is displayed and respond to user actions.  Items in the table are represented by "cells" that can be used as is or subclassed for you own needs.
+
+3) What still needs to be done
+===============================
+
+UIXGridView was written to scratch my own itch, so it is not necessarily a fully general use View subclass.  One main shortcoming is it does not implement a smart cell reuse mechanism like the one UITableView uses.  I hope to implement it, but don't hold your breath waiting on me.
+
+4) Contact
+===========
+
+I would be happy to listen to any ideas for improvment or additions or consider any code additions.  Please feel free to contact me.
+
+gumbright@kickstandsoft.com
+
+I also have a webpage set up for UIXGridView at
+
+	http://www.kickstandsoft.com/UIXGridView
+	
+Finally, UIXGridView source code is available via Git on GitHub.
+
+	git://github.com/gumbright/UIXGridView.git
+
+
+5) Versions
+============
+
+1.0 - 9/2009 - Initial public release

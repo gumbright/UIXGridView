@@ -1,0 +1,162 @@
+// !$*UTF8*$!
+{
+	1D3623250D0F684500981E51 /* FancySelectAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {526, 403}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 535}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* FancySelect */ = {
+		activeExec = 0;
+		executables = (
+			E40CCAA9105575CD0091C070 /* FancySelect */,
+		);
+	};
+	28D7ACF70DDB3853001CB0EB /* FancySelectViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {712, 1898}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 592}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = E40CCAA9105575CD0091C070 /* FancySelect */;
+		activeSDKPreference = iphonesimulator3.0;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* FancySelect */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* FancySelect */,
+		);
+		codeSenseManager = E40CCAB71055760D0091C070 /* Code sense */;
+		executables = (
+			E40CCAA9105575CD0091C070 /* FancySelect */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					348,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 274054070;
+			PBXWorkspaceStateSaveDate = 274054070;
+		};
+		perUserProjectItems = {
+			E40CCB371055B5510091C070 /* PBXTextBookmark */ = E40CCB371055B5510091C070 /* PBXTextBookmark */;
+			E40CCB381055B5510091C070 /* PBXTextBookmark */ = E40CCB381055B5510091C070 /* PBXTextBookmark */;
+			E40CCB3A1055B5510091C070 /* PBXTextBookmark */ = E40CCB3A1055B5510091C070 /* PBXTextBookmark */;
+			E40CCB511055BBC00091C070 /* PBXTextBookmark */ = E40CCB511055BBC00091C070 /* PBXTextBookmark */;
+		};
+		sourceControlManager = E40CCAB61055760D0091C070 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	9F2D281510434458008F1EC4 /* FancySelectCell.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1069, 2574}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{2282, 671}";
+		};
+	};
+	E40CCAA9105575CD0091C070 /* FancySelect */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = FancySelect;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	E40CCAB61055760D0091C070 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	E40CCAB71055760D0091C070 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	E40CCB371055B5510091C070 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 28D7ACF70DDB3853001CB0EB /* FancySelectViewController.m */;
+		name = "FancySelectViewController.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 592;
+		vrLoc = 0;
+	};
+	E40CCB381055B5510091C070 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* FancySelectAppDelegate.m */;
+		name = "FancySelectAppDelegate.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 535;
+		vrLoc = 0;
+	};
+	E40CCB3A1055B5510091C070 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F2D281510434458008F1EC4 /* FancySelectCell.m */;
+		name = "FancySelectCell.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 603;
+		vrLoc = 2306;
+	};
+	E40CCB511055BBC00091C070 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F2D281510434458008F1EC4 /* FancySelectCell.m */;
+		name = "FancySelectCell.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 671;
+		vrLoc = 2282;
+	};
+}
