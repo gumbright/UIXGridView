@@ -256,4 +256,13 @@
 	[super drawRect:rect];
 }
 
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)prepareForReuse
+{
+	label.text = @"";
+	imageView.image = nil;
+}
+
 @end

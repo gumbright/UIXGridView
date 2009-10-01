@@ -1,1 +1,3 @@
-.DS_Store
+build/
+PingPingClient.xcodeproj/*.pbxuser
+PingPingClient.xcodeproj/*.mode1v3

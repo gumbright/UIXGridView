@@ -59,6 +59,7 @@
 	id <UIXGridViewDataSource> dataSource;
 	NSInteger style;
 	NSInteger selectionType;
+	BOOL initialSetupDone;
 	
 	//attribute
 	BOOL constrainHorzToScreenSize;
@@ -80,11 +81,20 @@
 	NSInteger rowHeight;
 	NSInteger cellWidth;
 	NSInteger cellHeight;
-
+	NSInteger numHorzCellsVisible;
+	NSInteger numVertCellsVisible;
+	CGSize contentSize;
+	CGRect currentlyDisplayedCells;
+	
 	UIView* headerView;
 	UIView* footerView;
 	
 	BOOL hasNewData;
+	
+	//cell queue
+	NSMutableArray* cellQueue;
+	
+	NSMutableSet* selectionIndexPaths;
 
 }
 
@@ -110,7 +120,13 @@
 
 - (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionTYpe;
 
-- (void) selectCell:(UIXGridViewCell*) cell;
+- (UIXGridViewCell*) cellAtIndexPath:(NSIndexPath*) path;
+- (NSArray*) visibleCells;
+
+- (NSArray*) selection;
+- (NSArray*) selectedCells;
+
+- (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) deselectCell:(UIXGridViewCell*) cell;
 //!!! should provide index path counterparts
 
@@ -118,6 +134,9 @@
 - (NSArray*) selectedCells;
 
 - (void) reloadData;
+
+- (UIXGridViewCell*)dequeueReusableCell;
+
 
 @end
 

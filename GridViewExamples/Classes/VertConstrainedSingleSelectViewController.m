@@ -37,6 +37,7 @@
 	gv.backgroundColor = [UIColor whiteColor];
 	gv.selectionColor = [UIColor redColor];
 	self.title = @"Constrained Momentary";
+//	[gv reloadData];
 	[view addSubview:gv];
 }
 
@@ -77,8 +78,12 @@
 {
 	UIXGridViewCell* cell;
 	
+	cell = [gridView dequeueReusableCell];
+	if (cell == nil)
+	{
+		cell = [[UIXGridViewCell alloc] init];
+	}
 	
-	cell = [[UIXGridViewCell alloc] init];
 	switch (indexPath.row)
 	{
 		case 0:

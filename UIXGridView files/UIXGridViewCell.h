@@ -51,4 +51,7 @@
 @property BOOL selected;
 
 - (id) init;
+- (void)prepareForReuse;
+
+
 @end
