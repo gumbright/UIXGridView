@@ -58,6 +58,7 @@
 	{
 		self.clipsToBounds = YES;
 		CGRect frame;
+		self.backgroundColor = [UIColor clearColor];
 		
 		frame.origin.x = frame.origin.y = 0;
 		frame.size.width = INIIAL_WIDTH;
@@ -153,6 +154,7 @@
 	[grid cellTouchMoved:self withEvent:event];
 }
 
+#if 0
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -233,26 +235,27 @@
 		///////////////////
 	}
 }
+#endif
 
 //////////////////////////////////////
 //
 //////////////////////////////////////
 - (void)drawRect:(CGRect)rect
 {	
-	UIColor* bgColor;
+//	UIColor* bgColor;
+//	
+//	UIXGridView* gridView = (UIXGridView*) self.superview;
+//	
+//	CGContextRef context = UIGraphicsGetCurrentContext();
+//	bgColor = [((UIXGridView*) self.superview) backgroundColor];
+//	[bgColor set];
+//	
+//	CGContextFillRect(context, rect);
 	
-	UIXGridView* gridView = (UIXGridView*) self.superview;
-	
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	bgColor = [((UIXGridView*) self.superview) backgroundColor];
-	[bgColor set];
-	
-	CGContextFillRect(context, rect);
-	
-	if (!gridView.customSelect)
-	{
-		[self drawSelection:rect];
-	}
+//	if (!gridView.customSelect)
+//	{
+//		[self drawSelection:rect];
+//	}
 	[super drawRect:rect];
 }
 
@@ -263,6 +266,7 @@
 {
 	label.text = @"";
 	imageView.image = nil;
+	selected = NO;
 }
 
 @end

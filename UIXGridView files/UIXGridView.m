@@ -50,7 +50,7 @@
 @synthesize style;
 @synthesize selectionType;
 @synthesize selectionColor;
-@synthesize selectedCell;
+//@synthesize selectedCell;
 @synthesize headerView;
 @synthesize footerView;
 
@@ -71,8 +71,8 @@
 	
 	cellInsets.top = cellInsets.right = cellInsets.bottom = cellInsets.left = 3;
 	
-	selectedCell = nil;
-	selectedCellPath = nil;
+//	selectedCell = nil;
+//	selectedCellPath = nil;
 	self.contentMode = UIViewContentModeRedraw;
 
 	switch (style)
@@ -160,6 +160,7 @@
 		super.delegate = self;
 		cellQueue = [[NSMutableArray array] retain];
 		cells = [[NSMutableDictionary dictionary] retain];
+		selectionIndexPaths = [[NSMutableSet set] retain];
 		//[self setup];
 	}
 	
@@ -322,6 +323,12 @@
 					frame.size.height = cellHeight;
 					
 					cell.frame = frame;
+					
+					if ([selectionIndexPaths containsObject:ip])
+					{
+						cell.selected = YES;
+					}
+					
 					[self addSubview:cell];
 				}	
 			}
@@ -346,16 +353,29 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) callDidSelectDelegate
+- (BOOL) cellIsSelected:(UIXGridViewCell*) cell
 {
+	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
+	return [selectionIndexPaths containsObject:indexPath];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void) callDidSelectDelegate:(NSIndexPath*) path
+{
+	[selectionIndexPaths addObject:path];
+	UIXGridViewCell* cell = [cells objectForKey:path];
+	cell.selected = YES;
 	if (self.delegate != nil)
 	{
 		if ([self.delegate respondsToSelector:@selector(UIXGridView:didSelectCellForIndexPath:)])
 		{
-			[selectionIndexPaths addObject:selectedCellPath];
-			[self.delegate UIXGridView: self didSelectCellForIndexPath: selectedCellPath];
+			[self.delegate UIXGridView: self didSelectCellForIndexPath: path];
 		}
 	}
+	[cell setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 //////////////////////////////////////
@@ -374,16 +394,21 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) callDidDeselectDelegate
+- (void) callDidDeselectDelegate:(NSIndexPath*) path
 {
+	[selectionIndexPaths removeObject:path];
+	UIXGridViewCell* cell = [cells objectForKey:path];
+	cell.selected = NO;
+
 	if (self.delegate != nil)
 	{
 		if ([self.delegate respondsToSelector:@selector(UIXGridView:didDeselectCellForIndexPath:)])
 		{
-			[selectionIndexPaths removeObject:selectedCellPath];
-			[self.delegate UIXGridView: self didDeselectCellForIndexPath: selectedCellPath];
+			[self.delegate UIXGridView: self didDeselectCellForIndexPath: path];
 		}
 	}
+	[cell setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 //////////////////////////////////////
@@ -422,12 +447,12 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (CGRect) selectionRect
+- (CGRect) selectionRect:(NSIndexPath*) path
 {
 	CGRect frame;
 	
-	frame.origin.x = (columnWidth * [selectedCellPath column]) + cellInsets.left;
-	frame.origin.y = (rowHeight * [selectedCellPath row]) + cellInsets.top;
+	frame.origin.x = (columnWidth * [path column]) + cellInsets.left;
+	frame.origin.y = (rowHeight * [path row]) + cellInsets.top;
 	frame.size.width = columnWidth - (cellInsets.left + cellInsets.right);
 	frame.size.height = rowHeight - (cellInsets.top + cellInsets.bottom);
 	
@@ -437,12 +462,12 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (CGRect) cellRect
+- (CGRect) cellRect:(NSIndexPath*) path
 {
 	CGRect frame;
 	
-	frame.origin.x = (columnWidth * [selectedCellPath column]);
-	frame.origin.y = (rowHeight * [selectedCellPath row]);
+	frame.origin.x = (columnWidth * [path column]);
+	frame.origin.y = (rowHeight * [path row]);
 	frame.size.width = columnWidth;
 	frame.size.height = rowHeight;
 	
@@ -460,6 +485,7 @@
 	}
 }
 
+
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -470,12 +496,13 @@
 		//[self setNeedsDisplayInRect:[self cellRect]];
 		cell.selected = NO;
 		[cell setNeedsDisplay];
-		if (cell == selectedCell)
+		
+		if ([self cellIsSelected:cell])
 		{
-			[self callDidSelectDelegate];
+			NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
+			[self callDidSelectDelegate: indexPath];
+			[self clearSelection];
 		}
-		selectedCell = nil;
-		selectedCellPath = nil;
 	}
 	else
 	{
@@ -521,10 +548,15 @@
 //////////////////////////////////////
 - (void) deselectCell:(UIXGridViewCell*) cell
 {
+	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
 	cell.selected = NO;
-	selectedCell = nil;
-	selectedCellPath = nil;
-	[cell setNeedsDisplay];
+	
+	[selectionIndexPaths removeObject:indexPath];
+	
+//	selectedCell = nil;
+//	selectedCellPath = nil;
+	//[cell setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 //////////////////////////////////////
@@ -533,12 +565,43 @@
 - (void) selectCell:(UIXGridViewCell*) cell
 {
 	NSArray* keys;
-	CGRect frame;
+	//CGRect frame;
 	
 	//find its postion
 	keys = [cells allKeysForObject:cell];
 	if ([keys count] == 1)
 	{
+		NSIndexPath* path = [keys objectAtIndex:0];
+#if 1
+		switch (selectionType)
+		{
+			case UIXGridViewSelectionType_Momentary:
+			{
+				//set selected but do not call selected (that happens and up)
+				if ([self callShouldSelectDelegateForIndexPath: path])
+				{	
+					[selectionIndexPaths addObject:path];
+					cell.selected = YES;
+					[cell setNeedsDisplay];
+					[self setNeedsDisplay];
+				}
+			}
+				break;
+				
+			case UIXGridViewSelectionType_Single:
+			{
+				//clear previous
+				//select new
+			}
+				break;
+				
+			case UIXGridViewSelectionType_Multiple:
+			{
+				//toggle selection
+			}
+				break;
+		}
+#else		
 		if (selectionType != UIXGridViewSelectionType_Momentary)
 		{	
 			if (![self callShouldSelectDelegateForIndexPath:[keys objectAtIndex:0]])
@@ -553,27 +616,30 @@
 		}
 		else
 		{
-			if ((selectionType != UIXGridViewSelectionType_Multiple) && selectedCell != nil)
+			//if ((selectionType != UIXGridViewSelectionType_Multiple) && selectedCell != nil)
+			if ((selectionType != UIXGridViewSelectionType_Multiple) && [selectionIndexPaths count])
 			{
-				[self deselectCell: selectedCell];
+				[self clearSelection];
+				//[self deselectCell: selectedCell];
 			}
 		
 			if (selectionType != UIXGridViewSelectionType_Momentary)
 			{
 				[self callWillSelectDelegateForIndexPath:[keys objectAtIndex:0]];
 			}	
-			selectedCell = cell;
-			cell.selected = YES;
-			selectedCellPath = [keys objectAtIndex:0];
+//			selectedCell = cell;
+//			cell.selected = YES;
+//			NSIndexPath* path = [keys objectAtIndex:0];
 
-			frame = [self cellRect];
-			[selectedCell setNeedsDisplay];
+//			frame = [self cellRect:path];
+//			[cell setNeedsDisplay];
 
 			if (selectionType != UIXGridViewSelectionType_Momentary)
 			{
-				[self callDidSelectDelegate];
+				[self callDidSelectDelegate: path];
 			}
 		}	
+#endif		
 	}
 	else
 	{
@@ -606,6 +672,104 @@
 	return arr;
 }
 
+/////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)drawRect:(CGRect)rect
+{	
+	NSIndexPath* indexPath;
+	
+	NSLog(@"selection index paths %@",selectionIndexPaths);
+	[super drawRect:rect];
+	UIXGridViewCellSelectionStyle result = 	UIXGridViewCellSelectionStyleRoundRect;
+	
+	for (UIXGridViewCell* cell in [cells allValues])
+	{
+		if (cell.selected)
+		{
+			indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
+			
+			if ([self.delegate respondsToSelector:@selector(UIXGridView:selectionStyleForCellAtIndexPath:)])
+			{
+				result = [self.delegate UIXGridView: self  selectionStyleForCellAtIndexPath: indexPath];
+			}
+			
+			//!!!validate style
+			if (result != UIXGridViewCellSelectionStyleNone)
+			{
+				switch (result)
+				{
+					case UIXGridViewCellSelectionStyleRect:
+					{
+					}
+						break;
+						
+					case UIXGridViewCellSelectionStyleRoundRect:
+					{
+						NSLog(@"drawing rrect selection for %@",indexPath);
+						CGRect frame;
+						//BOOL drawSelection = NO;
+						
+						frame = cell.frame;
+						
+						CGContextRef context = UIGraphicsGetCurrentContext();
+						
+						CGContextSetLineWidth(context, 1);
+						
+						[selectionColor set];
+						
+						CGContextSetFillColorWithColor(context, selectionColor.CGColor);
+						
+						///////////////////
+						int corner_radius = 7;
+						int x_left = frame.origin.x;  
+						int x_left_center = frame.origin.x + corner_radius;  
+						int x_right_center = frame.origin.x + frame.size.width - corner_radius;  
+						int x_right = frame.origin.x + frame.size.width;  
+						int y_top = frame.origin.y;  
+						int y_top_center = frame.origin.y + corner_radius;  
+						int y_bottom_center = frame.origin.y + frame.size.height - corner_radius;  
+						int y_bottom = frame.origin.y + frame.size.height;  
+						
+						/* Begin! */  
+						CGContextBeginPath(context);  
+						CGContextMoveToPoint(context, x_left, y_top_center);  
+						
+						/* First corner */  
+						CGContextAddArcToPoint(context, x_left, y_top, x_left_center, y_top, corner_radius);  
+						CGContextAddLineToPoint(context, x_right_center, y_top);  
+						
+						/* Second corner */  
+						CGContextAddArcToPoint(context, x_right, y_top, x_right, y_top_center, corner_radius);  
+						CGContextAddLineToPoint(context, x_right, y_bottom_center);  
+						
+						/* Third corner */  
+						CGContextAddArcToPoint(context, x_right, y_bottom, x_right_center, y_bottom, corner_radius);  
+						CGContextAddLineToPoint(context, x_left_center, y_bottom);  
+						
+						/* Fourth corner */  
+						CGContextAddArcToPoint(context, x_left, y_bottom, x_left, y_bottom_center, corner_radius);  
+						CGContextAddLineToPoint(context, x_left, y_top_center);  
+						
+						/* Done */  
+						CGContextClosePath(context);  
+						CGContextDrawPath(context, kCGPathFillStroke);			
+						///////////////////
+					}
+						break;
+				}
+			}
+		}
+	}
+}
+
 /////////////////////////////////////////////
 //
 /////////////////////////////////////////////
@@ -623,6 +787,12 @@
 //	
 //	return arr;
 //}
+
+///////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////	
+// External methods
+///////////////////////////////////////////////////////////////////////////////	
+///////////////////////////////////////////////////////////////////////////////	
 
 /////////////////////////////////////////////////
 //
@@ -744,12 +914,6 @@
 	}	
 }
 
-/////////////////////////////////////////////////
-//
-/////////////////////////////////////////////////
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-}
 
 /////////////////////////////////////////////////
 //
@@ -805,8 +969,33 @@
 /////////////////////////////////////////////////
 - (NSArray*) selectedCells
 {
-	//iterate and get cells that are selected
+	NSMutableArray* result = [NSMutableArray array];
+	
+	for (UIXGridViewCell* cell in cells)
+	{
+		if (cell.isSelected)
+		{
+			[result addObject:cell];
+		}
+	}
+	
+	return result;
 }
+
+/////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////
+- (void) clearSelection
+{
+	UIXGridViewCell* cell;
+	for (NSIndexPath* path in selectionIndexPaths)
+	{
+		cell = [cells objectForKey:path];
+		cell.selected = NO;
+		[cell setNeedsDisplay];
+	}
+}
+
 @end
 
 //////////////////////////////////////////////////////////////////////////////////

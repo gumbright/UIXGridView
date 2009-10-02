@@ -70,8 +70,8 @@
 	BOOL startSelect;
 
 	//these reflect (or should) the LAST selected cell
-	NSIndexPath* selectedCellPath;
-	UIXGridViewCell* selectedCell;
+	//NSIndexPath* selectedCellPath;
+	//UIXGridViewCell* selectedCell;
 
 	NSMutableDictionary* cells;
 
@@ -84,6 +84,7 @@
 	NSInteger numHorzCellsVisible;
 	NSInteger numVertCellsVisible;
 	CGSize contentSize;
+	
 	CGRect currentlyDisplayedCells;
 	
 	UIView* headerView;
@@ -115,7 +116,7 @@
 @property (nonatomic, retain) UIView* headerView;
 @property (nonatomic, retain) UIView* footerView;
 
-@property (readonly) UIXGridViewCell*  selectedCell;
+//@property (readonly) UIXGridViewCell*  selectedCell;
 
 
 - (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionTYpe;
@@ -132,6 +133,7 @@
 
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;
+- (void) clearSelection;
 
 - (void) reloadData;
 
@@ -139,6 +141,12 @@
 
 
 @end
+
+typedef enum {
+	UIXGridViewCellSelectionStyleNone,
+	UIXGridViewCellSelectionStyleRect,
+	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
+} UIXGridViewCellSelectionStyle;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -173,6 +181,7 @@
 - (void) UIXGridView: (UIXGridView*) gridView  willDeselectCellForIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellForIndexPath:(NSIndexPath*) indexPath;
 
+- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
 @end
 
 /////////////////////////////////////////////////////////////////////////
