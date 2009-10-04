@@ -260,6 +260,7 @@
 				GCC_PREFIX_HEADER = GridViewExamples_Prefix.pch;
 				INFOPLIST_FILE = "GridViewExamples-Info.plist";
 				PRODUCT_NAME = GridViewExamples;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
 		};

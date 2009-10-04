@@ -59,6 +59,7 @@
 	id <UIXGridViewDataSource> dataSource;
 	NSInteger style;
 	NSInteger selectionType;
+	BOOL initialSetupDone;
 	
 	//attribute
 	BOOL constrainHorzToScreenSize;
@@ -69,8 +70,8 @@
 	BOOL startSelect;
 
 	//these reflect (or should) the LAST selected cell
-	NSIndexPath* selectedCellPath;
-	UIXGridViewCell* selectedCell;
+	//NSIndexPath* selectedCellPath;
+	//UIXGridViewCell* selectedCell;
 
 	NSMutableDictionary* cells;
 
@@ -80,11 +81,21 @@
 	NSInteger rowHeight;
 	NSInteger cellWidth;
 	NSInteger cellHeight;
-
+	NSInteger numHorzCellsVisible;
+	NSInteger numVertCellsVisible;
+	CGSize contentSize;
+	
+	CGRect currentlyDisplayedCells;
+	
 	UIView* headerView;
 	UIView* footerView;
 	
 	BOOL hasNewData;
+	
+	//cell queue
+	NSMutableArray* cellQueue;
+	
+	NSMutableSet* selectionIndexPaths;
 
 }
 
@@ -105,21 +116,37 @@
 @property (nonatomic, retain) UIView* headerView;
 @property (nonatomic, retain) UIView* footerView;
 
-@property (readonly) UIXGridViewCell*  selectedCell;
+//@property (readonly) UIXGridViewCell*  selectedCell;
 
 
 - (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionTYpe;
 
-- (void) selectCell:(UIXGridViewCell*) cell;
+- (UIXGridViewCell*) cellAtIndexPath:(NSIndexPath*) path;
+- (NSArray*) visibleCells;
+
+- (NSArray*) selection;
+- (NSArray*) selectedCells;
+
+- (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) deselectCell:(UIXGridViewCell*) cell;
 //!!! should provide index path counterparts
 
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;
+- (void) clearSelection;
 
 - (void) reloadData;
 
+- (UIXGridViewCell*)dequeueReusableCell;
+
+
 @end
+
+typedef enum {
+	UIXGridViewCellSelectionStyleNone,
+	UIXGridViewCellSelectionStyleRect,
+	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
+} UIXGridViewCellSelectionStyle;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,6 +181,7 @@
 - (void) UIXGridView: (UIXGridView*) gridView  willDeselectCellForIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellForIndexPath:(NSIndexPath*) indexPath;
 
+- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
 @end
 
 /////////////////////////////////////////////////////////////////////////

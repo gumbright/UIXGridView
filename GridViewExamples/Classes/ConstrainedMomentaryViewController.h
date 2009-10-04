@@ -11,7 +11,7 @@
 
 @interface ConstrainedMomentaryViewController : UIViewController 
 {
-
+	NSArray* labels;
 }
 
 @end

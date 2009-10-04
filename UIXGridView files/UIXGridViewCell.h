@@ -48,7 +48,10 @@
 @property (readonly) UIView* contentView;
 @property (readonly) UILabel* label;
 @property (readonly) UIImageView* imageView;
-@property BOOL selected;
+@property (assign,getter=isSelected) BOOL selected;
 
 - (id) init;
+- (void)prepareForReuse;
+
+
 @end
