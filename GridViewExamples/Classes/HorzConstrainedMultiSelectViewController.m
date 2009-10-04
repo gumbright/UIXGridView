@@ -79,75 +79,80 @@
 	UIXGridViewCell* cell;
 	
 	
-	cell = [[UIXGridViewCell alloc] init];
+	cell = [gridView dequeueReusableCell];
+	if (cell == nil)
+	{
+		cell = [[UIXGridViewCell alloc] init];
+	}
+	
 	switch (indexPath.row)
 	{
-				case 0:
-				{
-					cell.label.text = @"Mercury";
-					cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
-				}
-					break;
+		case 0:
+		{
+			cell.label.text = @"Mercury";
+			cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
+		}
+		break;
 					
-				case 1:
-				{
-					cell.label.text = @"Venus";
-					cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
-				}
-					break;
+		case 1:
+		{
+			cell.label.text = @"Venus";
+			cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
+		}
+		break;
 					
-				case 2:
-				{
-					cell.label.text = @"Earth";
-					cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
-				}
-					break;
+		case 2:
+		{
+			cell.label.text = @"Earth";
+			cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
+		}
+		break;
 					
-				case 3:
-				{
-					cell.label.text = @"Mars";
-					cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
-				}
-					break;
+		case 3:
+		{
+			cell.label.text = @"Mars";
+			cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
+		}
+		break;
 					
-				case 4:
-				{
-					cell.label.text = @"Jupiter";
-					cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
-				}
-					break;
+		case 4:
+		{
+			cell.label.text = @"Jupiter";
+			cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
+		}
+		break;
 						
-				case 5:
-				{
-					cell.label.text = @"Saturn";
-					cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
-				}
-					break;
+		case 5:
+		{
+			cell.label.text = @"Saturn";
+			cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
+		}
+		break;
 					
-				case 6:
-				{
-					cell.label.text = @"Neptune";
-					cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
-				}
-					break;
+		case 6:
+		{
+			cell.label.text = @"Neptune";
+			cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
+		}
+		break;
 					
-				case 7:
-				{
-					cell.label.text = @"Uranus";
-					cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
-				}
-					break;
+		case 7:
+		{
+			cell.label.text = @"Uranus";
+			cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
+		}
+		break;
 					
-				case 8:
-				{
-					cell.label.text = @"Pluo";
-					cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
-				}
-					break;
+		case 8:
+		{
+			cell.label.text = @"Pluo";
+			cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
+		}
+		break;
 					
-				default:
-					cell = nil;
-					break;
+		default:
+			cell = nil;
+		break;
 					
 	}
 	
