@@ -79,98 +79,102 @@
 {
 	UIXGridViewCell* cell;
 	
-	
+	cell = [gridView dequeueReusableCell];
+	if (cell == nil)
+	{
 		cell = [[UIXGridViewCell alloc] init];
-		switch (indexPath.row)
+	}
+	
+	switch (indexPath.row)
+	{
+		case 0:
 		{
-			case 0:
+			switch (indexPath.column)
 			{
-				switch (indexPath.column)
+				case 0:
 				{
-					case 0:
-					{
-						cell.label.text = [[labels objectAtIndex:0] objectAtIndex:0];
-						cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
-					}
-					break;
-						
-					case 1:
-					{
-						cell.label.text = [[labels objectAtIndex:0] objectAtIndex:1];
-						cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
-					}
-					break;
+					cell.label.text = [[labels objectAtIndex:0] objectAtIndex:0];
+					cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
+				}
+				break;
 					
-					case 2:
-					{
-						cell.label.text = [[labels objectAtIndex:0] objectAtIndex:2];
-						cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
-					}
-					break;
-						
+				case 1:
+				{
+					cell.label.text = [[labels objectAtIndex:0] objectAtIndex:1];
+					cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
 				}
-			}
-			break;
+				break;
 				
-			case 1:
-			{
-				switch (indexPath.column)
+				case 2:
 				{
-					case 0:
-					{
-						cell.label.text = [[labels objectAtIndex:1] objectAtIndex:0];
-						cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
-					}
-					break;
-						
-					case 1:
-					{
-						cell.label.text = [[labels objectAtIndex:1] objectAtIndex:1];
-						cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
-					}
-					break;
-						
-					case 2:
-					{
-						cell.label.text = [[labels objectAtIndex:1] objectAtIndex:2];
-						cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
-					}
-					break;
-						
+					cell.label.text = [[labels objectAtIndex:0] objectAtIndex:2];
+					cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
 				}
+				break;
+					
 			}
-			break;
-
-			case 2:
-			{
-				switch (indexPath.column)
-				{
-					case 0:
-					{
-						cell.label.text = [[labels objectAtIndex:2] objectAtIndex:0];
-						cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
-					}
-					break;
-						
-					case 1:
-					{
-						cell.label.text = [[labels objectAtIndex:2] objectAtIndex:1];
-						cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
-					}
-					break;
-						
-					case 2:
-					{
-						cell.label.text = [[labels objectAtIndex:2] objectAtIndex:2];
-						cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
-					}
-					break;
-						
-				}
-			}
-			break;
-
 		}
+		break;
+				
+		case 1:
+		{
+			switch (indexPath.column)
+			{
+				case 0:
+				{
+					cell.label.text = [[labels objectAtIndex:1] objectAtIndex:0];
+					cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
+				}
+				break;
+						
+				case 1:
+				{
+					cell.label.text = [[labels objectAtIndex:1] objectAtIndex:1];
+					cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
+				}
+				break;
+						
+				case 2:
+				{
+					cell.label.text = [[labels objectAtIndex:1] objectAtIndex:2];
+					cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
+				}
+				break;
+					
+			}
+		}
+		break;
+
+		case 2:
+		{
+			switch (indexPath.column)
+			{
+				case 0:
+				{
+					cell.label.text = [[labels objectAtIndex:2] objectAtIndex:0];
+					cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
+				}
+				break;
+						
+				case 1:
+				{
+					cell.label.text = [[labels objectAtIndex:2] objectAtIndex:1];
+					cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
+				}
+				break;
+						
+				case 2:
+				{
+					cell.label.text = [[labels objectAtIndex:2] objectAtIndex:2];
+					cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
+				}
+				break;
+						
+			}
+		}
+		break;
+
+	}
 	
 	return cell;
 }

@@ -590,8 +590,11 @@
 				
 			case UIXGridViewSelectionType_Single:
 			{
-				//clear previous
-				//select new
+				if ([self callShouldSelectDelegateForIndexPath: path])
+				{	
+					[self clearSelection];
+					[self callDidSelectDelegate: path];
+				}
 			}
 				break;
 				
@@ -992,6 +995,7 @@
 	{
 		cell = [cells objectForKey:path];
 		cell.selected = NO;
+		[selectionIndexPaths removeObject:path];
 		[cell setNeedsDisplay];
 	}
 }
