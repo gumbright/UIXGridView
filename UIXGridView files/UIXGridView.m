@@ -353,15 +353,6 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (BOOL) cellIsSelected:(UIXGridViewCell*) cell
-{
-	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
-	return [selectionIndexPaths containsObject:indexPath];
-}
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
 - (void) callDidSelectDelegate:(NSIndexPath*) path
 {
 	[selectionIndexPaths addObject:path];
@@ -600,7 +591,22 @@
 				
 			case UIXGridViewSelectionType_Multiple:
 			{
-				//toggle selection
+				if ([self cellIsSelected:cell])
+				{
+					[self callWillDeselectDelegateForIndexPath:path];
+					[self deselectCell:cell];
+					[self callDidDeselectDelegate:path];
+				}
+				else 
+				{
+					if ([self callShouldSelectDelegateForIndexPath:path])
+					{
+						[self callWillSelectDelegateForIndexPath: path];
+						[self callDidSelectDelegate: path];
+					}	
+				}
+
+				//else
 			}
 				break;
 		}
@@ -796,6 +802,23 @@
 // External methods
 ///////////////////////////////////////////////////////////////////////////////	
 ///////////////////////////////////////////////////////////////////////////////	
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (BOOL) cellIsSelected:(UIXGridViewCell*) cell
+{
+	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
+	return [selectionIndexPaths containsObject:indexPath];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (BOOL) indexPathIsSelected:(NSIndexPath*) path
+{
+	return [selectionIndexPaths containsObject:path];
+}
 
 /////////////////////////////////////////////////
 //

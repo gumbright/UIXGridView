@@ -134,6 +134,8 @@
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;
 - (void) clearSelection;
+- (BOOL) cellIsSelected:(UIXGridViewCell *)cell;
+- (BOOL) indexPathIsSelected:(NSIndexPath*) path;
 
 - (void) reloadData;
 
