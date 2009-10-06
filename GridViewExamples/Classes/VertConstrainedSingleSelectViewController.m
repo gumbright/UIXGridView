@@ -78,12 +78,12 @@
 {
 	UIXGridViewCell* cell;
 	
-	cell = [gridView dequeueReusableCell];
+	cell = [gridView dequeueReusableCellWithIdentifier:@"VertSingleCell"];
 	if (cell == nil)
 	{
-		cell = [[UIXGridViewCell alloc] init];
+		cell = [[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"VertSingleCell"];
 	}
-	
+				
 	switch (indexPath.row)
 	{
 		case 0:

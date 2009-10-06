@@ -79,12 +79,12 @@
 	UIXGridViewCell* cell;
 	
 	
-	cell = [gridView dequeueReusableCell];
+	cell = [gridView dequeueReusableCellWithIdentifier:@"HorzMultiCell"];
 	if (cell == nil)
 	{
-		cell = [[UIXGridViewCell alloc] init];
-	}
-	
+		cell = [[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"HorzMultiCell"];
+				}
+				
 	switch (indexPath.row)
 	{
 		case 0:

@@ -53,10 +53,10 @@
 @property (nonatomic, readonly, copy) NSString* reuseIdentifier;
 
 typedef enum {
-	UIGridViewCellStyleDefault
-} UIGridViewCellStyle;
+	UIXGridViewCellStyleDefault
+} UIXGridViewCellStyle;
 
-- (id)initWithStyle:(UIGridViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+- (id)initWithStyle:(UIXGridViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)prepareForReuse;
 
 

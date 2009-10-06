@@ -53,7 +53,7 @@
 //
 ///////////////////////////////////
 //- (id) init
-- (id)initWithStyle:(UIGridViewCellStyle)style reuseIdentifier:(NSString *)reuseId;
+- (id)initWithStyle:(UIXGridViewCellStyle)style reuseIdentifier:(NSString *)reuseId;
 {
 
 	if (self = [super initWithFrame:CGRectZero])

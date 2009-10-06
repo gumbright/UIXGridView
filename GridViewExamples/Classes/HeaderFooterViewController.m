@@ -88,7 +88,12 @@
 	UIXGridViewCell* cell;
 	
 	
-	cell = [[UIXGridViewCell alloc] init];
+	cell = [gridView dequeueReusableCellWithIdentifier:@"HeaderFooterCell"];
+	if (cell == nil)
+	{
+		cell = [[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"HeaderFooterCell"];
+	}
+	
 	switch (indexPath.row)
 	{
 		case 0:
