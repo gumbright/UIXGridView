@@ -94,6 +94,7 @@
 	
 	//cell queue
 	NSMutableArray* cellQueue;
+	NSMutableDictionary* reusableCells;
 	
 	NSMutableSet* selectionIndexPaths;
 
@@ -139,7 +140,9 @@
 
 - (void) reloadData;
 
-- (UIXGridViewCell*)dequeueReusableCell;
+//- (UIXGridViewCell*)dequeueReusableCell;
+- (UIXGridViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
+
 
 
 @end

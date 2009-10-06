@@ -42,6 +42,7 @@
 @synthesize label;
 @synthesize imageView;
 @synthesize selected;
+@synthesize reuseIdentifier;
 
 #define LABEL_HEIGHT 21
 #define BORDER_SIZE 3
@@ -51,7 +52,8 @@
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (id) init
+//- (id) init
+- (id)initWithStyle:(UIGridViewCellStyle)style reuseIdentifier:(NSString *)reuseId;
 {
 
 	if (self = [super initWithFrame:CGRectZero])
@@ -87,9 +89,20 @@
 		label.textAlignment = UITextAlignmentCenter;
 		label.backgroundColor = [UIColor clearColor];
 		[contentView addSubview:label];
+		
+		reuseIdentifier = [[NSString stringWithString: reuseId] retain];
 	}
 	
 	return self;
+}
+
+///////////////////////////////////
+//
+///////////////////////////////////
+- (void) dealloc
+{
+	[reuseIdentifier release];
+	[super dealloc];
 }
 
 ///////////////////////////////////

@@ -43,14 +43,20 @@
 	UIImageView* imageView;
 	
 	BOOL selected;
+	NSString* reuseIdentifier;
 }
 
 @property (readonly) UIView* contentView;
 @property (readonly) UILabel* label;
 @property (readonly) UIImageView* imageView;
 @property (assign,getter=isSelected) BOOL selected;
+@property (nonatomic, readonly, copy) NSString* reuseIdentifier;
 
-- (id) init;
+typedef enum {
+	UIGridViewCellStyleDefault
+} UIGridViewCellStyle;
+
+- (id)initWithStyle:(UIGridViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 - (void)prepareForReuse;
 
 

@@ -221,6 +221,23 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (void) enqueueCell:(UIXGridViewCell*) cell
+{
+	NSMutableArray* arr = [reusableCells objectForKey:cell.reuseIdentifier];
+	if (arr == nil)
+	{
+		arr = [NSMutableArray array];
+		[reusableCells setObject:arr forKey:cell.reuseIdentifier];
+	}
+	
+	[cell prepareForReuse];
+	
+	[arr addObject:cell]; 
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void)layoutSubviews
 {
 	
@@ -288,8 +305,10 @@
 		if (!CGRectContainsPoint(workingCells, p))
 		{
 			UIXGridViewCell* v = (UIXGridViewCell*)[cells objectForKey:ip];
-			[v prepareForReuse];
-			[cellQueue addObject:v]; 
+			
+			[self enqueueCell:v];
+//			[v prepareForReuse];
+//			[cellQueue addObject:v]; 
 			
 			NSArray* a = [cells allKeysForObject:v];
 			for (NSIndexPath* ip in a)
@@ -944,20 +963,23 @@
 /////////////////////////////////////////////////
 //
 /////////////////////////////////////////////////
-- (UIXGridViewCell*)dequeueReusableCell
+- (UIXGridViewCell*)dequeueReusableCellWithIdentifier:(NSString*) reuseId
 {
-	if ([cellQueue count] == 0)
+	NSMutableArray* arr;
+	UIXGridViewCell* cell = nil;
+	
+	arr = [reusableCells objectForKey:reuseId];
+	if (arr != nil)
 	{
-		return nil;
-	}
-	else
-	{
-		UIXGridViewCell* cell = [cellQueue objectAtIndex:0];
-		[cellQueue removeObjectAtIndex:0];
-		return cell;
+		if ([arr count] > 0)
+		{
+			cell = [arr objectAtIndex:0];
+			[arr removeObjectAtIndex:0];
+		}
+		
 	}
 	
-	return nil;
+	return cell;
 }
 
 /////////////////////////////////////////////////
