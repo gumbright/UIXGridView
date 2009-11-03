@@ -51,7 +51,7 @@
 #define UIXGridViewSelectionType_Multiple	2
 
 //conform to NSCoder?
-@interface UIXGridView : UIScrollView 
+@interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
 	//configuration
 	UIColor* selectionColor;
