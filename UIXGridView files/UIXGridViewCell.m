@@ -66,6 +66,7 @@
 		frame.size.width = INIIAL_WIDTH;
 		frame.size.height = INITIAL_HEIGHT;
 		UIView* cv = [[UIView alloc] initWithFrame:frame];
+		cv.backgroundColor = [UIColor clearColor];
 		contentView = cv;
 		[self addSubview:cv];
 		
