@@ -212,8 +212,6 @@
 			break;
 	}
 
-	
-	
 	hasNewData = YES;
 	[self setNeedsLayout];
 }
@@ -271,7 +269,7 @@
 	else	
 		workingCells.size.width = numHorzCellsVisible+1; 
 	
-	if (CGRectEqualToRect( workingCells, currentlyDisplayedCells))
+	if (CGRectEqualToRect( workingCells, currentlyDisplayedCells) && !hasNewData)
 	{
 		return; //bail if nothing changed
 	}
@@ -302,11 +300,11 @@
 	for (NSIndexPath* ip in [cells allKeys])
 	{
 		CGPoint p = CGPointMake([ip column], [ip row]);
-		if (!CGRectContainsPoint(workingCells, p))
+		if (!CGRectContainsPoint(workingCells, p) || hasNewData)
 		{
 			UIXGridViewCell* v = (UIXGridViewCell*)[cells objectForKey:ip];
-			
-			[self enqueueCell:v];
+			[v prepareForReuse];
+			[cellQueue addObject:v]; 
 			
 			NSArray* a = [cells allKeysForObject:v];
 			for (NSIndexPath* ip in a)

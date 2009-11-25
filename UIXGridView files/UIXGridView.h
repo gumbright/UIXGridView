@@ -51,7 +51,7 @@
 #define UIXGridViewSelectionType_Multiple	2
 
 //conform to NSCoder?
-@interface UIXGridView : UIScrollView 
+@interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
 	//configuration
 	UIColor* selectionColor;
@@ -164,7 +164,7 @@ typedef enum {
 
 @required
 
-- (UIXGridViewCell*) UIXGridView:(UIXGridView*) cellForIndexPath:(NSIndexPath*) indexPath;
+- (UIXGridViewCell*) UIXGridView:(UIXGridView*) grid cellForIndexPath:(NSIndexPath*) indexPath;
 - (NSInteger) numberOfColumnsForGrid:(UIXGridView*) grid;
 - (NSInteger) numberOfRowsForGrid: (UIXGridView*) grid;
 
