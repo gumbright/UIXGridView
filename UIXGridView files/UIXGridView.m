@@ -44,8 +44,8 @@
 @synthesize constrainVertToScreenSize;
 @synthesize customSelect;
 @synthesize dataSource;
-@synthesize columnWidth;
-@synthesize rowHeight;
+//@synthesize columnWidth;
+//@synthesize rowHeight;
 @synthesize cellInsets;
 @synthesize style;
 @synthesize selectionType;
@@ -53,6 +53,11 @@
 //@synthesize selectedCell;
 @synthesize headerView;
 @synthesize footerView;
+
+@synthesize horizontalGridLineWidth;
+@synthesize verticalGridLineWidth;
+@synthesize borderGridLineWidth;
+@synthesize gridLineColor;
 
 //////////////////////////////////////
 //
@@ -75,6 +80,7 @@
 //	selectedCellPath = nil;
 	self.contentMode = UIViewContentModeRedraw;
 
+#if 0
 	switch (style)
 	{
 		case UIXGridViewStyle_Constrained:
@@ -125,7 +131,7 @@
 	numHorzCellsVisible = frame.size.width / cellWidth;
 	numVertCellsVisible = frame.size.height / cellHeight;
 
-	
+#endif	
 	[self reloadData];
 }
 
@@ -173,16 +179,15 @@
 - (void) reloadData
 {
 	CGRect frame = self.frame;
-
+#if 0
 	switch (style)
 	{
 		case UIXGridViewStyle_Constrained:
-			if (!initialSetupDone)
-			{
-				columns = [self.dataSource numberOfColumnsForGrid:self];
-				rows = [self.dataSource numberOfRowsForGrid:self];			
-				contentSize = CGSizeMake(frame.size.width,frame.size.height);
-			}
+		{
+			columns = [self.dataSource numberOfColumnsForGrid:self];
+			rows = [self.dataSource numberOfRowsForGrid:self];			
+			contentSize = CGSizeMake(frame.size.width,frame.size.height);
+		}
 			break;
 			
 		case UIXGridViewStyle_HorzConstrained:
@@ -211,7 +216,27 @@
 		}
 			break;
 	}
-
+#if 0
+	
+	CGRect frame = self.frame;
+	
+	if (style == UIXGridViewStyle_Constrained || style == UIXGridViewStyle_HorzConstrained)
+	{
+		columnWidth = frame.size.width / columns;
+	}
+	
+	if (style == UIXGridViewStyle_Constrained || style == UIXGridViewStyle_VertConstrained)
+	{
+		rowHeight = frame.size.height / rows;
+	}
+	
+	cellWidth = columnWidth - (cellInsets.left + cellInsets.right);
+	cellHeight = rowHeight - (cellInsets.top + cellInsets.bottom);
+	
+	numHorzCellsVisible = frame.size.width / cellWidth;
+	numVertCellsVisible = frame.size.height / cellHeight;
+#endif	
+#endif	
 	hasNewData = YES;
 	[self setNeedsLayout];
 }
@@ -236,6 +261,102 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (void) calcGeometry
+{
+	CGRect frame;
+	
+	switch (style)
+	{
+		case UIXGridViewStyle_Constrained:
+		{
+			columns = [self.dataSource numberOfColumnsForGrid:self];
+			rows = [self.dataSource numberOfRowsForGrid:self];	
+			
+			contentSize.width = self.frame.size.width;
+			contentSize.height = self.frame.size.height;
+			
+			CGFloat workHeight = self.frame.size.height;
+			if (headerView)
+			{
+				workHeight -= headerView.frame.size.height;
+			}
+			
+			if (footerView)
+			{
+				workHeight -= footerView.frame.size.height;
+			}
+			
+			cellHeight = (workHeight - ((borderGridLineWidth * 2) + (horizontalGridLineWidth * (rows - 1))))/rows;
+			cellWidth = (contentSize.width - ((borderGridLineWidth * 2) + (verticalGridLineWidth * (columns - 1)))) / columns;
+		}
+			break;
+			
+		case UIXGridViewStyle_HorzConstrained:
+		{
+		}
+			break;
+			
+		case UIXGridViewStyle_VertConstrained:
+		{
+			//set rows cols
+			columns = [self.dataSource numberOfColumnsForGrid:self];
+			rows = [self.dataSource numberOfColumnsForGrid:self];
+			
+			cellWidth = [self.dataSource cellWidthForGrid:self];
+			contentSize.width = (borderGridLineWidth * 2) + 
+							(verticalGridLineWidth * (columns-1)) + 
+							(cellWidth * columns);
+			
+			contentSize.height = self.frame.size.height;			
+			CGFloat workHeight = contentSize.height;
+			if (headerView)
+			{
+				workHeight -= headerView.frame.size.height;
+			}
+			
+			if (footerView)
+			{
+				workHeight -= footerView.frame.size.height;
+			}
+			
+			cellHeight = (workHeight - ((borderGridLineWidth * 2) + (horizontalGridLineWidth * (rows - 1))))/rows;
+		}
+			break;
+			
+		case UIXGridViewStyle_Unconstrained:
+		{
+		}
+			break;
+	}
+	
+	CGFloat work = self.frame.size.width - (borderGridLineWidth * 2);
+	work -= cellWidth;
+	numHorzCellsVisible = (work / (cellWidth + verticalGridLineWidth))+1;
+//	numHorzCellsVisible = frame.size.width / cellWidth;
+	
+	
+	work = self.frame.size.height - (borderGridLineWidth * 2);
+	work -= cellHeight;
+	numVertCellsVisible = (work / (cellHeight + horizontalGridLineWidth))+1;
+//	numVertCellsVisible = frame.size.height / cellHeight;
+}
+
+//////////////////////////////////////
+// given an index, return its top left
+//////////////////////////////////////
+- (CGPoint) calcCellPosition:(NSIndexPath*) indexPath
+{
+	CGPoint result;
+	
+	result.x = borderGridLineWidth + (verticalGridLineWidth * [indexPath column]) + (cellWidth * [indexPath column]);
+	result.y = borderGridLineWidth + (horizontalGridLineWidth * [indexPath row]) + (cellHeight * [indexPath row]);
+	
+	return result;
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void)layoutSubviews
 {
 	
@@ -245,6 +366,8 @@
 		initialSetupDone = YES;
 	}
 
+	[self calcGeometry];
+	
 	NSUInteger indicies[2];
 	CGRect workingCells;
 	UIXGridViewCell* cell;
@@ -252,8 +375,10 @@
 	CGPoint currPos = self.contentOffset;
 	CGPoint topLeftCell;
 	
-	topLeftCell.x = floor(currPos.x / columnWidth);
-	topLeftCell.y = floor(currPos.y / rowHeight);
+	topLeftCell.x = floor(currPos.x / cellWidth);   //!!!
+	topLeftCell.y = floor(currPos.y / cellHeight);
+	//	topLeftCell.x = floor(currPos.x / columnWidth);
+	//	topLeftCell.y = floor(currPos.y / rowHeight);
 	
 	topLeftCell.x = (topLeftCell.x >= 0) ? topLeftCell.x : 0;
 	topLeftCell.y = (topLeftCell.x >= 0) ? topLeftCell.y : 0;
@@ -332,8 +457,7 @@
 				{
 					[cells setObject:cell forKey:ip];
 
-					frame.origin.x = (columnWidth * c) + cellInsets.left;
-					frame.origin.y = (rowHeight * r) + cellInsets.top + baseY;
+					frame.origin = [self calcCellPosition:(NSIndexPath*) ip];
 					frame.size.width = cellWidth;
 					frame.size.height = cellHeight;
 					
@@ -356,7 +480,8 @@
 	{
 		frame = footerView.frame;
 		
-		frame.origin.y = baseY+(rowHeight * rows);
+		//frame.origin.y = baseY+(rowHeight * rows);
+		frame.origin.y = baseY+(cellHeight * rows);
 		footerView.frame = frame;
 	}
 		
@@ -457,10 +582,14 @@
 {
 	CGRect frame;
 	
-	frame.origin.x = (columnWidth * [path column]) + cellInsets.left;
-	frame.origin.y = (rowHeight * [path row]) + cellInsets.top;
-	frame.size.width = columnWidth - (cellInsets.left + cellInsets.right);
-	frame.size.height = rowHeight - (cellInsets.top + cellInsets.bottom);
+	frame.origin.x = (cellWidth * [path column]) + cellInsets.left;
+	frame.origin.y = (cellHeight * [path row]) + cellInsets.top;
+//	frame.origin.x = (columnWidth * [path column]) + cellInsets.left;
+//	frame.origin.y = (rowHeight * [path row]) + cellInsets.top;
+	frame.size.width = cellWidth - (cellInsets.left + cellInsets.right);
+	frame.size.height = cellHeight - (cellInsets.top + cellInsets.bottom);
+//	frame.size.width = columnWidth - (cellInsets.left + cellInsets.right);
+//	frame.size.height = rowHeight - (cellInsets.top + cellInsets.bottom);
 	
 	return frame;
 }
@@ -472,10 +601,14 @@
 {
 	CGRect frame;
 	
-	frame.origin.x = (columnWidth * [path column]);
-	frame.origin.y = (rowHeight * [path row]);
-	frame.size.width = columnWidth;
-	frame.size.height = rowHeight;
+	frame.origin.x = (cellWidth * [path column]);
+	frame.origin.y = (cellHeight * [path row]);
+//	frame.origin.x = (columnWidth * [path column]);
+//	frame.origin.y = (rowHeight * [path row]);
+	frame.size.width = cellWidth;
+	frame.size.height = cellHeight;
+//	frame.size.width = columnWidth;
+//	frame.size.height = rowHeight;
 	
 	return frame;
 }
@@ -709,6 +842,51 @@
 - (void)drawRect:(CGRect)rect
 {	
 	NSIndexPath* indexPath;
+	CGRect frame;
+	CGFloat pos;
+	CGPoint start, end;
+	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[gridLineColor set];
+	
+	//border
+	if (borderGridLineWidth)
+	{
+		CGFloat insetAdjust = borderGridLineWidth/2; 
+		CGContextSetLineWidth(context, borderGridLineWidth);
+		frame.origin.x = insetAdjust;
+		frame.origin.y = insetAdjust;
+		frame.size.width = contentSize.width-borderGridLineWidth;
+		frame.size.height = contentSize.height-borderGridLineWidth;
+		CGContextAddRect (context,frame);
+	}
+	
+	if (horizontalGridLineWidth)
+	{
+		for (CGFloat ndx = 1.0; ndx < (rows); ++ndx)
+		{
+			start.x = borderGridLineWidth;
+			end.x = contentSize.width - borderGridLineWidth;
+			start.y = end.y = borderGridLineWidth + (cellHeight * ndx) + (horizontalGridLineWidth * ndx);
+			CGContextMoveToPoint(context, start.x, start.y);
+			CGContextAddLineToPoint(context, end.x, end.y);
+		}	
+	}
+	
+	if (verticalGridLineWidth)
+	{
+		for (CGFloat ndx = 1.0; ndx < (columns); ++ndx)
+		{
+			start.y = borderGridLineWidth;
+			end.y = contentSize.height - borderGridLineWidth;
+			start.x = end.x = borderGridLineWidth + (cellWidth * ndx) + (verticalGridLineWidth * ndx);
+			CGContextMoveToPoint(context, start.x, start.y);
+			CGContextAddLineToPoint(context, end.x, end.y);
+		}	
+	}
+	
+	CGContextClosePath(context);  
+	CGContextDrawPath(context, kCGPathStroke);			
 	
 	NSLog(@"selection index paths %@",selectionIndexPaths);
 	[super drawRect:rect];
@@ -742,6 +920,7 @@
 						//BOOL drawSelection = NO;
 						
 						frame = cell.frame;
+						frame = [cell convertRect:frame toView:self];
 						
 						CGContextRef context = UIGraphicsGetCurrentContext();
 						

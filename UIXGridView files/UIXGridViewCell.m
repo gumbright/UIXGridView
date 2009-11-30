@@ -66,7 +66,6 @@
 		frame.size.width = INIIAL_WIDTH;
 		frame.size.height = INITIAL_HEIGHT;
 		UIView* cv = [[UIView alloc] initWithFrame:frame];
-		cv.backgroundColor = [UIColor clearColor];
 		contentView = cv;
 		[self addSubview:cv];
 		
@@ -168,108 +167,12 @@
 	[grid cellTouchMoved:self withEvent:event];
 }
 
-#if 0
-//////////////////////////////////////
-//
-//////////////////////////////////////
-- (void)drawSelection:(CGRect)rect
-{
-	CGRect frame;
-	UIColor* selectionColor;
-	BOOL drawSelection = NO;
-	
-	UIXGridView* gridView = (UIXGridView*) self.superview;
-	
-	if (gridView.selectionType == UIXGridViewSelectionType_Momentary)
-	{
-		if (gridView.selectedCell == self)
-		{
-			drawSelection = YES;
-		}
-	}
-	else
-	{
-		if (selected)
-		{
-			drawSelection = YES;
-		}
-		else
-		{
-			[super drawRect:rect];
-		}
-	} //end else momentary
-	
-	if (drawSelection)
-	{
-		frame = rect;
-		
-		CGContextRef context = UIGraphicsGetCurrentContext();
-		
-		CGContextSetLineWidth(context, 1);
-		
-		selectionColor = [((UIXGridView*) self.superview) selectionColor];
-		[selectionColor set];
-		
-		CGContextSetFillColorWithColor(context, selectionColor.CGColor);
-		
-		///////////////////
-		int corner_radius = 7;
-		int x_left = frame.origin.x;  
-		int x_left_center = frame.origin.x + corner_radius;  
-		int x_right_center = frame.origin.x + frame.size.width - corner_radius;  
-		int x_right = frame.origin.x + frame.size.width;  
-		int y_top = frame.origin.y;  
-		int y_top_center = frame.origin.y + corner_radius;  
-		int y_bottom_center = frame.origin.y + frame.size.height - corner_radius;  
-		int y_bottom = frame.origin.y + frame.size.height;  
-		
-		/* Begin! */  
-		CGContextBeginPath(context);  
-		CGContextMoveToPoint(context, x_left, y_top_center);  
-		
-		/* First corner */  
-		CGContextAddArcToPoint(context, x_left, y_top, x_left_center, y_top, corner_radius);  
-		CGContextAddLineToPoint(context, x_right_center, y_top);  
-		
-		/* Second corner */  
-		CGContextAddArcToPoint(context, x_right, y_top, x_right, y_top_center, corner_radius);  
-		CGContextAddLineToPoint(context, x_right, y_bottom_center);  
-		
-		/* Third corner */  
-		CGContextAddArcToPoint(context, x_right, y_bottom, x_right_center, y_bottom, corner_radius);  
-		CGContextAddLineToPoint(context, x_left_center, y_bottom);  
-		
-		/* Fourth corner */  
-		CGContextAddArcToPoint(context, x_left, y_bottom, x_left, y_bottom_center, corner_radius);  
-		CGContextAddLineToPoint(context, x_left, y_top_center);  
-		
-		/* Done */  
-		CGContextClosePath(context);  
-		CGContextDrawPath(context, kCGPathFillStroke);			
-		///////////////////
-	}
-}
-#endif
 
 //////////////////////////////////////
 //
 //////////////////////////////////////
 - (void)drawRect:(CGRect)rect
 {	
-//	UIColor* bgColor;
-//	
-//	UIXGridView* gridView = (UIXGridView*) self.superview;
-//	
-//	CGContextRef context = UIGraphicsGetCurrentContext();
-//	bgColor = [((UIXGridView*) self.superview) backgroundColor];
-//	[bgColor set];
-//	
-//	CGContextFillRect(context, rect);
-	
-//	if (!gridView.customSelect)
-//	{
-//		[self drawSelection:rect];
-//	}
 	[super drawRect:rect];
 }
 

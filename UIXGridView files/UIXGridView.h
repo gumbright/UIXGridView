@@ -75,14 +75,16 @@
 
 	NSMutableDictionary* cells;
 
-	NSInteger columns;
-	NSInteger rows;
-	NSInteger columnWidth;
-	NSInteger rowHeight;
-	NSInteger cellWidth;
-	NSInteger cellHeight;
+//	NSInteger columnWidth;
+//	NSInteger rowHeight;
 	NSInteger numHorzCellsVisible;
 	NSInteger numVertCellsVisible;
+	
+	//geometry
+	NSInteger columns;
+	NSInteger rows;
+	CGFloat cellWidth;
+	CGFloat cellHeight;
 	CGSize contentSize;
 	
 	CGRect currentlyDisplayedCells;
@@ -97,6 +99,12 @@
 	NSMutableDictionary* reusableCells;
 	
 	NSMutableSet* selectionIndexPaths;
+	
+	//gridlines
+	CGFloat horizontalGridLineWidth;
+	CGFloat verticalGridLineWidth;
+	CGFloat borderGridLineWidth;
+	UIColor* gridLineColor;
 
 }
 
@@ -117,10 +125,15 @@
 @property (nonatomic, retain) UIView* headerView;
 @property (nonatomic, retain) UIView* footerView;
 
+@property () CGFloat horizontalGridLineWidth;
+@property () CGFloat verticalGridLineWidth;
+@property () CGFloat borderGridLineWidth;
+@property (nonatomic,retain) UIColor* gridLineColor;
+
 //@property (readonly) UIXGridViewCell*  selectedCell;
 
 
-- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionTYpe;
+- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionType;
 
 - (UIXGridViewCell*) cellAtIndexPath:(NSIndexPath*) path;
 - (NSArray*) visibleCells;
@@ -143,6 +156,11 @@
 
 //- (UIXGridViewCell*)dequeueReusableCell;
 - (UIXGridViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
+
+//touch notifications from cells (best treated private)
+- (void) cellTouched:(UIXGridViewCell*) cell;
+- (void) cellReleased:(UIXGridViewCell*) cell;
+- (void) cellTouchMoved:(UIXGridViewCell*) cell withEvent:(UIEvent*) event;
 
 
 
