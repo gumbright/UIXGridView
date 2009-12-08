@@ -69,10 +69,6 @@
 	//operational
 	BOOL startSelect;
 
-	//these reflect (or should) the LAST selected cell
-	//NSIndexPath* selectedCellPath;
-	//UIXGridViewCell* selectedCell;
-
 	NSMutableDictionary* cells;
 
 //	NSInteger columnWidth;
@@ -113,8 +109,8 @@
 @property (readonly) BOOL constrainHorzToScreenSize;
 @property (readonly) BOOL constrainVertToScreenSize;
 @property (assign) BOOL customSelect;
-@property (readonly) NSInteger columnWidth;
-@property (readonly) NSInteger rowHeight;
+//@property (readonly) NSInteger columnWidth;
+//@property (readonly) NSInteger rowHeight;
 @property (readonly) NSInteger style;
 @property (readonly) NSInteger selectionType;
 

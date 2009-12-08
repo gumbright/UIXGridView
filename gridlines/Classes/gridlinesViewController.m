@@ -39,10 +39,11 @@
     [super viewDidLoad];
 
 	grid = [[UIXGridView alloc] initWithFrame:CGRectMake(0,0,320,460) andStyle:UIXGridViewStyle_Constrained selectionType:UIXGridViewSelectionType_Momentary];
+//	grid = [[UIXGridView alloc] initWithFrame:CGRectMake(0,0,320,460) andStyle:UIXGridViewStyle_Constrained selectionType:UIXGridViewSelectionType_Single];
 	
-	grid.horizontalGridLineWidth = 2;
-	grid.verticalGridLineWidth = 2;
-	grid.borderGridLineWidth = 1;
+	grid.horizontalGridLineWidth = 5;
+	grid.verticalGridLineWidth = 5;
+	grid.borderGridLineWidth = 5;
 	grid.gridLineColor = [UIColor whiteColor];
 	grid.selectionColor = [UIColor redColor];
 	grid.dataSource = self;
@@ -120,4 +121,13 @@
 {
 	return 3;
 }
+
+/////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////
+- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath
+{
+	return UIXGridViewCellSelectionStyleRect;
+}
+
 @end
