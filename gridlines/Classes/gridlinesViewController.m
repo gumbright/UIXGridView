@@ -127,7 +127,7 @@
 /////////////////////////////////////////////////
 - (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath
 {
-	return UIXGridViewCellSelectionStyleRect;
+	return UIXGridViewCellSelectionStyleRoundRect;
 }
 
 @end

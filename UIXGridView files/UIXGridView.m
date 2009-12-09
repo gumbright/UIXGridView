@@ -731,15 +731,15 @@
 	CGContextSetFillColorWithColor(context, selectionColor.CGColor);
 	
 	///////////////////
-	int corner_radius = 7;
-	int x_left = frame.origin.x;  
-	int x_left_center = frame.origin.x + corner_radius;  
-	int x_right_center = frame.origin.x + frame.size.width - corner_radius;  
-	int x_right = frame.origin.x + frame.size.width;  
-	int y_top = frame.origin.y;  
-	int y_top_center = frame.origin.y + corner_radius;  
-	int y_bottom_center = frame.origin.y + frame.size.height - corner_radius;  
-	int y_bottom = frame.origin.y + frame.size.height;  
+	CGFloat corner_radius = 7;
+	CGFloat x_left = frame.origin.x;  
+	CGFloat x_left_center = frame.origin.x + corner_radius;  
+	CGFloat x_right_center = frame.origin.x + frame.size.width - corner_radius;  
+	CGFloat x_right = frame.origin.x + frame.size.width;  
+	CGFloat y_top = frame.origin.y;  
+	CGFloat y_top_center = frame.origin.y + corner_radius;  
+	CGFloat y_bottom_center = frame.origin.y + frame.size.height - corner_radius;  
+	CGFloat y_bottom = frame.origin.y + frame.size.height;  
 	
 	/* Begin! */  
 	CGContextBeginPath(context);  
