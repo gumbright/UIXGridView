@@ -173,6 +173,7 @@
 //////////////////////////////////////
 //- (void)drawRect:(CGRect)rect
 //{	
+//	CGRect frame = self.frame;
 //	[super drawRect:rect];
 //}
 

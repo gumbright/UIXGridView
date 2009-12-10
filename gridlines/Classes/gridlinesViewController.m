@@ -41,9 +41,9 @@
 	grid = [[UIXGridView alloc] initWithFrame:CGRectMake(0,0,320,460) andStyle:UIXGridViewStyle_Constrained selectionType:UIXGridViewSelectionType_Momentary];
 //	grid = [[UIXGridView alloc] initWithFrame:CGRectMake(0,0,320,460) andStyle:UIXGridViewStyle_Constrained selectionType:UIXGridViewSelectionType_Single];
 	
-	grid.horizontalGridLineWidth = 5;
-	grid.verticalGridLineWidth = 5;
-	grid.borderGridLineWidth = 5;
+	grid.horizontalGridLineWidth = 1;
+	grid.verticalGridLineWidth = 1;
+	grid.borderGridLineWidth = 1;
 	grid.gridLineColor = [UIColor whiteColor];
 	grid.selectionColor = [UIColor redColor];
 	grid.dataSource = self;

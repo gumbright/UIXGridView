@@ -95,9 +95,9 @@
 }
 */
 
-- (id) init
+- (id) initWithReuseIdentifier:(NSString*) reuseId
 {
-	if (self = [super init])
+	if (self = [super initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier: reuseId])
 	{
 		self.backgroundColor = [UIColor clearColor];
 		

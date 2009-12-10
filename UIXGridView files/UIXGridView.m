@@ -180,6 +180,27 @@
 			
 		case UIXGridViewStyle_HorzConstrained:
 		{
+			//set rows cols
+			columns = [self.dataSource numberOfColumnsForGrid:self];
+			rows = [self.dataSource numberOfRowsForGrid:self];
+			
+			cellWidth = (contentSize.width - ((borderGridLineWidth * 2) + (verticalGridLineWidth * (columns - 1)))) / columns;
+			contentSize.width = self.frame.size.width;
+			
+			cellHeight = [self.dataSource cellHeightForGrid:self];
+			contentSize.height = (borderGridLineWidth * 2) + 
+			(horizontalGridLineWidth * (rows-1)) + 
+			(cellHeight * rows);
+			
+			if (headerView)
+			{
+				contentSize.height += headerView.frame.size.height;
+			}
+			
+			if (footerView)
+			{
+				contentSize.height += footerView.frame.size.height;
+			}
 		}
 			break;
 			
@@ -187,7 +208,7 @@
 		{
 			//set rows cols
 			columns = [self.dataSource numberOfColumnsForGrid:self];
-			rows = [self.dataSource numberOfColumnsForGrid:self];
+			rows = [self.dataSource numberOfRowsForGrid:self];
 			
 			cellWidth = [self.dataSource cellWidthForGrid:self];
 			contentSize.width = (borderGridLineWidth * 2) + 
@@ -233,10 +254,12 @@
 {
 	CGPoint result;
 	
-//	result.x = borderGridLineWidth + (verticalGridLineWidth * [indexPath column]) + (cellWidth * [indexPath column]);
 	result.x = borderGridLineWidth + ((verticalGridLineWidth + cellWidth) * [indexPath column]);
-//	result.y = borderGridLineWidth + (horizontalGridLineWidth * [indexPath row]) + (cellHeight * [indexPath row]);
 	result.y = borderGridLineWidth + ((horizontalGridLineWidth + cellHeight) * [indexPath row]);
+	if (headerView)
+	{
+		result.y += headerView.bounds.size.height;
+	}
 	
 	return result;
 }
@@ -365,7 +388,6 @@
 	{
 		frame = footerView.frame;
 		
-		//frame.origin.y = baseY+(rowHeight * rows);
 		frame.origin.y = baseY+(cellHeight * rows);
 		footerView.frame = frame;
 	}
@@ -568,6 +590,7 @@
 //	selectedCellPath = nil;
 	//[cell setNeedsDisplay];
 	[cell setNeedsDisplay];
+	[self setNeedsDisplay];
 }
 
 //////////////////////////////////////
@@ -632,6 +655,8 @@
 					if ([self callShouldSelectDelegateForIndexPath:path])
 					{
 						[self callWillSelectDelegateForIndexPath: path];
+						cell.selected = YES;
+						[self setNeedsDisplay];
 						[self callDidSelectDelegate: path];
 					}	
 				}
@@ -716,11 +741,9 @@
 - (void)drawRoundRectSelectionForCell:(UIXGridViewCell*) cell
 {
 	CGRect frame;
-//	NSLog(@"drawing rrect selection for %@",indexPath);
-	//BOOL drawSelection = NO;
 	
 	frame = cell.frame;
-//	frame = [cell convertRect:frame toView:self];
+	frame = CGRectInset(frame, 1, 1);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
@@ -829,7 +852,6 @@
 	NSIndexPath* indexPath;
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	[super drawRect:rect];
 	
 	CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
 	CGContextFillRect(context,rect);
@@ -869,6 +891,7 @@
 			}
 		}
 	}
+	[super drawRect:rect];
 }
 
 /////////////////////////////////////////////

@@ -99,8 +99,12 @@
 - (UIXGridViewCell*) UIXGridView:(UIXGridView*) theGridView cellForIndexPath:(NSIndexPath*) indexPath
 {
 	FancySelectCell* cell;
-	cell = [[FancySelectCell alloc] init];
-
+	cell = (FancySelectCell*) [theGridView dequeueReusableCellWithIdentifier:@"fancycell"];
+	if (cell == nil)
+	{
+		cell = [[FancySelectCell alloc] initWithReuseIdentifier:@"fancycell" ];
+	}
+	
 	cell.cellLabel.text = @"Blah";
 	cell.onImage = onImage;
 	cell.offImage = offImage;

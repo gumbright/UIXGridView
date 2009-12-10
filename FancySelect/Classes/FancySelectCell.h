@@ -37,5 +37,6 @@
 @property (nonatomic, retain) UIImage* onImage;
 @property (nonatomic, retain) UIImage* offImage;
 
+- (id) initWithReuseIdentifier:(NSString*) reuseId;
 - (void) setSelected:(BOOL) f;
 @end
