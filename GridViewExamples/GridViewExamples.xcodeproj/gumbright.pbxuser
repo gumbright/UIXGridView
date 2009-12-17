@@ -67,7 +67,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					22,
 					300,
-					675,
+					674.58349609375,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXExecutablesDataSource_ActiveFlagID,
@@ -119,15 +119,15 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 282157284;
-			PBXWorkspaceStateSaveDate = 282157284;
+			PBXPerProjectTemplateStateSaveDate = 282168577;
+			PBXWorkspaceStateSaveDate = 282168577;
 		};
 		perUserProjectItems = {
 			9F0FB5A610A0A5ED00F28B37 /* PBXTextBookmark */ = 9F0FB5A610A0A5ED00F28B37 /* PBXTextBookmark */;
 			9F41FD3B1067DC8D003986E5 /* PBXTextBookmark */ = 9F41FD3B1067DC8D003986E5 /* PBXTextBookmark */;
 			9F58BDE610764D9800C41EFB /* PBXTextBookmark */ = 9F58BDE610764D9800C41EFB /* PBXTextBookmark */;
-			9F6EF31B10D16187009E8550 /* PBXTextBookmark */ = 9F6EF31B10D16187009E8550 /* PBXTextBookmark */;
 			9F6EF37C10D18683009E8550 /* PBXTextBookmark */ = 9F6EF37C10D18683009E8550 /* PBXTextBookmark */;
+			9F6EF40710D18D56009E8550 /* PBXTextBookmark */ = 9F6EF40710D18D56009E8550 /* PBXTextBookmark */;
 			9F9AF4BC1039FCAB003E68D7 /* PBXTextBookmark */ = 9F9AF4BC1039FCAB003E68D7 /* PBXTextBookmark */;
 			9F9AF4BD1039FCAB003E68D7 /* PBXTextBookmark */ = 9F9AF4BD1039FCAB003E68D7 /* PBXTextBookmark */;
 			9F9AF4BE1039FCAB003E68D7 /* PBXTextBookmark */ = 9F9AF4BE1039FCAB003E68D7 /* PBXTextBookmark */;
@@ -179,16 +179,6 @@
 		vrLen = 288;
 		vrLoc = 0;
 	};
-	9F6EF31B10D16187009E8550 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */;
-		name = "VertConstrainedSingleSelectViewController.m: 84";
-		rLen = 0;
-		rLoc = 2386;
-		rType = 0;
-		vrLen = 937;
-		vrLoc = 2705;
-	};
 	9F6EF34210D16774009E8550 /* UIXGridView.m:601 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
@@ -224,6 +214,16 @@
 		state = 2;
 	};
 	9F6EF37C10D18683009E8550 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */;
+		name = "VertConstrainedSingleSelectViewController.m: 84";
+		rLen = 0;
+		rLoc = 2386;
+		rType = 0;
+		vrLen = 647;
+		vrLoc = 2705;
+	};
+	9F6EF40710D18D56009E8550 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */;
 		name = "VertConstrainedSingleSelectViewController.m: 84";
@@ -340,9 +340,9 @@
 	};
 	9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {984, 2590}}";
+			sepNavIntBoundsRect = "{{0, 0}, {984, 2520}}";
 			sepNavSelRange = "{2386, 0}";
-			sepNavVisRange = "{2711, 647}";
+			sepNavVisRange = "{2693, 647}";
 		};
 	};
 	9F9AF563103C2D89003E68D7 /* PBXTextBookmark */ = {

@@ -126,6 +126,9 @@
 @property () CGFloat borderGridLineWidth;
 @property (nonatomic,retain) UIColor* gridLineColor;
 
+@property (readonly) CGFloat cellWidth;
+@property (readonly) CGFloat cellHeight;
+
 //@property (readonly) UIXGridViewCell*  selectedCell;
 
 

@@ -59,6 +59,9 @@
 @synthesize borderGridLineWidth;
 @synthesize gridLineColor;
 
+@synthesize cellWidth;
+@synthesize cellHeight;
+
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -582,6 +585,7 @@
 {
 	NSLog(@"deselect cell: %@", cell);
 	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
+	[self callWillDeselectDelegateForIndexPath:indexPath];
 	cell.selected = NO;
 	
 	[selectionIndexPaths removeObject:indexPath];
@@ -616,6 +620,7 @@
 				//set selected but do not call selected (that happens and up)
 				if ([self callShouldSelectDelegateForIndexPath: path])
 				{	
+					[self callWillSelectDelegateForIndexPath:path];
 					[selectionIndexPaths addObject:path];
 					cell.selected = YES;
 					[self setNeedsDisplay];
