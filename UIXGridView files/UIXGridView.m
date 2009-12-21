@@ -431,7 +431,7 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) callDidDeselectDelegate:(NSIndexPath*) path
+- (void) callDidDeselectDelegateForIndexPath:(NSIndexPath*) path
 {
 	[selectionIndexPaths removeObject:path];
 	UIXGridViewCell* cell = [cells objectForKey:path];
@@ -563,15 +563,13 @@
 			
 			BOOL inside = [cell pointInside:p withEvent:event];
 			NSLog(@"x=%f y=%f inside=%d",p.x,p.y,inside);
-			//UIXGridView* grid = (UIXGridView*) self.superview;
+
 			if (!inside)
 			{
-				//[grid cellReleased:self];
 				[self deselectCell:cell];
 			}
 			else
 			{
-				//[grid cellTouched:self];
 				[self selectCell:cell];
 			}
 		}	
@@ -581,20 +579,33 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) deselectCell:(UIXGridViewCell*) cell
+- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath
 {
-	NSLog(@"deselect cell: %@", cell);
-	NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
-	[self callWillDeselectDelegateForIndexPath:indexPath];
-	cell.selected = NO;
+	UIXGridViewCell* cell = [self cellAtIndexPath:indexPath];
+	
+	if (cell != nil)
+	{
+		[self callWillDeselectDelegateForIndexPath:indexPath];
+		cell.selected = NO;
+		[self callDidDeselectDelegateForIndexPath:indexPath];
+		[cell setNeedsDisplay];
+	}
 	
 	[selectionIndexPaths removeObject:indexPath];
-	
-//	selectedCell = nil;
-//	selectedCellPath = nil;
-	//[cell setNeedsDisplay];
-	[cell setNeedsDisplay];
+
 	[self setNeedsDisplay];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void) deselectCell:(UIXGridViewCell*) cell
+{
+	NSArray* arr = [cells allKeysForObject:cell];
+	
+	NSIndexPath* indexPath = [arr objectAtIndex:0];
+
+	[self deselectCellAtIndexPath:indexPath];
 }
 
 //////////////////////////////////////
@@ -612,7 +623,7 @@
 	if ([keys count] == 1)
 	{
 		NSIndexPath* path = [keys objectAtIndex:0];
-#if 1
+
 		switch (selectionType)
 		{
 			case UIXGridViewSelectionType_Momentary:
@@ -651,9 +662,7 @@
 			{
 				if ([self cellIsSelected:cell])
 				{
-					[self callWillDeselectDelegateForIndexPath:path];
-					[self deselectCell:cell];
-					[self callDidDeselectDelegate:path];
+					[self deselectCellAtIndexPath:path];
 				}
 				else 
 				{
@@ -670,45 +679,6 @@
 			}
 				break;
 		}
-#else		
-		if (selectionType != UIXGridViewSelectionType_Momentary)
-		{	
-			if (![self callShouldSelectDelegateForIndexPath:[keys objectAtIndex:0]])
-			{	
-				return;
-			}
-		}
-		
-		if ((selectionType == UIXGridViewSelectionType_Multiple) && cell.isSelected) //deselect 
-		{
-			[self deselectCell:cell];
-		}
-		else
-		{
-			//if ((selectionType != UIXGridViewSelectionType_Multiple) && selectedCell != nil)
-			if ((selectionType != UIXGridViewSelectionType_Multiple) && [selectionIndexPaths count])
-			{
-				[self clearSelection];
-				//[self deselectCell: selectedCell];
-			}
-		
-			if (selectionType != UIXGridViewSelectionType_Momentary)
-			{
-				[self callWillSelectDelegateForIndexPath:[keys objectAtIndex:0]];
-			}	
-//			selectedCell = cell;
-//			cell.selected = YES;
-//			NSIndexPath* path = [keys objectAtIndex:0];
-
-//			frame = [self cellRect:path];
-//			[cell setNeedsDisplay];
-
-			if (selectionType != UIXGridViewSelectionType_Momentary)
-			{
-				[self callDidSelectDelegate: path];
-			}
-		}	
-#endif		
 	}
 	else
 	{
@@ -1185,8 +1155,7 @@
 	UIXGridViewCell* cell;
 	for (NSIndexPath* path in selectionIndexPaths)
 	{
-		cell = [cells objectForKey:path];
-		[self deselectCell:cell];
+		[self deselectCellAtIndexPath:path];
 	}
 }
 

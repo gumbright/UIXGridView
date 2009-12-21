@@ -142,7 +142,7 @@
 
 - (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) deselectCell:(UIXGridViewCell*) cell;
-//!!! should provide index path counterparts
+- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;
