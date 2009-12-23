@@ -611,6 +611,26 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (void) selectCellAtIndexPath:(NSIndexPath*) indexPath
+{
+	UIXGridViewCell* cell = [self cellAtIndexPath:indexPath];
+	
+	if (cell != nil)
+	{
+		[self callWillSelectDelegateForIndexPath:indexPath];
+		cell.selected = YES;
+		[self callDidSelectDelegateForIndexPath:indexPath];
+		[cell setNeedsDisplay];
+	}
+	
+	[selectionIndexPaths addObject:indexPath];
+	
+	[self setNeedsDisplay];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void) selectCell:(UIXGridViewCell*) cell
 {
 	NSArray* keys;
