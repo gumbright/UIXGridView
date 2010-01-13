@@ -434,7 +434,6 @@
 - (void) callDidDeselectDelegateForIndexPath:(NSIndexPath*) path
 {
 	[selectionIndexPaths removeObject:path];
-	UIXGridViewCell* cell = [cells objectForKey:path];
 
 	if (self.delegate != nil)
 	{
@@ -672,8 +671,6 @@
 					}
 				
 					[self setNeedsDisplay];
-					NSArray* arr = [self selectedCells];
-					int x = 999;
 				}
 			}
 				break;
@@ -1141,7 +1138,7 @@
 			NSArray* keys = [cells allKeysForObject:cell];
 			for (NSIndexPath* ip in keys)
 			{
-				[arr addObject:cell];
+				[arr addObject:ip];
 			}
 		}
 	}
