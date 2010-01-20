@@ -378,7 +378,7 @@
 						cell.selected = YES;
 					}
 					
-					NSLog(@"cell ip=%@ rect=%@ cell=%@ selected=%d",ip,NSStringFromCGRect(frame),cell,cell.isSelected);
+					//NSLog(@"cell ip=%@ rect=%@ cell=%@ selected=%d",ip,NSStringFromCGRect(frame),cell,cell.isSelected);
 					[self addSubview:cell];
 				}	
 			}
@@ -556,12 +556,12 @@
 		
 		if ([[event allTouches] count] == 1)
 		{
-			NSLog(@"touch moved : %X",self);
+			//NSLog(@"touch moved : %X",self);
 			touch = [[event allTouches] anyObject];
 			p = [touch locationInView:cell];
 			
 			BOOL inside = [cell pointInside:p withEvent:event];
-			NSLog(@"x=%f y=%f inside=%d",p.x,p.y,inside);
+			//NSLog(@"x=%f y=%f inside=%d",p.x,p.y,inside);
 
 			if (!inside)
 			{
@@ -635,7 +635,7 @@
 	NSArray* keys;
 	//CGRect frame;
 	
-	NSLog(@"select cell: %@", cell);
+	//NSLog(@"select cell: %@", cell);
 
 	//find its postion
 	keys = [cells allKeysForObject:cell];
@@ -855,7 +855,7 @@
 	{
 		if (cell.isSelected)
 		{
-			NSLog(@"cell is selected:%@",cell);
+			//NSLog(@"cell is selected:%@",cell);
 			indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
 				
 			if ([self.delegate respondsToSelector:@selector(UIXGridView:selectionStyleForCellAtIndexPath:)])
@@ -1169,10 +1169,9 @@
 /////////////////////////////////////////////////
 - (void) clearSelection
 {
-	UIXGridViewCell* cell;
-	for (NSIndexPath* path in selectionIndexPaths)
+	while ([selectionIndexPaths count] > 0)
 	{
-		[self deselectCellAtIndexPath:path];
+		[self deselectCellAtIndexPath:[[selectionIndexPaths allObjects] objectAtIndex:0]];
 	}
 }
 
