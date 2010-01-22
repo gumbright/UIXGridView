@@ -76,6 +76,8 @@
 	
 	hasNewData = YES;
 	cells = [[NSMutableDictionary dictionary] retain];
+	selectionIndexPaths = [[NSMutableSet set] retain];
+	cellQueue = [[NSMutableArray array] retain];
 	
 	cellInsets.top = cellInsets.right = cellInsets.bottom = cellInsets.left = 3;
 	
@@ -114,9 +116,9 @@
 		initialSetupDone = NO;
 
 		super.delegate = self;
-		cellQueue = [[NSMutableArray array] retain];
-		cells = [[NSMutableDictionary dictionary] retain];
-		selectionIndexPaths = [[NSMutableSet set] retain];
+//		cellQueue = [[NSMutableArray array] retain];
+		//cells = [[NSMutableDictionary dictionary] retain];
+//		selectionIndexPaths = [[NSMutableSet set] retain];
 		//[self setup];
 	}
 	
@@ -403,7 +405,7 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) callDidSelectDelegate:(NSIndexPath*) path
+- (void) callDidSelectDelegateForIndexPath:(NSIndexPath*) path
 {
 	[selectionIndexPaths addObject:path];
 	if (self.delegate != nil)
@@ -533,7 +535,7 @@
 		if ([self cellIsSelected:cell])
 		{
 			NSIndexPath* indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
-			[self callDidSelectDelegate: indexPath];
+			[self callDidSelectDelegateForIndexPath: indexPath];
 			[self clearSelection];
 			[self setNeedsDisplay];
 		}
@@ -667,7 +669,7 @@
 						[self clearSelection];
 						[selectionIndexPaths addObject:path];
 						cell.selected = YES;
-						[self callDidSelectDelegate: path];
+						[self callDidSelectDelegateForIndexPath: path];
 					}
 				
 					[self setNeedsDisplay];
@@ -688,7 +690,7 @@
 						[self callWillSelectDelegateForIndexPath: path];
 						cell.selected = YES;
 						[self setNeedsDisplay];
-						[self callDidSelectDelegate: path];
+						[self callDidSelectDelegateForIndexPath: path];
 					}	
 				}
 
