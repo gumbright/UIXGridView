@@ -84,7 +84,6 @@
 	self.contentMode = UIViewContentModeRedraw;
 
 	reusableCells = [[NSMutableDictionary dictionary] retain];
-	[self reloadData];
 }
 
 
@@ -131,7 +130,7 @@
 - (void) reloadData
 {
 	hasNewData = YES;
-	[self setNeedsLayout];
+	[self layoutSubviews];
 }
 
 //////////////////////////////////////
@@ -619,7 +618,7 @@
 	if (cell != nil)
 	{
 		[self callWillSelectDelegateForIndexPath:indexPath];
-		cell.selected = YES;
+		[self selectCell: cell];
 		[self callDidSelectDelegateForIndexPath:indexPath];
 		[cell setNeedsDisplay];
 	}
