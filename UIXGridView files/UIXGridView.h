@@ -138,7 +138,6 @@
 - (NSArray*) visibleCells;
 
 - (NSArray*) selection;
-- (NSArray*) selectedCells;
 
 - (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) selectCellAtIndexPath:(NSIndexPath*) indexPath;
