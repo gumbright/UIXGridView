@@ -145,6 +145,7 @@
 //////////////////////////////////////
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	NSLog(@"UIXGridViewCell - touchesEnded %@",self);
 	UIXGridView* grid = (UIXGridView*) self.superview;
 	[grid cellReleased:self];
 }
@@ -154,6 +155,7 @@
 //////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+	NSLog(@"UIXGridViewCell - touchesBegan %@",self);
 	UIXGridView* grid = (UIXGridView*) self.superview;
 	[grid cellTouched: self];
 }

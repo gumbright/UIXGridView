@@ -406,6 +406,7 @@
 //////////////////////////////////////
 - (void) callDidSelectDelegateForIndexPath:(NSIndexPath*) path
 {
+	//FIXME - redundant with selectCell call?
 	[selectionIndexPaths addObject:path];
 	if (self.delegate != nil)
 	{
@@ -623,6 +624,7 @@
 		[cell setNeedsDisplay];
 	}
 	
+	//FIXME - isnt this redundant with the selectCell call?
 	[selectionIndexPaths addObject:indexPath];
 	
 	[self setNeedsDisplay];
@@ -643,6 +645,7 @@
 	if ([keys count] == 1)
 	{
 		NSIndexPath* path = [keys objectAtIndex:0];
+		NSLog(@"UIXGridView::selectCell cell=%@  ip=%@",cell,path);
 
 		switch (selectionType)
 		{
@@ -780,7 +783,7 @@
 	/* Done */  
 	CGContextClosePath(context);  
 	
-	CGRect pathBox = CGContextGetPathBoundingBox (context);	
+//	CGRect pathBox = CGContextGetPathBoundingBox (context);	
 	CGContextDrawPath(context, kCGPathFillStroke);			
 	///////////////////
 }
@@ -1086,13 +1089,13 @@
 	{
 		if ([arr count] > 0)
 		{
-			cell = [arr objectAtIndex:0];
+			cell = [[arr objectAtIndex:0] retain];
 			[arr removeObjectAtIndex:0];
 		}
 		
 	}
 	
-	return cell;
+	return [cell autorelease];
 }
 
 /////////////////////////////////////////////////
