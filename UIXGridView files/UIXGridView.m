@@ -152,6 +152,8 @@
 
 //////////////////////////////////////
 //
+// determine the cell geometries
+//
 //////////////////////////////////////
 - (void) calcGeometry
 {
@@ -289,6 +291,7 @@
 	CGPoint currPos = self.contentOffset;
 	CGPoint topLeftCell;
 	
+	//determine what cells are showing
 	topLeftCell.x = floor(currPos.x / cellWidth);   //!!!
 	topLeftCell.y = floor(currPos.y / cellHeight);
 	
@@ -296,6 +299,7 @@
 	topLeftCell.y = (topLeftCell.x >= 0) ? topLeftCell.y : 0;
 	
 	workingCells.origin = topLeftCell;
+	
 	if (workingCells.origin.y + numVertCellsVisible+ 1 > rows)
 		workingCells.size.height = rows - workingCells.origin.y; 
 	else	
@@ -311,10 +315,11 @@
 		return; //bail if nothing changed
 	}
 	
-	CGRect frame = self.frame;
-	
+	//We have changed what is displaying (either through movement or data), so lets get to it
+	CGRect frame = self.frame;	
 	CGFloat baseY = 0;
 
+	//adjust size based on header and footer
 	if (headerView)
 	{
 		baseY = headerView.bounds.size.height;
@@ -337,19 +342,20 @@
 	for (NSIndexPath* ip in [cells allKeys])
 	{
 		CGPoint p = CGPointMake([ip column], [ip row]);
-		if (!CGRectContainsPoint(workingCells, p) || hasNewData)
+		if (!CGRectContainsPoint(workingCells, p) || hasNewData) //clear if not displayed or reload
 		{
 			cell = (UIXGridViewCell*)[cells objectForKey:ip];
+			[cell removeFromSuperview];
 			[cell prepareForReuse];
 			[self enqueueCell:cell];
+			[cells removeObjectForKey:ip];
 			
-			NSArray* a = [cells allKeysForObject:cell];
-			for (NSIndexPath* ip in a)
-			{
-				[cells removeObjectForKey:ip];
-			}
+//			NSArray* a = [cells allKeysForObject:cell];
+//			for (NSIndexPath* ip in a)
+//			{
+//				[cells removeObjectForKey:ip];
+//			}
 			
-			[cell removeFromSuperview];
 		}
 	}
 
@@ -361,8 +367,8 @@
 			indicies[0] = c; indicies[1] = r;
 			NSIndexPath* ip = [NSIndexPath indexPathWithIndexes:indicies length:2];
 			
-			UIView* v = [cells objectForKey:ip];
-			if (v == nil)
+			UIView* v = [cells objectForKey:ip];  
+			if (v == nil) //if cell not currently displayed
 			{
 				cell = [self.dataSource UIXGridView:self cellForIndexPath:ip];   
 				if (cell != nil)
@@ -379,7 +385,7 @@
 						cell.selected = YES;
 					}
 					
-					//NSLog(@"cell ip=%@ rect=%@ cell=%@ selected=%d",ip,NSStringFromCGRect(frame),cell,cell.isSelected);
+					NSLog(@"cell ip=%@ rect=%@ cell=%@ selected=%d",ip,NSStringFromCGRect(frame),cell,cell.isSelected);
 					[self addSubview:cell];
 				}	
 			}
@@ -398,6 +404,8 @@
 		
 	self.contentSize = contentSize;	
 
+	hasNewData = NO;
+	
 	[super layoutSubviews];
 }
 
@@ -962,7 +970,7 @@
 {
 	CGFloat change;
 	CGRect frame;
-	CGSize size = CGSizeMake(0,0);
+	CGSize size;
 	
 	if (!headerView && !view)
 	{
@@ -1029,7 +1037,7 @@
 {
 	CGFloat change;
 	CGRect frame;
-	CGSize size = CGSizeMake(0,0);
+	CGSize size;
 	
 	if (!footerView && !view)
 	{
