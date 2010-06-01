@@ -35,7 +35,8 @@
 */ 
 
 #import <Foundation/Foundation.h>
-#import "UIXGridViewCell.h"
+
+//#import "UIXGridViewCell.h"
 
 @protocol UIXGridViewDataSource, UIXGridViewDelegate;
 
@@ -46,19 +47,21 @@
 #define UIXGridViewStyle_VertConstrained	2
 #define UIXGridViewStyle_Unconstrained		3
 	
-#define UIXGridViewSelectionType_Momentary	0
-#define UIXGridViewSelectionType_Single		1
-#define UIXGridViewSelectionType_Multiple	2
+//#define UIXGridViewSelectionType_Momentary	0
+//#define UIXGridViewSelectionType_Single		1
+//#define UIXGridViewSelectionType_Multiple	2
 
-//conform to NSCoder?
 @interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
 	//configuration
 	UIColor* selectionColor;
 	UIEdgeInsets cellInsets;
+	
 	id <UIXGridViewDataSource> dataSource;
+	id <UIXGridViewDelegate> gridDelegate;
+	
 	NSInteger style;
-	NSInteger selectionType;
+//	NSInteger selectionType;
 	BOOL initialSetupDone;
 	
 	//attribute
@@ -69,10 +72,10 @@
 	//operational
 	BOOL startSelect;
 
+	//currently displayed cells
 	NSMutableDictionary* cells;
+	CGRect currentlyDisplayedCells;	//rect describing the cell paths being shown
 
-//	NSInteger columnWidth;
-//	NSInteger rowHeight;
 	NSInteger numHorzCellsVisible;
 	NSInteger numVertCellsVisible;
 	
@@ -83,7 +86,11 @@
 	CGFloat cellHeight;
 	CGSize contentSize;
 	
-	CGRect currentlyDisplayedCells;
+	//gridlines
+	CGFloat horizontalGridLineWidth;
+	CGFloat verticalGridLineWidth;
+	CGFloat borderGridLineWidth;
+	UIColor* gridLineColor;
 	
 	UIView* headerView;
 	UIView* footerView;
@@ -94,14 +101,9 @@
 	NSMutableArray* cellQueue;
 	NSMutableDictionary* reusableCells;
 	
-	NSMutableSet* selectionIndexPaths;
+	NSMutableSet* selectionIndexPaths;  //selected cell paths
 	
-	//gridlines
-	CGFloat horizontalGridLineWidth;
-	CGFloat verticalGridLineWidth;
-	CGFloat borderGridLineWidth;
-	UIColor* gridLineColor;
-
+	NSIndexPath* selectedCellIndexPath;
 }
 
 @property (readonly) NSInteger columns;
@@ -109,12 +111,12 @@
 @property (readonly) BOOL constrainHorzToScreenSize;
 @property (readonly) BOOL constrainVertToScreenSize;
 @property (assign) BOOL customSelect;
-//@property (readonly) NSInteger columnWidth;
-//@property (readonly) NSInteger rowHeight;
+
 @property (readonly) NSInteger style;
-@property (readonly) NSInteger selectionType;
+//@property (readonly) NSInteger selectionType;
 
 @property (nonatomic, retain) id dataSource;
+@property (nonatomic, retain) id gridDelegate;
 @property UIEdgeInsets cellInsets;
 @property (nonatomic, retain) UIColor* selectionColor;
 
@@ -129,20 +131,18 @@
 @property (readonly) CGFloat cellWidth;
 @property (readonly) CGFloat cellHeight;
 
-//@property (readonly) UIXGridViewCell*  selectedCell;
-
-
-- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionType;
+- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style;
+//- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionType;
 
 - (UIXGridViewCell*) cellAtIndexPath:(NSIndexPath*) path;
 - (NSArray*) visibleCells;
 
 - (NSArray*) selection;
 
-- (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
+//- (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) selectCellAtIndexPath:(NSIndexPath*) indexPath;
 - (void) deselectCell:(UIXGridViewCell*) cell;
-- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath;
+//- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;
@@ -153,19 +153,27 @@
 
 - (void) reloadData;
 
-//- (UIXGridViewCell*)dequeueReusableCell;
 - (UIXGridViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 
 //touch notifications from cells (best treated private)
-- (void) cellTouched:(UIXGridViewCell*) cell;
-- (void) cellReleased:(UIXGridViewCell*) cell;
-- (void) cellTouchMoved:(UIXGridViewCell*) cell withEvent:(UIEvent*) event;
+//- (void) cellTouched:(UIXGridViewCell*) cell;
+//- (void) cellReleased:(UIXGridViewCell*) cell;
+//- (void) cellTouchMoved:(UIXGridViewCell*) cell withEvent:(UIEvent*) event;
 
+//////////////////////////////////
+// new cell arch
+//////////////////////////////////
+- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath animated:(BOOL) animate;
 
+- (BOOL) shouldRespondToTouch:(UIXGridViewCell*) cell;
+- (void) informWillSelectCell:(UIXGridViewCell*) cell;
+- (void) informDidSelectCell:(UIXGridViewCell*) cell;
+- (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell;
 
 @end
 
-typedef enum {
+typedef enum 
+{
 	UIXGridViewCellSelectionStyleNone,
 	UIXGridViewCellSelectionStyleRect,
 	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
@@ -197,14 +205,18 @@ typedef enum {
 @protocol UIXGridViewDelegate<NSObject>
 
 @optional
-- (BOOL) UIXGridView: (UIXGridView*) gridView  shouldSelectCellForIndexPath:(NSIndexPath*) indexPath;
-- (void) UIXGridView: (UIXGridView*) gridView  willSelectCellForIndexPath:(NSIndexPath*) indexPath;
-- (void) UIXGridView: (UIXGridView*) gridView  didSelectCellForIndexPath:(NSIndexPath*) indexPath;
+- (BOOL) UIXGridView: (UIXGridView*) gridView  shouldSelectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (void) UIXGridView: (UIXGridView*) gridView  willSelectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath;
 
-- (void) UIXGridView: (UIXGridView*) gridView  willDeselectCellForIndexPath:(NSIndexPath*) indexPath;
-- (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellForIndexPath:(NSIndexPath*) indexPath;
+- (void) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
+
+- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
+
+//- (void)UIXGridView:(UITableView *)tableView willDisplayCell:(UIXGridViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 @end
 
 /////////////////////////////////////////////////////////////////////////
@@ -213,7 +225,7 @@ typedef enum {
 // This category provides convenience methods to make it easier to use an NSIndexPath to represent a section and row
 @interface NSIndexPath (UIXGridView)
 
-+ (NSIndexPath *)indexPathForRow:(NSUInteger)row inColumn:(NSUInteger)column;
++ (NSIndexPath *)indexPathForColumn:(NSUInteger)column row:(NSUInteger)row;
 
 @property(nonatomic,readonly) NSUInteger column;
 @property(nonatomic,readonly) NSUInteger row;

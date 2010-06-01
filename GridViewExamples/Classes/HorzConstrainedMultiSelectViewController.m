@@ -30,15 +30,19 @@
 	CGRect frame = CGRectMake(0,0,320,416);
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
-	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_HorzConstrained selectionType: UIXGridViewSelectionType_Multiple];
-	//gv.momentary = NO;
-	//gv.multiSelect = YES;
-	gv.delegate = self;
+	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_HorzConstrained];
+
+	gv.gridDelegate = self;
 	gv.dataSource = self;
 	gv.backgroundColor = [UIColor whiteColor];
-	gv.selectionColor = [UIColor redColor];
+	
+	gv.horizontalGridLineWidth = 3;
+	gv.verticalGridLineWidth = 3;
+	gv.borderGridLineWidth = 3;
+	
 	self.title = @"Horz Constrained Multi Select";
 	[view addSubview:gv];
+	[gv release];
 }
 
 
@@ -82,70 +86,70 @@
 	cell = [gridView dequeueReusableCellWithIdentifier:@"HorzMultiCell"];
 	if (cell == nil)
 	{
-		cell = [[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"HorzMultiCell"];
+		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"HorzMultiCell"] autorelease];
 				}
 				
 	switch (indexPath.row)
 	{
 		case 0:
 		{
-			cell.label.text = @"Mercury";
+			cell.textLabel.text = @"Mercury";
 			cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
 		}
 		break;
 					
 		case 1:
 		{
-			cell.label.text = @"Venus";
+			cell.textLabel.text = @"Venus";
 			cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
 		}
 		break;
 					
 		case 2:
 		{
-			cell.label.text = @"Earth";
+			cell.textLabel.text = @"Earth";
 			cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
 		}
 		break;
 					
 		case 3:
 		{
-			cell.label.text = @"Mars";
+			cell.textLabel.text = @"Mars";
 			cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
 		}
 		break;
 					
 		case 4:
 		{
-			cell.label.text = @"Jupiter";
+			cell.textLabel.text = @"Jupiter";
 			cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
 		}
 		break;
 						
 		case 5:
 		{
-			cell.label.text = @"Saturn";
+			cell.textLabel.text = @"Saturn";
 			cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
 		}
 		break;
 					
 		case 6:
 		{
-			cell.label.text = @"Neptune";
+			cell.textLabel.text = @"Neptune";
 			cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
 		}
 		break;
 					
 		case 7:
 		{
-			cell.label.text = @"Uranus";
+			cell.textLabel.text = @"Uranus";
 			cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
 		}
 		break;
 					
 		case 8:
 		{
-			cell.label.text = @"Pluo";
+			cell.textLabel.text = @"Pluo";
 			cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
 		}
 		break;
@@ -175,7 +179,7 @@
 	return 100;
 }
 
-- (void) UIXGridView: (UIXGridView*) gridView  didSelectCellForIndexPath:(NSIndexPath*) indexPath
+- (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath
 {
 }
 

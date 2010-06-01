@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HeaderFooterViewController : UIViewController 
+@interface HeaderFooterViewController : UIViewController <UIScrollViewDelegate>
 {
 
 }

@@ -13,10 +13,7 @@
 
 @interface RootViewController : UITableViewController 
 {
-	ConstrainedMomentaryViewController* constrainedMomentary;
-	VertConstrainedSingleSelectViewController* vertConstrainedSingleSelectViewController;
-	HorzConstrainedMultiSelectViewController* horzConstrainedMultiSelectViewController;
-	HeaderFooterViewController* headerFooterViewController;
+	IBOutlet UIView* overlay;
 }
 
 @end

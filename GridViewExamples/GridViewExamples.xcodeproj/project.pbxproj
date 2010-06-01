@@ -15,6 +15,7 @@
 		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		9F66415511807DB600D5EF09 /* UIXGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */; };
 		9F9AF4821039EECE003E68D7 /* ConstrainedMomentaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */; };
 		9F9AF49C1039F2E5003E68D7 /* earth.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F9AF4931039F2E5003E68D7 /* earth.jpeg */; };
 		9F9AF49D1039F2E5003E68D7 /* jupiter.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F9AF4941039F2E5003E68D7 /* jupiter.jpeg */; };
@@ -29,7 +30,8 @@
 		9F9AF578103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AF577103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m */; };
 		9FE07EF8103C9E7D001503E8 /* HeaderFooterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */; };
 		9FE07FCD103D9F4D001503E8 /* UIXGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE07FCA103D9F4D001503E8 /* UIXGridView.m */; };
-		9FE07FCE103D9F4D001503E8 /* UIXGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE07FCC103D9F4D001503E8 /* UIXGridViewCell.m */; };
+		9FE6996211AC88D300C9423E /* LAT-PhotoCircle-Base.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */; };
+		9FE6997811AD51EE00C9423E /* UnconstrainedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,8 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GridViewExamples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GridViewExamples-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9F66415311807DB600D5EF09 /* UIXGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell.h; path = "../UIXGridView files/UIXGridViewCell.h"; sourceTree = SOURCE_ROOT; };
+		9F66415411807DB600D5EF09 /* UIXGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewCell.m; path = "../UIXGridView files/UIXGridViewCell.m"; sourceTree = SOURCE_ROOT; };
 		9F9AF4801039EECE003E68D7 /* ConstrainedMomentaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstrainedMomentaryViewController.h; sourceTree = "<group>"; };
 		9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstrainedMomentaryViewController.m; sourceTree = "<group>"; };
 		9F9AF4931039F2E5003E68D7 /* earth.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = earth.jpeg; path = images/earth.jpeg; sourceTree = "<group>"; };
@@ -65,8 +69,11 @@
 		9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderFooterViewController.m; sourceTree = "<group>"; };
 		9FE07FC9103D9F4D001503E8 /* UIXGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridView.h; path = "../UIXGridView files/UIXGridView.h"; sourceTree = SOURCE_ROOT; };
 		9FE07FCA103D9F4D001503E8 /* UIXGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridView.m; path = "../UIXGridView files/UIXGridView.m"; sourceTree = SOURCE_ROOT; };
-		9FE07FCB103D9F4D001503E8 /* UIXGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell.h; path = "../UIXGridView files/UIXGridViewCell.h"; sourceTree = SOURCE_ROOT; };
-		9FE07FCC103D9F4D001503E8 /* UIXGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewCell.m; path = "../UIXGridView files/UIXGridViewCell.m"; sourceTree = SOURCE_ROOT; };
+		9FE07FCB103D9F4D001503E8 /* UIXGridViewCell_orig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell_orig.h; path = "../UIXGridView files/UIXGridViewCell_orig.h"; sourceTree = SOURCE_ROOT; };
+		9FE07FCC103D9F4D001503E8 /* UIXGridViewCell_orig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewCell_orig.m; path = "../UIXGridView files/UIXGridViewCell_orig.m"; sourceTree = SOURCE_ROOT; };
+		9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LAT-PhotoCircle-Base.png"; path = "images/LAT-PhotoCircle-Base.png"; sourceTree = "<group>"; };
+		9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnconstrainedViewController.m; sourceTree = "<group>"; };
+		9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnconstrainedViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +93,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				9F66415311807DB600D5EF09 /* UIXGridViewCell.h */,
+				9F66415411807DB600D5EF09 /* UIXGridViewCell.m */,
 				9FE07FC9103D9F4D001503E8 /* UIXGridView.h */,
 				9FE07FCA103D9F4D001503E8 /* UIXGridView.m */,
-				9FE07FCB103D9F4D001503E8 /* UIXGridViewCell.h */,
-				9FE07FCC103D9F4D001503E8 /* UIXGridViewCell.m */,
+				9FE07FCB103D9F4D001503E8 /* UIXGridViewCell_orig.h */,
+				9FE07FCC103D9F4D001503E8 /* UIXGridViewCell_orig.m */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				9FE07EF6103C9E7D001503E8 /* HeaderFooterViewController.h */,
@@ -102,6 +111,8 @@
 				9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */,
 				9F9AF576103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.h */,
 				9F9AF577103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m */,
+				9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */,
+				9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -138,6 +149,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */,
 				9F9AF4931039F2E5003E68D7 /* earth.jpeg */,
 				9F9AF4941039F2E5003E68D7 /* jupiter.jpeg */,
 				9F9AF4951039F2E5003E68D7 /* mars.jpeg */,
@@ -224,6 +236,7 @@
 				9F9AF4A21039F2E5003E68D7 /* saturn.jpeg in Resources */,
 				9F9AF4A31039F2E5003E68D7 /* uranus.jpeg in Resources */,
 				9F9AF4A41039F2E5003E68D7 /* venus.jpeg in Resources */,
+				9FE6996211AC88D300C9423E /* LAT-PhotoCircle-Base.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +255,8 @@
 				9F9AF578103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m in Sources */,
 				9FE07EF8103C9E7D001503E8 /* HeaderFooterViewController.m in Sources */,
 				9FE07FCD103D9F4D001503E8 /* UIXGridView.m in Sources */,
-				9FE07FCE103D9F4D001503E8 /* UIXGridViewCell.m in Sources */,
+				9F66415511807DB600D5EF09 /* UIXGridViewCell.m in Sources */,
+				9FE6997811AD51EE00C9423E /* UnconstrainedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

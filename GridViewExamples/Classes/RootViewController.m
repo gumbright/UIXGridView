@@ -11,6 +11,7 @@
 #import "VertConstrainedSingleSelectViewController.h"
 #import "HorzConstrainedMultiSelectViewController.h"
 #import "HeaderFooterViewController.h"
+#import "UnconstrainedViewController.h"
 
 @implementation RootViewController
 
@@ -76,7 +77,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;
+    return 5;
 }
 
 
@@ -87,26 +88,35 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
 	// Configure the cell.
 
 	if ([indexPath row] == 0)
 	{
-		cell.textLabel.text = @"Constrained Momentary";
+		cell.textLabel.text = @"Constrained";
+		cell.detailTextLabel.text = @"simple select";
 	}
 	else if ([indexPath row] == 1)
 	{
-		cell.textLabel.text = @"Vert Constrainted Single Select";
+		cell.textLabel.text = @"Vert Constrainted";
+		cell.detailTextLabel.text = @"Selection overlay";
 	}
 	else if ([indexPath row] == 2)
 	{
-		cell.textLabel.text = @"Horz Constrainted Multi Select";
+		cell.textLabel.text = @"Horz Constrainted w/ Borders";
+		cell.detailTextLabel.text = @"lines single select";
 	}	
 	else if ([indexPath row] == 3)
 	{
 		cell.textLabel.text = @"Header/Footer";
+		cell.detailTextLabel.text = @"simple select";
+	}
+	else if ([indexPath row] == 4)
+	{
+		cell.textLabel.text = @"Unconstrained";
+		cell.detailTextLabel.text = @"simple select";
 	}
 	
     return cell;
@@ -118,45 +128,42 @@
 	{
 		case 0:
 		{
-			if (constrainedMomentary == nil)
-			{
-				constrainedMomentary = [[ConstrainedMomentaryViewController alloc] init];
-			}
-			
+			ConstrainedMomentaryViewController* constrainedMomentary = [[ConstrainedMomentaryViewController alloc] init];
 			[self.navigationController pushViewController:constrainedMomentary animated:YES];
+			[constrainedMomentary release];
 		}
 			break;
 			
 		case 1:
 		{
-			if (vertConstrainedSingleSelectViewController == nil)
-			{
-				vertConstrainedSingleSelectViewController = [[VertConstrainedSingleSelectViewController alloc] init];
-			}
-			
+			VertConstrainedSingleSelectViewController* vertConstrainedSingleSelectViewController = [[VertConstrainedSingleSelectViewController alloc] init];
+			vertConstrainedSingleSelectViewController.overlay = overlay;
 			[self.navigationController pushViewController:vertConstrainedSingleSelectViewController animated:YES];
+			[vertConstrainedSingleSelectViewController release];
 		}
 			break;
 			
 		case 2:
 		{
-			if (horzConstrainedMultiSelectViewController == nil)
-			{
-				horzConstrainedMultiSelectViewController = [[HorzConstrainedMultiSelectViewController alloc] init];
-			}
-			
+			HorzConstrainedMultiSelectViewController* horzConstrainedMultiSelectViewController = [[HorzConstrainedMultiSelectViewController alloc] init];
 			[self.navigationController pushViewController:horzConstrainedMultiSelectViewController animated:YES];
+			[horzConstrainedMultiSelectViewController release];
 		}
 			break;
 			
 		case 3:
 		{
-			if (headerFooterViewController == nil)
-			{
-				headerFooterViewController = [[HeaderFooterViewController alloc] init];
-			}
-			
+			HeaderFooterViewController* headerFooterViewController = [[HeaderFooterViewController alloc] init];
 			[self.navigationController pushViewController:headerFooterViewController animated:YES];
+			[headerFooterViewController release];
+		}
+			break;
+			
+		case 4:
+		{
+			UnconstrainedViewController* unconstrainedViewController = [[UnconstrainedViewController alloc] init];
+			[self.navigationController pushViewController:unconstrainedViewController animated:YES];
+			[unconstrainedViewController release];
 		}
 			break;
 			
