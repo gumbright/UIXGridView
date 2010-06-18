@@ -115,8 +115,8 @@
 @property (readonly) NSInteger style;
 //@property (readonly) NSInteger selectionType;
 
-@property (nonatomic, retain) id dataSource;
-@property (nonatomic, retain) id gridDelegate;
+@property (assign) id dataSource;
+@property (assign) id gridDelegate;
 @property UIEdgeInsets cellInsets;
 @property (nonatomic, retain) UIColor* selectionColor;
 

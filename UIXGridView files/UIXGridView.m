@@ -128,6 +128,19 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (void) dealloc
+{
+	self.selectionColor = nil;	
+	self.headerView = nil;
+	self.footerView = nil;
+	self.gridLineColor = nil;
+
+	[super dealloc];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void) reloadData
 {
 	hasNewData = YES;
@@ -314,7 +327,7 @@
 	right = floor((currPos.x + self.frame.size.width) / cellWidth);
 	CGFloat topMod = (headerView == nil) ? 0.0 : headerView.frame.size.height;
 	CGFloat topF = (currPos.y - topMod) / cellHeight;
-	NSLog(@"topF = %f",topF);
+//	NSLog(@"topF = %f",topF);
 	top = floor(topF);
 	bottom = floor((currPos.y + self.frame.size.height) / cellHeight);
 
@@ -326,7 +339,7 @@
 
 	workingCells = CGRectMake(left, top, (right-left) + 1, (bottom - top) + 1);
 
-	NSLog(@"workingCells = %@",NSStringFromCGRect(workingCells));
+//	NSLog(@"workingCells = %@",NSStringFromCGRect(workingCells));
 	if (CGRectEqualToRect( workingCells, currentlyDisplayedCells) && !hasNewData)
 	{
 		return; //bail if nothing changed
