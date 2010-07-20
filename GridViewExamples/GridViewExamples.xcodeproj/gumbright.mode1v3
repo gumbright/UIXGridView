@@ -279,7 +279,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>20</integer>
+									<integer>4</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -304,7 +304,7 @@
 							<real>331</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 54 1378 773 0 0 1440 878 </string>
+						<string>27 75 1378 773 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -322,7 +322,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>UnconstrainedViewController.m</string>
+								<string>UIXGridView.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -330,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>UnconstrainedViewController.m</string>
+										<string>UIXGridView.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9F0430C211B05C2C00E79BCD</string>
+										<string>9F0430D511B5381400E79BCD</string>
 										<key>history</key>
 										<array>
 											<string>9FE07F07103CABEA001503E8</string>
@@ -350,12 +350,12 @@
 											<string>9FE699E411AD588400C9423E</string>
 											<string>9F0430BA11B05C2C00E79BCD</string>
 											<string>9F0430BB11B05C2C00E79BCD</string>
-											<string>9F0430BC11B05C2C00E79BCD</string>
-											<string>9F0430BD11B05C2C00E79BCD</string>
 											<string>9F0430BE11B05C2C00E79BCD</string>
 											<string>9F0430BF11B05C2C00E79BCD</string>
 											<string>9F0430C011B05C2C00E79BCD</string>
-											<string>9F0430C111B05C2C00E79BCD</string>
+											<string>9F0430D211B5381400E79BCD</string>
+											<string>9F0430D311B5381400E79BCD</string>
+											<string>9F0430D411B5381400E79BCD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -369,7 +369,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1025, 727}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 54 1378 773 0 0 1440 878 </string>
+								<string>27 75 1378 773 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -389,7 +389,7 @@
 								<key>Frame</key>
 								<string>{{0, 732}, {1025, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 54 1378 773 0 0 1440 878 </string>
+								<string>27 75 1378 773 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -551,7 +551,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>9F0430CD11B05C2C00E79BCD</string>
 		<string>9F0430CE11B05C2C00E79BCD</string>
 		<string>9F0430CF11B05C2C00E79BCD</string>
 		<string>1CD10A99069EF8BA00B06720</string>
@@ -560,7 +559,7 @@
 		<string>/Users/gumbright/projects/mine/UIXGridView/GridViewExamples/GridViewExamples.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 54 1378 773 0 0 1440 878 </string>
+	<string>27 75 1378 773 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

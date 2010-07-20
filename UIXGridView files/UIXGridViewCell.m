@@ -41,14 +41,14 @@
 		
 		v = [[UIView alloc] initWithFrame:CGRectZero];
 		[self addSubview:v];
-		v.tag = 111;
+//		v.tag = 111;
 		[v release];
 		backgroundView = v;
 		backgroundView.backgroundColor = [UIColor whiteColor];
 		selectedBackgroundView = nil;
 		
 		v = [[UIView alloc] initWithFrame:CGRectZero];
-		v.tag = 222;
+//		v.tag = 222;
 		[self addSubview:v];
 		self.backgroundColor = [UIColor clearColor];
 		[v release];
@@ -282,7 +282,7 @@
 		UIXGridView* grid = (UIXGridView*) self.superview;
 		//do will select
 		[grid informWillSelectCell:self];
-		
+		[self unhighlightCell:NO];
 //		NSLog(@"Yay selected!");
 		self.selected = YES;
 		
@@ -329,7 +329,7 @@
 //////////////////////////////////////
 - (void)prepareForReuse
 {
-	[self setSelection:NO animated:NO];
+	[self setSelected:NO animated:NO];
 	highlighted = NO;
 	selected = NO;
 	unhighlighting = NO;
@@ -448,7 +448,7 @@
 ///////////////////////////////////
 - (void) setSelected:(BOOL) f
 {
-	[self setSelection: f animated: NO];
+	[self setSelected: f animated: NO];
 }
 
 ///////////////////////////////////
@@ -462,7 +462,7 @@
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (void) setSelection:(BOOL) f animated:(BOOL) animate
+- (void) setSelected:(BOOL) f animated:(BOOL) animate
 {
 	if (f)
 	{

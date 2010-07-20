@@ -60,5 +60,5 @@ typedef enum
 //differs from UITableView in that it calls prepareForReuse when it places a reusable cell back into the pool
 - (void)prepareForReuse;
 
-- (void) setSelection:(BOOL) f animated:(BOOL) animate;
+- (void) setSelected:(BOOL) f animated:(BOOL) animate;
 @end

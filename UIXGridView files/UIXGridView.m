@@ -116,6 +116,7 @@
 		initialSetupDone = NO;
 
 		super.delegate = self;
+		self.selectionColor = [UIColor blueColor];
 //		cellQueue = [[NSMutableArray array] retain];
 		//cells = [[NSMutableDictionary dictionary] retain];
 //		selectionIndexPaths = [[NSMutableSet set] retain];
@@ -314,7 +315,7 @@
 	right = floor((currPos.x + self.frame.size.width) / cellWidth);
 	CGFloat topMod = (headerView == nil) ? 0.0 : headerView.frame.size.height;
 	CGFloat topF = (currPos.y - topMod) / cellHeight;
-	NSLog(@"topF = %f",topF);
+//	NSLog(@"topF = %f",topF);
 	top = floor(topF);
 	bottom = floor((currPos.y + self.frame.size.height) / cellHeight);
 
@@ -326,7 +327,7 @@
 
 	workingCells = CGRectMake(left, top, (right-left) + 1, (bottom - top) + 1);
 
-	NSLog(@"workingCells = %@",NSStringFromCGRect(workingCells));
+//	NSLog(@"workingCells = %@",NSStringFromCGRect(workingCells));
 	if (CGRectEqualToRect( workingCells, currentlyDisplayedCells) && !hasNewData)
 	{
 		return; //bail if nothing changed
@@ -402,7 +403,7 @@
 					if ([selectedCellIndexPath isEqual:ip])
 						//					if ([selectionIndexPaths containsObject:ip])
 					{
-						[cell setSelection:YES animated:NO];
+						[cell setSelected:YES animated:NO];
 					}
 					[self setNeedsDisplay];
 				}	
@@ -694,7 +695,7 @@
 	if (cell != nil)
 	{
 		[self callWillDeselectDelegateForIndexPath:indexPath];
-		[cell setSelection:NO animated: animate];
+		[cell setSelected:NO animated: animate];
 		[self callDidDeselectDelegateForIndexPath:indexPath];
 		[cell setNeedsDisplay];
 	}
@@ -720,16 +721,14 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) selectCellAtIndexPath:(NSIndexPath*) indexPath
+- (void) selectCellAtIndexPath:(NSIndexPath*) indexPath animated:(BOOL) animate
 {
 	UIXGridViewCell* cell = [self cellAtIndexPath:indexPath];
 	
 	if (cell != nil)
 	{
-//		[self callWillSelectDelegateForIndexPath:indexPath];
 		[self informWillSelectCell:cell];
-		[self selectCell: cell];
-//		[self callDidSelectDelegateForIndexPath:indexPath];
+		[cell setSelected:YES animated: animate];
 		[self informDidSelectCell:cell];
 		[cell setNeedsDisplay];
 	}
@@ -966,21 +965,7 @@
 	CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
 	CGContextFillRect(context,rect);
 	[self drawGridLines];
-		
-//	UIXGridViewCellSelectionStyle selectionStyle = 	UIXGridViewCellSelectionStyleRoundRect;
-//	
-//	for (UIXGridViewCell* cell in [cells allValues])
-//	{
-//		if (cell.isSelected)
-//		{
-//			indexPath = [[cells allKeysForObject:cell] objectAtIndex:0];
-//				
-//			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:selectionStyleForCellAtIndexPath:)])
-//			{
-//				selectionStyle = [self.gridDelegate UIXGridView: self  selectionStyleForCellAtIndexPath: indexPath];
-//			}
-//		}
-//	}
+
 	[super drawRect:rect];
 }
 
@@ -1318,7 +1303,8 @@
 /////////////////////////////////////////////////
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell
 {
-	UIColor* result = [UIColor blueColor];
+	UIColor* result = self.selectionColor;
+	
 	NSIndexPath* p = [self indexPathForCell:cell];
 	
 	if ([gridDelegate respondsToSelector:@selector(UIXGridView:selectionBackgroundColorForCellAtIndexPath:)])
