@@ -13,7 +13,7 @@
 @implementation UIXGridViewCell
 
 @dynamic selected;
-@synthesize highlighted;
+@dynamic highlighted;
 
 @synthesize style;
 
@@ -122,9 +122,11 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) highlightCell
+- (void) highlightCell: (BOOL) animated
 {
-	//insert background
+
+	// note: animation not currently supported
+#if 0	
 	UIColor* bgColor;
 	
 	if (selectedBackgroundView == nil)
@@ -148,11 +150,12 @@
 	frame.size = self.frame.size;
 	frame.origin = CGPointMake(0, 0);
 	_displayedSelectedBackgroundView.frame = frame;
+#endif
 	
 	savedViewState = [[NSMutableDictionary dictionary] retain];
 	[self highlightSubviews:contentView savingStateIn: savedViewState];
 	
-	self.highlighted = YES;
+	highlighted = YES;
 }
 
 //////////////////////////////////////
@@ -169,7 +172,8 @@
 		if ([subview respondsToSelector:@selector(isHighlighted)] && [subview respondsToSelector:@selector(setHighlighted:)])
 		{
 			NSNumber* highlightState = [stateDict objectForKey:@"h"];
-			[subview setHighlighted:[highlightState boolValue]];
+			BOOL hl = [highlightState boolValue];
+			[subview setHighlighted:hl];
 		}	
 	}
 }
@@ -197,6 +201,9 @@
 		UIColor* bc = [stateDict objectForKey:@"bc"];
 		subview.backgroundColor = bc;
 	}
+
+	[savedViewState release];
+	savedViewState = nil;
 }
 
 //////////////////////////////////////
@@ -209,7 +216,7 @@
 		[self unhighlightSubviews:contentView];
 		[UIView beginAnimations:@"backgroundFade2" context:nil];
 		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDuration:0.1];
+		[UIView setAnimationDuration:0.15];
 		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
 		 _displayedSelectedBackgroundView.alpha = 0.0;
 		 [UIView commitAnimations];
@@ -217,18 +224,15 @@
 	else 
 	{
 		[self restoreSubviews:contentView];
-		[savedViewState release];
-		savedViewState = nil;
-//		NSLog(@"savedViewState released");
-		self.highlighted = NO;
-		
+		highlighted = NO;
+		selected = NO;
+
 		[_displayedSelectedBackgroundView removeFromSuperview];
 		_displayedSelectedBackgroundView = nil;
 		if (selectedBackgroundView != nil)
 		{
 			selectedBackgroundView.alpha = 1.0;
 		}
-//		unhighlighting = NO;
 	}
 
 		
@@ -237,8 +241,19 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (void) unhighlightCell
+{
+	[self restoreSubviews:contentView];
+}
+
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void) unhighlightCell:(BOOL) animated
 {
+	// note animation not currently supported
+	
 	//table fades and unhighlights at halfway
 	//for now just undo what we did in reverse
 	if (animated)
@@ -252,14 +267,14 @@
 	}
 	else 
 	{
-		[self unhighlightSubviews:contentView];
-		[self restoreSubviews:contentView];
-		[savedViewState release];
-//		NSLog(@"savedViewState released");
-		savedViewState = nil;
-		self.highlighted = NO;
+//		self.highlighted = NO;
+//		[self unhighlightSubviews:contentView];
+//		[self restoreSubviews:contentView];
+//		[savedViewState release];
+//		savedViewState = nil;
+//		self.highlighted = NO;
 		
-//		UIView* v =  _displayedSelectedBackgroundView.superview;
+#if 0		
 		[_displayedSelectedBackgroundView removeFromSuperview];
 //		v =  _displayedSelectedBackgroundView.superview;
 		_displayedSelectedBackgroundView = nil;
@@ -267,6 +282,7 @@
 		{
 			selectedBackgroundView.alpha = 1.0;
 		}
+#endif		
 	}
 }
 
@@ -275,16 +291,13 @@
 //////////////////////////////////////
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//	NSLog(@"UIXGridViewCell - touchesEnded %@",self);
-
-	if (self.isHighlighted /*&& !unhighlighting*/)
+	if (self.highlighted /*&& !unhighlighting*/)
 	{
 		UIXGridView* grid = (UIXGridView*) self.superview;
-		//do will select
-		[grid informWillSelectCell:self];
-		[self unhighlightCell:NO];
-//		NSLog(@"Yay selected!");
-		self.selected = YES;
+
+//		[grid informWillSelectCell:self];
+//		[self unhighlightCell:NO];
+		[self setNeedsDisplay];
 		
 		[grid informDidSelectCell:self];
 	}
@@ -294,16 +307,16 @@
 //
 //////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//	NSLog(@"UIXGridViewCell - touchesBegan %@",touches);
-	
+{	
 	if ([touches count] == 1)
 	{		
-		UIXGridView* grid = (UIXGridView*) self.superview;
-		if ([grid shouldRespondToTouch:self])
-		{
-			[self highlightCell];
-		}	
+//		UIXGridView* grid = (UIXGridView*) self.superview;
+//		if ([grid shouldRespondToTouch:self])
+//		{
+			self.selected = YES;
+//			self.highlighted = YES;
+			[self setNeedsDisplay];
+//		}	
 	}
 }
 
@@ -312,16 +325,10 @@
 //////////////////////////////////////
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-//	NSLog(@"UIXGridViewCell - touchesMoved %@",self);
-	if (self.isHighlighted /*&& !unhighlighting*/)
+	if (self.highlighted /*&& !unhighlighting*/)
 	{
-//		unhighlighting = YES;
 		[self unhighlightCell:NO];
 	}	
-//	else
-//	{
-//		int x = 999;
-//	}
 }
 
 //////////////////////////////////////
@@ -344,12 +351,6 @@
 		[_textLabel removeFromSuperview];
 		_textLabel = nil;
 	}
-//	
-//	if (_imageView != nil)
-//	{
-//		[_imageView removeFromSuperview];
-//		_imageView = nil;
-//	}
 	
 	self.overlayView = nil;
 }
@@ -446,6 +447,71 @@
 ///////////////////////////////////
 //
 ///////////////////////////////////
+- (void) selectCell: (BOOL) animate
+{
+	// note: animation on selection not currently supported
+	
+	UIColor* bgColor;
+	
+	if (selectedBackgroundView == nil)
+	{
+		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		_displayedSelectedBackgroundView.tag = 333;
+		UIXGridView* grid = (UIXGridView*) self.superview;
+		bgColor = [grid selectionBackgroundColorForCell:self];
+		_displayedSelectedBackgroundView.backgroundColor = bgColor;
+	}
+	else 
+	{
+		_displayedSelectedBackgroundView = selectedBackgroundView;
+	}
+	
+	[self insertSubview:_displayedSelectedBackgroundView aboveSubview:backgroundView];
+	
+	CGRect frame;
+	frame.size = self.frame.size;
+	frame.origin = CGPointMake(0, 0);
+	_displayedSelectedBackgroundView.frame = frame;
+	
+	selected = YES;
+	
+	self.highlighted = YES;
+}
+
+///////////////////////////////////
+// 
+///////////////////////////////////
+- (void) unselectCell: animated
+{
+	if (animated)
+	{
+		[UIView beginAnimations:@"backgroundFade1" context:nil];
+		[UIView setAnimationDuration:0.15];
+		[UIView setAnimationDelegate:self];
+		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+		_displayedSelectedBackgroundView.alpha = 0.5;
+		[UIView commitAnimations];
+	}
+	else 
+	{
+		[self unhighlightSubviews:contentView];
+		[self restoreSubviews:contentView];
+		highlighted = NO;
+		
+		[_displayedSelectedBackgroundView removeFromSuperview];
+		_displayedSelectedBackgroundView = nil;
+		if (selectedBackgroundView != nil)
+		{
+			selectedBackgroundView.alpha = 1.0;
+		}
+		selected = NO;		
+		self.highlighted = NO;
+	}
+}
+
+///////////////////////////////////
+//
+///////////////////////////////////
 - (void) setSelected:(BOOL) f
 {
 	[self setSelected: f animated: NO];
@@ -466,32 +532,48 @@
 {
 	if (f)
 	{
-		if (!highlighted)
-		{
-			[self highlightCell];
-		}
+		[self selectCell: animate];
 	}
 	else 
 	{
-		[self unhighlightCell:animate];
-		[self setNeedsDisplay];
-//		if (self.isHighlighted && !unhighlighting)
-//		{
-//			if (animate)
-//			{
-//				unhighlighting = YES;
-//				[self unhighlightCell];
-//			}
-//			else 
-//			{
-//				[self restoreSubviews:self.contentView];
-//				[_displayedSelectedBackgroundView removeFromSuperview];
-//				_displayedSelectedBackgroundView = nil;
-//			}
-//		}
+		[self unselectCell: animate];
 	}
+	
 	selected = f;
 }
+
+///////////////////////////////////
+//
+///////////////////////////////////
+- (void) setHighlighted:(BOOL) f animated:(BOOL) animated
+{
+	if (f)
+	{
+		[self highlightCell: animated];
+	}
+	else 
+	{
+		[self unhighlightCell: animated];
+	}
+
+}
+
+///////////////////////////////////
+//
+///////////////////////////////////
+- (void) setHighlighted:(BOOL) f
+{
+	[self setHighlighted: f animated: NO];
+}
+
+///////////////////////////////////
+//
+///////////////////////////////////
+- (BOOL) highlighted
+{
+	return highlighted;
+}
+
 
 ///////////////////////////////////
 //

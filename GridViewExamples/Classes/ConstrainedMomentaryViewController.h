@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class UIXGridView;
 
 @interface ConstrainedMomentaryViewController : UIViewController 
 {
 	NSArray* labels;
+	UIXGridView* grid;
 }
 
 @end

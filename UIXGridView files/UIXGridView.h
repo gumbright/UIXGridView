@@ -205,11 +205,10 @@ typedef enum
 @protocol UIXGridViewDelegate<NSObject>
 
 @optional
-- (BOOL) UIXGridView: (UIXGridView*) gridView  shouldSelectCellAtIndexPath:(NSIndexPath*) indexPath;
-- (void) UIXGridView: (UIXGridView*) gridView  willSelectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (NSIndexPath*) UIXGridView: (UIXGridView*) gridView  willSelectCellAtIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath;
 
-- (void) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (NSIndexPath*) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath;

@@ -30,17 +30,17 @@
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
 //	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Constrained selectionType: UIXGridViewSelectionType_Momentary];
-	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Constrained];
+	grid = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Constrained];
 
-	gv.gridDelegate = self;
-	gv.dataSource = self;
+	grid.gridDelegate = self;
+	grid.dataSource = self;
 	
-	gv.backgroundColor = [UIColor whiteColor];
-	gv.selectionColor = [UIColor redColor];
+	grid.backgroundColor = [UIColor whiteColor];
+	grid.selectionColor = [UIColor redColor];
 	
 	self.title = @"Constrained Momentary";
-	[view addSubview:gv];
-	[gv release];
+	[view addSubview:grid];
+	[grid release];
 	
 	labels = [[NSArray arrayWithObjects:[NSArray arrayWithObjects:@"Mercury",@"Venus",@"Earth",nil],
 										[NSArray arrayWithObjects:@"Mars",@"Jupiter",@"Saturn",nil],
@@ -223,6 +223,14 @@
 /////////////////////////////////////////////////////
 //
 /////////////////////////////////////////////////////
+- (void) removeSelection:(NSIndexPath*) indexPath
+{
+	[grid deselectCellAtIndexPath:indexPath animated:YES];
+}
+
+/////////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////////
 - (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath
 {
 	UIAlertView* v = [[[UIAlertView alloc] initWithTitle:@"You picked" 
@@ -231,7 +239,9 @@
 									   cancelButtonTitle:@"Why yes I did!" 
 									   otherButtonTitles:nil] autorelease];
 	[v show];
-	[gridView deselectCellAtIndexPath:indexPath animated:YES];
+	
+	[self performSelector:@selector(removeSelection:) withObject: indexPath afterDelay:0.25];
+//	[gridView deselectCellAtIndexPath:indexPath animated:YES];
 }
 
 /////////////////////////////////////////////////////

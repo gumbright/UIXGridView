@@ -12,6 +12,7 @@
 #import "HorzConstrainedMultiSelectViewController.h"
 #import "HeaderFooterViewController.h"
 #import "UnconstrainedViewController.h"
+#import "GridOnScrollViewController.h"
 
 @implementation RootViewController
 
@@ -77,7 +78,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 5;
+    return 6;
 }
 
 
@@ -117,6 +118,11 @@
 	{
 		cell.textLabel.text = @"Unconstrained";
 		cell.detailTextLabel.text = @"simple select";
+	}
+	else if ([indexPath row] == 5)
+	{
+		cell.textLabel.text = @"Grid on scroll";
+		cell.detailTextLabel.text = @"Grid on paging scroll view";
 	}
 	
     return cell;
@@ -164,6 +170,14 @@
 			UnconstrainedViewController* unconstrainedViewController = [[UnconstrainedViewController alloc] init];
 			[self.navigationController pushViewController:unconstrainedViewController animated:YES];
 			[unconstrainedViewController release];
+		}
+			break;
+			
+		case 5:
+		{
+			GridOnScrollViewController* gridOnScrollViewController = [[GridOnScrollViewController alloc] initWithNibName:@"GridOnScroll" bundle:nil];
+			[self.navigationController pushViewController:gridOnScrollViewController animated:YES];
+			[gridOnScrollViewController release];
 		}
 			break;
 			

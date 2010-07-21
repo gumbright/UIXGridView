@@ -420,6 +420,11 @@
 					}
 					[self setNeedsDisplay];
 				}	
+				else 
+				{
+					// FIXME: throw exception
+				}
+
 			}
 
 		}//end for
@@ -712,6 +717,8 @@
 		[self callDidDeselectDelegateForIndexPath:indexPath];
 		[cell setNeedsDisplay];
 	}
+	
+	// FIXME: this will fail if try to deselect cell not selected
 	
 	[selectionIndexPaths removeObject:indexPath];
 	[selectedCellIndexPath release];
@@ -1287,10 +1294,10 @@
 	{
 		if (self.gridDelegate != nil)
 		{
-			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:shouldSelectCellAtIndexPath:)])
-			{
-				result = [self.gridDelegate UIXGridView: self  shouldSelectCellAtIndexPath:p];
-			}
+//			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:shouldSelectCellAtIndexPath:)])
+//			{
+//				result = [self.gridDelegate UIXGridView: self  shouldSelectCellAtIndexPath:p];
+//			}
 		}
 	}
 	

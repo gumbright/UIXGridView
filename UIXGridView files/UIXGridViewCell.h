@@ -41,7 +41,7 @@ typedef enum
 }
 
 @property (nonatomic, getter=isSelected) BOOL selected;
-@property (nonatomic, getter=isHighlighted) BOOL highlighted;
+@property (nonatomic, assign) BOOL highlighted;
 
 @property (readonly) UIXGridViewCellStyle* style;
 
