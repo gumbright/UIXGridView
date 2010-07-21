@@ -310,13 +310,8 @@
 {	
 	if ([touches count] == 1)
 	{		
-//		UIXGridView* grid = (UIXGridView*) self.superview;
-//		if ([grid shouldRespondToTouch:self])
-//		{
-			self.selected = YES;
-//			self.highlighted = YES;
-			[self setNeedsDisplay];
-//		}	
+		self.selected = YES;
+		[self setNeedsDisplay];
 	}
 }
 
@@ -325,9 +320,10 @@
 //////////////////////////////////////
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	if (self.highlighted /*&& !unhighlighting*/)
+	NSLog(@"moved");
+	if (self.selected)
 	{
-		[self unhighlightCell:NO];
+		[self unselectCell:NO];
 	}	
 }
 

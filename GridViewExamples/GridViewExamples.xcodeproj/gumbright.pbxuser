@@ -291,6 +291,11 @@
 			9F26CD2711F755430087E694 /* PBXTextBookmark */ = 9F26CD2711F755430087E694 /* PBXTextBookmark */;
 			9F26CD2811F755430087E694 /* PBXTextBookmark */ = 9F26CD2811F755430087E694 /* PBXTextBookmark */;
 			9F26CD2911F755430087E694 /* PBXTextBookmark */ = 9F26CD2911F755430087E694 /* PBXTextBookmark */;
+			9F26CD2F11F75BD80087E694 /* PBXTextBookmark */ = 9F26CD2F11F75BD80087E694 /* PBXTextBookmark */;
+			9F26CD3011F75BD80087E694 /* PBXTextBookmark */ = 9F26CD3011F75BD80087E694 /* PBXTextBookmark */;
+			9F26CD3111F75BD80087E694 /* PBXTextBookmark */ = 9F26CD3111F75BD80087E694 /* PBXTextBookmark */;
+			9F26CD3511F75C060087E694 /* PBXTextBookmark */ = 9F26CD3511F75C060087E694 /* PBXTextBookmark */;
+			9F26CD3711F75C3E0087E694 /* PBXTextBookmark */ = 9F26CD3711F75C3E0087E694 /* PBXTextBookmark */;
 			9F36B70C1194C56400BBB65B = 9F36B70C1194C56400BBB65B /* PBXTextBookmark */;
 			9FBF0F6311864661007D0BFC = 9FBF0F6311864661007D0BFC /* PBXTextBookmark */;
 			9FE07F07103CABEA001503E8 = 9FE07F07103CABEA001503E8 /* PBXTextBookmark */;
@@ -360,7 +365,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 521";
 		rLen = 0;
-		rLoc = 14113;
+		rLoc = 13961;
 		rType = 0;
 		vrLen = 941;
 		vrLoc = 11549;
@@ -421,7 +426,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 478";
 		rLen = 0;
-		rLoc = 13118;
+		rLoc = 12966;
 		rType = 0;
 		vrLen = 993;
 		vrLoc = 10663;
@@ -828,7 +833,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 307";
 		rLen = 0;
-		rLoc = 8087;
+		rLoc = 7953;
 		rType = 0;
 		vrLen = 1189;
 		vrLoc = 7058;
@@ -848,7 +853,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 323";
 		rLen = 64;
-		rLoc = 8182;
+		rLoc = 8041;
 		rType = 0;
 		vrLen = 1177;
 		vrLoc = 7626;
@@ -858,7 +863,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 323";
 		rLen = 64;
-		rLoc = 8182;
+		rLoc = 8041;
 		rType = 0;
 		vrLen = 1095;
 		vrLoc = 7626;
@@ -868,7 +873,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 537";
 		rLen = 0;
-		rLoc = 13117;
+		rLoc = 12965;
 		rType = 0;
 		vrLen = 787;
 		vrLoc = 12544;
@@ -929,7 +934,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 327;
+		rLoc = 323;
 		rType = 1;
 	};
 	9F26CC5811F73B6F0087E694 /* PBXTextBookmark */ = {
@@ -937,7 +942,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 326";
 		rLen = 0;
-		rLoc = 8249;
+		rLoc = 8126;
 		rType = 0;
 		vrLen = 1155;
 		vrLoc = 7702;
@@ -1044,7 +1049,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 314";
 		rLen = 0;
-		rLoc = 8087;
+		rLoc = 7953;
 		rType = 0;
 		vrLen = 1073;
 		vrLoc = 7237;
@@ -1054,7 +1059,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 313";
 		rLen = 0;
-		rLoc = 8034;
+		rLoc = 7928;
 		rType = 0;
 		vrLen = 1109;
 		vrLoc = 7237;
@@ -1064,7 +1069,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 313";
 		rLen = 0;
-		rLoc = 8034;
+		rLoc = 7928;
 		rType = 0;
 		vrLen = 1057;
 		vrLoc = 7228;
@@ -1105,7 +1110,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 327;
+		rLoc = 323;
 		rType = 1;
 	};
 	9F26CC8611F743C90087E694 /* PBXTextBookmark */ = {
@@ -1113,7 +1118,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 324";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 912;
 		vrLoc = 7714;
@@ -1220,7 +1225,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 472";
 		rLen = 0;
-		rLoc = 11856;
+		rLoc = 11704;
 		rType = 0;
 		vrLen = 1168;
 		vrLoc = 10821;
@@ -1230,7 +1235,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 509";
 		rLen = 53;
-		rLoc = 12976;
+		rLoc = 12824;
 		rType = 0;
 		vrLen = 861;
 		vrLoc = 11791;
@@ -1240,7 +1245,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 509";
 		rLen = 53;
-		rLoc = 12976;
+		rLoc = 12824;
 		rType = 0;
 		vrLen = 861;
 		vrLoc = 11791;
@@ -1250,7 +1255,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 509";
 		rLen = 53;
-		rLoc = 12976;
+		rLoc = 12824;
 		rType = 0;
 		vrLen = 706;
 		vrLoc = 11989;
@@ -1260,7 +1265,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 324";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 914;
 		vrLoc = 7714;
@@ -1280,7 +1285,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 509";
 		rLen = 53;
-		rLoc = 12976;
+		rLoc = 12824;
 		rType = 0;
 		vrLen = 742;
 		vrLoc = 11989;
@@ -1290,7 +1295,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 324";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 914;
 		vrLoc = 7714;
@@ -1310,7 +1315,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 509";
 		rLen = 53;
-		rLoc = 12976;
+		rLoc = 12824;
 		rType = 0;
 		vrLen = 742;
 		vrLoc = 11989;
@@ -1330,7 +1335,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 489";
 		rLen = 0;
-		rLoc = 12633;
+		rLoc = 12481;
 		rType = 0;
 		vrLen = 1171;
 		vrLoc = 10876;
@@ -1359,7 +1364,7 @@
 		ignoreCount = 0;
 		lineNumber = 711;
 		location = GridViewExamples;
-		modificationTime = 301421820.763609;
+		modificationTime = 301423623.89158;
 		originalNumberOfMultipleMatches = 1;
 		state = 2;
 	};
@@ -1398,7 +1403,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 324";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 914;
 		vrLoc = 7714;
@@ -1428,7 +1433,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 489";
 		rLen = 0;
-		rLoc = 12633;
+		rLoc = 12481;
 		rType = 0;
 		vrLen = 1171;
 		vrLoc = 10876;
@@ -1585,7 +1590,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 331";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 813;
 		vrLoc = 7753;
@@ -1615,7 +1620,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 453";
 		rLen = 19;
-		rLoc = 11047;
+		rLoc = 10895;
 		rType = 0;
 		vrLen = 1172;
 		vrLoc = 11037;
@@ -1625,7 +1630,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 496";
 		rLen = 0;
-		rLoc = 12299;
+		rLoc = 12147;
 		rType = 0;
 		vrLen = 799;
 		vrLoc = 13331;
@@ -1635,7 +1640,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 497";
 		rLen = 0;
-		rLoc = 12299;
+		rLoc = 12147;
 		rType = 0;
 		vrLen = 799;
 		vrLoc = 13371;
@@ -1645,7 +1650,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 328";
 		rLen = 0;
-		rLoc = 8260;
+		rLoc = 8136;
 		rType = 0;
 		vrLen = 914;
 		vrLoc = 7804;
@@ -1675,7 +1680,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 489";
 		rLen = 0;
-		rLoc = 12081;
+		rLoc = 11929;
 		rType = 0;
 		vrLen = 1239;
 		vrLoc = 11397;
@@ -1685,7 +1690,7 @@
 		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 489";
 		rLen = 0;
-		rLoc = 12081;
+		rLoc = 11929;
 		rType = 0;
 		vrLen = 1278;
 		vrLoc = 11397;
@@ -1734,7 +1739,7 @@
 		ignoreCount = 0;
 		lineNumber = 205;
 		location = GridViewExamples;
-		modificationTime = 301421820.764336;
+		modificationTime = 301423623.892489;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1752,7 +1757,7 @@
 		ignoreCount = 0;
 		lineNumber = 191;
 		location = GridViewExamples;
-		modificationTime = 301421820.764762;
+		modificationTime = 301423623.892897;
 		originalNumberOfMultipleMatches = 1;
 		state = 1;
 	};
@@ -1886,6 +1891,56 @@
 		vrLen = 2450;
 		vrLoc = 5951;
 	};
+	9F26CD2F11F75BD80087E694 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9FE07FC9103D9F4D001503E8 /* UIXGridView.h */;
+		name = "UIXGridView.h: 208";
+		rLen = 0;
+		rLoc = 7040;
+		rType = 0;
+		vrLen = 2543;
+		vrLoc = 5858;
+	};
+	9F26CD3011F75BD80087E694 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
+		name = "UIXGridViewCell.m: 489";
+		rLen = 0;
+		rLoc = 11929;
+		rType = 0;
+		vrLen = 1278;
+		vrLoc = 11397;
+	};
+	9F26CD3111F75BD80087E694 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
+		name = "UIXGridViewCell.m: 328";
+		rLen = 0;
+		rLoc = 8125;
+		rType = 0;
+		vrLen = 1087;
+		vrLoc = 7680;
+	};
+	9F26CD3511F75C060087E694 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
+		name = "UIXGridViewCell.m: 331";
+		rLen = 0;
+		rLoc = 8165;
+		rType = 0;
+		vrLen = 1099;
+		vrLoc = 7718;
+	};
+	9F26CD3711F75C3E0087E694 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */;
+		name = "UIXGridViewCell.m: 314";
+		rLen = 0;
+		rLoc = 7930;
+		rType = 0;
+		vrLen = 968;
+		vrLoc = 7718;
+	};
 	9F36B70C1194C56400BBB65B /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 9F9AF577103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m */;
@@ -1905,9 +1960,9 @@
 	};
 	9F66415411807DB600D5EF09 /* UIXGridViewCell.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {964, 7891}}";
-			sepNavSelRange = "{12081, 0}";
-			sepNavVisRange = "{11397, 1278}";
+			sepNavIntBoundsRect = "{{0, 0}, {964, 8034}}";
+			sepNavSelRange = "{7930, 0}";
+			sepNavVisRange = "{7718, 968}";
 		};
 	};
 	9F9AF4651039E343003E68D7 /* GridViewExamples */ = {
@@ -2051,7 +2106,7 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {964, 2847}}";
 			sepNavSelRange = "{7040, 0}";
-			sepNavVisRange = "{5951, 2450}";
+			sepNavVisRange = "{5858, 2543}";
 		};
 	};
 	9FE07FCA103D9F4D001503E8 /* UIXGridView.m */ = {
