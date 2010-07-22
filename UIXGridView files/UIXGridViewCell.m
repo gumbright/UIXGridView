@@ -241,10 +241,10 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void) unhighlightCell
-{
-	[self restoreSubviews:contentView];
-}
+//- (void) unhighlightCell
+//{
+//	[self restoreSubviews:contentView];
+//}
 
 
 //////////////////////////////////////
@@ -254,6 +254,7 @@
 {
 	// note animation not currently supported
 	
+//	NSLog(@"unhighlightCell %d",animated);
 	//table fades and unhighlights at halfway
 	//for now just undo what we did in reverse
 	if (animated)
@@ -291,6 +292,7 @@
 //////////////////////////////////////
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+//	NSLog(@"touches ended");
 	if (self.highlighted /*&& !unhighlighting*/)
 	{
 		UIXGridView* grid = (UIXGridView*) self.superview;
@@ -308,6 +310,7 @@
 //////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {	
+//	NSLog(@"touches began");
 	if ([touches count] == 1)
 	{		
 		self.selected = YES;
@@ -320,7 +323,19 @@
 //////////////////////////////////////
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	NSLog(@"moved");
+//	NSLog(@"touches moved");
+	if (self.selected)
+	{
+		[self unselectCell:NO];
+	}	
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+//	NSLog(@"touches cancelled");
 	if (self.selected)
 	{
 		[self unselectCell:NO];
@@ -543,6 +558,7 @@
 ///////////////////////////////////
 - (void) setHighlighted:(BOOL) f animated:(BOOL) animated
 {
+//	NSLog(@"set highlight: %d",f);
 	if (f)
 	{
 		[self highlightCell: animated];

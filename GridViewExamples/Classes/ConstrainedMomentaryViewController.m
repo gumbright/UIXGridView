@@ -217,7 +217,7 @@
 /////////////////////////////////////////////////////
 - (void) UIXGridView: (UIXGridView*) gridView  willSelectCellAtIndexPath:(NSIndexPath*) indexPath
 {
-	NSLog(@"hit willSelectCellAtIndexPath");
+//	NSLog(@"hit willSelectCellAtIndexPath");
 }
 
 /////////////////////////////////////////////////////
