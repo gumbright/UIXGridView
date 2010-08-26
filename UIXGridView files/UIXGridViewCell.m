@@ -254,7 +254,6 @@
 {
 	// note animation not currently supported
 	
-//	NSLog(@"unhighlightCell %d",animated);
 	//table fades and unhighlights at halfway
 	//for now just undo what we did in reverse
 	if (animated)

@@ -145,7 +145,8 @@
 - (void) reloadData
 {
 	hasNewData = YES;
-	[self layoutSubviews];
+//	[self layoutSubviews];
+	[self setNeedsLayout];
 }
 
 //////////////////////////////////////
