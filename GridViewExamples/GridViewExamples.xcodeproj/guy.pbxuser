@@ -23,7 +23,7 @@
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeBuildConfigurationName = Debug;
 		activeExecutable = E40CCADE1055795D0091C070 /* GridViewExamples */;
-		activeSDKPreference = iphonesimulator3.0;
+		activeSDKPreference = iphonesimulator4.1;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* GridViewExamples */;
 		codeSenseManager = E40CCAF9105579690091C070 /* Code sense */;
 		executables = (
@@ -52,13 +52,36 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 280906898;
-			PBXWorkspaceStateSaveDate = 280906898;
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					591,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 310878837;
+			PBXWorkspaceStateSaveDate = 310878837;
 		};
 		perUserProjectItems = {
 			E40CCB201055B4830091C070 = E40CCB201055B4830091C070 /* PBXTextBookmark */;
 			E40CCB231055B4830091C070 = E40CCB231055B4830091C070 /* PBXTextBookmark */;
-			E4212D4210BE4C9F006A7D87 /* PBXTextBookmark */ = E4212D4210BE4C9F006A7D87 /* PBXTextBookmark */;
+			E4212D4210BE4C9F006A7D87 = E4212D4210BE4C9F006A7D87 /* PBXTextBookmark */;
+			E46DB2DF1287A2AE00BC7EEB /* PBXTextBookmark */ = E46DB2DF1287A2AE00BC7EEB /* PBXTextBookmark */;
 			E4775DD7107C36D300C57AB4 = E4775DD7107C36D300C57AB4 /* PBXTextBookmark */;
 			E4775DD8107C36D300C57AB4 = E4775DD8107C36D300C57AB4 /* PBXTextBookmark */;
 			E4775DD9107C36D300C57AB4 = E4775DD9107C36D300C57AB4 /* PBXTextBookmark */;
@@ -103,9 +126,9 @@
 	};
 	9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1146, 2275}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1146, 2314}}";
 			sepNavSelRange = "{2653, 0}";
-			sepNavVisRange = "{2126, 1000}";
+			sepNavVisRange = "{1944, 909}";
 		};
 	};
 	9FE07FC9103D9F4D001503E8 /* UIXGridView.h */ = {
@@ -120,20 +143,6 @@
 			sepNavIntBoundsRect = "{{0, 0}, {761, 14417}}";
 			sepNavSelRange = "{9497, 0}";
 			sepNavVisRange = "{9355, 617}";
-		};
-	};
-	9FE07FCB103D9F4D001503E8 /* UIXGridViewCell.h */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {809, 832}}";
-			sepNavSelRange = "{2124, 0}";
-			sepNavVisRange = "{413, 1812}";
-		};
-	};
-	9FE07FCC103D9F4D001503E8 /* UIXGridViewCell.m */ = {
-		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1041, 3432}}";
-			sepNavSelRange = "{2018, 0}";
-			sepNavVisRange = "{1904, 1659}";
 		};
 	};
 	E40CCADE1055795D0091C070 /* GridViewExamples */ = {
@@ -208,6 +217,16 @@
 		vrLen = 986;
 		vrLoc = 2126;
 	};
+	E46DB2DF1287A2AE00BC7EEB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */;
+		name = "HeaderFooterViewController.m: 93";
+		rLen = 0;
+		rLoc = 2653;
+		rType = 0;
+		vrLen = 909;
+		vrLoc = 1944;
+	};
 	E4775DD7107C36D300C57AB4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 9FE07FCA103D9F4D001503E8 /* UIXGridView.m */;
@@ -230,7 +249,6 @@
 	};
 	E4775DD9107C36D300C57AB4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 9FE07FCB103D9F4D001503E8 /* UIXGridViewCell.h */;
 		name = "UIXGridViewCell.h: 59";
 		rLen = 0;
 		rLoc = 2124;
@@ -240,7 +258,6 @@
 	};
 	E4775DDA107C36D300C57AB4 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = 9FE07FCC103D9F4D001503E8 /* UIXGridViewCell.m */;
 		name = "UIXGridViewCell.m: 56";
 		rLen = 0;
 		rLoc = 2018;

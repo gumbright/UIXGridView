@@ -136,6 +136,11 @@
 	self.footerView = nil;
 	self.gridLineColor = nil;
 
+	[cells release];
+	[selectionIndexPaths release];
+	[cellQueue release];
+	[reusableCells release];
+	
 	[super dealloc];
 }
 
@@ -145,8 +150,7 @@
 - (void) reloadData
 {
 	hasNewData = YES;
-//	[self layoutSubviews];
-	[self setNeedsLayout];
+	[self layoutSubviews];
 }
 
 //////////////////////////////////////
