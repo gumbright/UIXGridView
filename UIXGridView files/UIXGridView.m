@@ -448,6 +448,8 @@
 	self.contentSize = contentSize;	
 
 	hasNewData = NO;
+
+	[self setNeedsDisplay];
 	
 	[super layoutSubviews];
 }
