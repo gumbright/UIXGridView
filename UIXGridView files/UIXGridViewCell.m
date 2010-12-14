@@ -15,7 +15,7 @@
 @dynamic selected;
 @dynamic highlighted;
 
-@synthesize style;
+@synthesize style = _style;
 
 @dynamic textLabel;
 @dynamic imageView;
@@ -25,12 +25,12 @@
 @synthesize backgroundView;
 @synthesize selectedBackgroundView;
 
-@synthesize reuseIdentifier;
+@synthesize reuseIdentifier = _reuseIdentifier;
 
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (id)initWithStyle:(UIXGridViewCellStyle)style reuseIdentifier:(NSString *)reuseId
+- (id)initWithStyle:(UIXGridViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
 	if (self = [super initWithFrame:CGRectZero])
 	{
@@ -54,7 +54,7 @@
 		[v release];
 		contentView = v;
 		
-		reuseIdentifier = [[NSString stringWithString: reuseId] retain];
+		_reuseIdentifier = [[NSString stringWithString: reuseIdentifier] retain];
 	}
 	
     return self;
@@ -73,6 +73,10 @@
 //////////////////////////////////////
 - (void)dealloc 
 {
+	[savedViewState release];
+	[selectedBackgroundView release];
+	[backgroundView release];
+	[overlayView release];
     [super dealloc];
 }
 
@@ -94,7 +98,7 @@
 		
 		if ([subview respondsToSelector:@selector(isHighlighted)] && [subview respondsToSelector:@selector(setHighlighted:)])
 		{
-			[stateDict setObject:[NSNumber numberWithBool:(BOOL)[subview isHighlighted]] forKey:@"h"];
+			[stateDict setObject:[NSNumber numberWithBool:(BOOL)[((id) subview) isHighlighted]] forKey:@"h"];
 			 hasHighlight = YES;
 		}
 			 
@@ -109,7 +113,7 @@
 		 
 		if (hasHighlight)
 		{
-			[subview setHighlighted:YES];
+			[((id) subview) setHighlighted:YES];
 		}
 		 
 		 subview.opaque = NO;
@@ -152,6 +156,7 @@
 	_displayedSelectedBackgroundView.frame = frame;
 #endif
 	
+	[savedViewState release];
 	savedViewState = [[NSMutableDictionary dictionary] retain];
 	[self highlightSubviews:contentView savingStateIn: savedViewState];
 	
@@ -173,7 +178,7 @@
 		{
 			NSNumber* highlightState = [stateDict objectForKey:@"h"];
 			BOOL hl = [highlightState boolValue];
-			[subview setHighlighted:hl];
+			[((id) subview) setHighlighted:hl];
 		}	
 	}
 }
@@ -190,9 +195,9 @@
 		NSDictionary* stateDict = [savedViewState objectForKey:[NSNumber numberWithUnsignedInt:subview.hash]];
 		
 		NSNumber* highlightState = [stateDict objectForKey:@"h"];
-		if (highlightState != nil)
+		if (highlightState != nil && [subview respondsToSelector:@selector(setHighlighted:)])
 		{
-			[subview setHighlighted:[highlightState boolValue]];
+			[(id) subview setHighlighted:[highlightState boolValue]];
 		}
 		
 		NSNumber* opaqueState = [stateDict objectForKey:@"o"];
@@ -285,61 +290,6 @@
 		}
 #endif		
 	}
-}
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//	NSLog(@"touches ended");
-	if (self.highlighted /*&& !unhighlighting*/)
-	{
-		UIXGridView* grid = (UIXGridView*) self.superview;
-
-//		[grid informWillSelectCell:self];
-//		[self unhighlightCell:NO];
-		[self setNeedsDisplay];
-		
-		[grid informDidSelectCell:self];
-	}
-}
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{	
-//	NSLog(@"touches began");
-	if ([touches count] == 1)
-	{		
-		self.selected = YES;
-		[self setNeedsDisplay];
-	}
-}
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//	NSLog(@"touches moved");
-	if (self.selected)
-	{
-		[self unselectCell:NO];
-	}	
-}
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-//	NSLog(@"touches cancelled");
-	if (self.selected)
-	{
-		[self unselectCell:NO];
-	}	
 }
 
 //////////////////////////////////////
@@ -614,5 +564,60 @@
 		overlay.frame = frame;
 		[self addSubview:overlay];
 	}
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//	NSLog(@"touches ended");
+	if (self.highlighted /*&& !unhighlighting*/)
+	{
+		UIXGridView* grid = (UIXGridView*) self.superview;
+		
+		//		[grid informWillSelectCell:self];
+		//		[self unhighlightCell:NO];
+		[self setNeedsDisplay];
+		
+		[grid informDidSelectCell:self];
+	}
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{	
+	//	NSLog(@"touches began");
+	if ([touches count] == 1)
+	{		
+		self.selected = YES;
+		[self setNeedsDisplay];
+	}
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//	NSLog(@"touches moved");
+	if (self.selected)
+	{
+		[self unselectCell:NO];
+	}	
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	//	NSLog(@"touches cancelled");
+	if (self.selected)
+	{
+		[self unselectCell:NO];
+	}	
 }
 @end
