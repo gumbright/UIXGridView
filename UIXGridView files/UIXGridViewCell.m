@@ -42,8 +42,8 @@
 		v = [[UIView alloc] initWithFrame:CGRectZero];
 		[self addSubview:v];
 //		v.tag = 111;
+		self.backgroundView = v;
 		[v release];
-		backgroundView = v;
 		backgroundView.backgroundColor = [UIColor whiteColor];
 		selectedBackgroundView = nil;
 		

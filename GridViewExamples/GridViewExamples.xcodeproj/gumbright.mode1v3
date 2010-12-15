@@ -279,6 +279,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
+									<integer>3</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -320,7 +322,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>UIXGridView.m</string>
+								<string>UIXGridViewCell.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>UIXGridView.m</string>
+										<string>UIXGridViewCell.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9F42D0EB12B7DA790018A506</string>
+										<string>9F42D0FB12B7E1C60018A506</string>
 										<key>history</key>
 										<array>
 											<string>9FE07F07103CABEA001503E8</string>
@@ -352,9 +354,9 @@
 											<string>9F26CD2711F755430087E694</string>
 											<string>9F26CD2F11F75BD80087E694</string>
 											<string>9F0F3E5811F8B4B6007E61C7</string>
-											<string>9F0F3E5911F8B4B6007E61C7</string>
-											<string>9FC9DA0212271A7500E42A68</string>
-											<string>9FC9DA0312271A7500E42A68</string>
+											<string>9F42D0F812B7E1C60018A506</string>
+											<string>9F42D0F912B7E1C60018A506</string>
+											<string>9F42D0FA12B7E1C60018A506</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -550,7 +552,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>9F42D0F612B7DA790018A506</string>
+		<string>9F42D0FC12B7E1C60018A506</string>
 		<string>9F42D0F712B7DA790018A506</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>

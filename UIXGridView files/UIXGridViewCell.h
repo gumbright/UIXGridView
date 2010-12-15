@@ -25,9 +25,9 @@ typedef enum
 	BOOL selected;
 	BOOL highlighted;
 	
-	UIXGridViewCellStyle* style;
+	UIXGridViewCellStyle* _style;
 	
-	NSString* reuseIdentifier;
+	NSString* _reuseIdentifier;
 	
 @private
 	//default views
