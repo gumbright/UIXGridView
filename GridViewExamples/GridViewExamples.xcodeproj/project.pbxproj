@@ -16,10 +16,10 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		9F14621B12EE0D8B00B8D746 /* album9e.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9F14621A12EE0D8B00B8D746 /* album9e.jpg */; };
+		9F14624112EE181A00B8D746 /* UIXGridViewSpanningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F14624012EE181A00B8D746 /* UIXGridViewSpanningCell.m */; };
 		9F26CB8711F650390087E694 /* GridOnScroll.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F26CB8611F650390087E694 /* GridOnScroll.xib */; };
 		9F26CB8B11F6512E0087E694 /* GridOnScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */; };
 		9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F556DBC12E8AED50066B955 /* SpanningViewController.m */; };
-		9F556DDE12E8B3440066B955 /* UIXGridViewSpanningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F556DDD12E8B3440066B955 /* UIXGridViewSpanningCell.m */; };
 		9F66415511807DB600D5EF09 /* UIXGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */; };
 		9F9AF4821039EECE003E68D7 /* ConstrainedMomentaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */; };
 		9F9AF49C1039F2E5003E68D7 /* earth.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F9AF4931039F2E5003E68D7 /* earth.jpeg */; };
@@ -54,13 +54,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* GridViewExamples-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GridViewExamples-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		9F14621A12EE0D8B00B8D746 /* album9e.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = album9e.jpg; path = images/album9e.jpg; sourceTree = "<group>"; };
+		9F14623F12EE181A00B8D746 /* UIXGridViewSpanningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewSpanningCell.h; path = "../UIXGridView files/UIXGridViewSpanningCell.h"; sourceTree = SOURCE_ROOT; };
+		9F14624012EE181A00B8D746 /* UIXGridViewSpanningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewSpanningCell.m; path = "../UIXGridView files/UIXGridViewSpanningCell.m"; sourceTree = SOURCE_ROOT; };
 		9F26CB8611F650390087E694 /* GridOnScroll.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridOnScroll.xib; sourceTree = "<group>"; };
 		9F26CB8911F6512E0087E694 /* GridOnScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridOnScrollViewController.h; sourceTree = "<group>"; };
 		9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridOnScrollViewController.m; sourceTree = "<group>"; };
 		9F556DBB12E8AED50066B955 /* SpanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpanningViewController.h; sourceTree = "<group>"; };
 		9F556DBC12E8AED50066B955 /* SpanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpanningViewController.m; sourceTree = "<group>"; };
-		9F556DDC12E8B3440066B955 /* UIXGridViewSpanningCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIXGridViewSpanningCell.h; sourceTree = "<group>"; };
-		9F556DDD12E8B3440066B955 /* UIXGridViewSpanningCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIXGridViewSpanningCell.m; sourceTree = "<group>"; };
 		9F66415311807DB600D5EF09 /* UIXGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell.h; path = "../UIXGridView files/UIXGridViewCell.h"; sourceTree = SOURCE_ROOT; };
 		9F66415411807DB600D5EF09 /* UIXGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewCell.m; path = "../UIXGridView files/UIXGridViewCell.m"; sourceTree = SOURCE_ROOT; };
 		9F9AF4801039EECE003E68D7 /* ConstrainedMomentaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstrainedMomentaryViewController.h; sourceTree = "<group>"; };
@@ -191,12 +191,12 @@
 		9F556DB612E8ACEA0066B955 /* UIXGridView files */ = {
 			isa = PBXGroup;
 			children = (
+				9F14623F12EE181A00B8D746 /* UIXGridViewSpanningCell.h */,
+				9F14624012EE181A00B8D746 /* UIXGridViewSpanningCell.m */,
 				9F66415311807DB600D5EF09 /* UIXGridViewCell.h */,
 				9F66415411807DB600D5EF09 /* UIXGridViewCell.m */,
 				9FE07FC9103D9F4D001503E8 /* UIXGridView.h */,
 				9FE07FCA103D9F4D001503E8 /* UIXGridView.m */,
-				9F556DDC12E8B3440066B955 /* UIXGridViewSpanningCell.h */,
-				9F556DDD12E8B3440066B955 /* UIXGridViewSpanningCell.m */,
 			);
 			name = "UIXGridView files";
 			sourceTree = "<group>";
@@ -287,7 +287,7 @@
 				9FE6997811AD51EE00C9423E /* UnconstrainedViewController.m in Sources */,
 				9F26CB8B11F6512E0087E694 /* GridOnScrollViewController.m in Sources */,
 				9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */,
-				9F556DDE12E8B3440066B955 /* UIXGridViewSpanningCell.m in Sources */,
+				9F14624112EE181A00B8D746 /* UIXGridViewSpanningCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
