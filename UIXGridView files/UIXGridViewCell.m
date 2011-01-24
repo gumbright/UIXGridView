@@ -54,7 +54,15 @@
 		[v release];
 		contentView = v;
 		
-		_reuseIdentifier = [[NSString stringWithString: reuseIdentifier] retain];
+		if (reuseIdentifier != nil)
+		{
+			_reuseIdentifier = [[NSString stringWithString: reuseIdentifier] retain];
+		}
+		else 
+		{
+			_reuseIdentifier = nil;
+		}
+
 	}
 	
     return self;

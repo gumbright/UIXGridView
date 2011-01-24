@@ -35,12 +35,13 @@
 */ 
 
 #import <Foundation/Foundation.h>
+#import "UIXGridViewCell.h"
+#import "UIXGridViewSpanningCell.h"
 
 //#import "UIXGridViewCell.h"
 
 @protocol UIXGridViewDataSource, UIXGridViewDelegate;
 
-@class UIXGridViewCell;
 
 #define UIXGridViewStyle_Constrained		0
 #define UIXGridViewStyle_HorzConstrained	1
@@ -104,6 +105,8 @@
 	NSMutableSet* selectionIndexPaths;  //selected cell paths
 	
 	NSIndexPath* selectedCellIndexPath;
+	
+	NSMutableDictionary* spannedCells; //indexPaths, data is parent cell
 }
 
 @property (readonly) NSInteger columns;
@@ -197,6 +200,7 @@ typedef enum
 - (NSInteger) cellWidthForGrid:(UIXGridView*) grid;
 - (NSInteger) cellHeightForGrid:(UIXGridView*) grid;
 
+- (UIXGridViewSpanningCell*) UIXGridView:(UIXGridView*) grid spanningCellAtIndex:(NSIndexPath**) spanningCellIndex forSpannedCellAt:(NSIndexPath*) indexPath;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////

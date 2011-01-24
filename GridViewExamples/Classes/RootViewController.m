@@ -13,6 +13,7 @@
 #import "HeaderFooterViewController.h"
 #import "UnconstrainedViewController.h"
 #import "GridOnScrollViewController.h"
+#import "SpanningViewController.h"
 
 @implementation RootViewController
 
@@ -78,7 +79,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 6;
+    return 7;
 }
 
 
@@ -123,6 +124,11 @@
 	{
 		cell.textLabel.text = @"Grid on scroll";
 		cell.detailTextLabel.text = @"Grid on paging scroll view";
+	}
+	else if ([indexPath row] == 6)
+	{
+		cell.textLabel.text = @"Spanning cells";
+		cell.detailTextLabel.text = @"Cells that cover multiple grid spaces";
 	}
 	
     return cell;
@@ -178,6 +184,14 @@
 			GridOnScrollViewController* gridOnScrollViewController = [[GridOnScrollViewController alloc] initWithNibName:@"GridOnScroll" bundle:nil];
 			[self.navigationController pushViewController:gridOnScrollViewController animated:YES];
 			[gridOnScrollViewController release];
+		}
+			break;
+			
+		case 6:
+		{
+			SpanningViewController* vc = [[SpanningViewController alloc] init];
+			[self.navigationController pushViewController:vc animated:YES];
+			[vc release];
 		}
 			break;
 			
