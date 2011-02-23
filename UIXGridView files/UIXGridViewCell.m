@@ -381,6 +381,8 @@
 ///////////////////////////////////
 - (void)layoutSubviews
 {
+    [super layoutSubviews];
+    
 	CGRect frame = self.frame;
 	CGRect workFrame;
 	
