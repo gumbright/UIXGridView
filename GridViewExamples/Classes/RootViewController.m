@@ -8,12 +8,13 @@
 
 #import "RootViewController.h"
 #import "ConstrainedMomentaryViewController.h"
-#import "VertConstrainedSingleSelectViewController.h"
-#import "HorzConstrainedMultiSelectViewController.h"
-#import "HeaderFooterViewController.h"
-#import "UnconstrainedViewController.h"
-#import "GridOnScrollViewController.h"
-#import "SpanningViewController.h"
+//#import "VertConstrainedSingleSelectViewController.h"
+//#import "HorzConstrainedMultiSelectViewController.h"
+//#import "HeaderFooterViewController.h"
+//#import "UnconstrainedViewController.h"
+//#import "GridOnScrollViewController.h"
+//#import "SpanningViewController.h"
+#import "HorzContrainedSingleHeaderViewController.h"
 
 @implementation RootViewController
 
@@ -79,7 +80,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 7;
+    return 2;
 }
 
 
@@ -97,39 +98,39 @@
 
 	if ([indexPath row] == 0)
 	{
-		cell.textLabel.text = @"Constrained";
+		cell.textLabel.text = @"Constrained Momentary";
 		cell.detailTextLabel.text = @"simple select";
 	}
 	else if ([indexPath row] == 1)
 	{
-		cell.textLabel.text = @"Vert Constrainted";
-		cell.detailTextLabel.text = @"Selection overlay";
+		cell.textLabel.text = @"Horz Constrained";
+		cell.detailTextLabel.text = @"Single Select w/ header & footer";
 	}
-	else if ([indexPath row] == 2)
-	{
-		cell.textLabel.text = @"Horz Constrainted w/ Borders";
-		cell.detailTextLabel.text = @"lines single select";
-	}	
-	else if ([indexPath row] == 3)
-	{
-		cell.textLabel.text = @"Header/Footer";
-		cell.detailTextLabel.text = @"simple select";
-	}
-	else if ([indexPath row] == 4)
-	{
-		cell.textLabel.text = @"Unconstrained";
-		cell.detailTextLabel.text = @"simple select";
-	}
-	else if ([indexPath row] == 5)
-	{
-		cell.textLabel.text = @"Grid on scroll";
-		cell.detailTextLabel.text = @"Grid on paging scroll view";
-	}
-	else if ([indexPath row] == 6)
-	{
-		cell.textLabel.text = @"Spanning cells";
-		cell.detailTextLabel.text = @"Cells that cover multiple grid spaces";
-	}
+//	else if ([indexPath row] == 2)
+//	{
+//		cell.textLabel.text = @"Horz Constrainted w/ Borders";
+//		cell.detailTextLabel.text = @"lines single select";
+//	}	
+//	else if ([indexPath row] == 3)
+//	{
+//		cell.textLabel.text = @"Header/Footer";
+//		cell.detailTextLabel.text = @"simple select";
+//	}
+//	else if ([indexPath row] == 4)
+//	{
+//		cell.textLabel.text = @"Unconstrained";
+//		cell.detailTextLabel.text = @"simple select";
+//	}
+//	else if ([indexPath row] == 5)
+//	{
+//		cell.textLabel.text = @"Grid on scroll";
+//		cell.detailTextLabel.text = @"Grid on paging scroll view";
+//	}
+//	else if ([indexPath row] == 6)
+//	{
+//		cell.textLabel.text = @"Spanning cells";
+//		cell.detailTextLabel.text = @"Cells that cover multiple grid spaces";
+//	}
 	
     return cell;
 }
@@ -148,52 +149,60 @@
 			
 		case 1:
 		{
-			VertConstrainedSingleSelectViewController* vertConstrainedSingleSelectViewController = [[VertConstrainedSingleSelectViewController alloc] init];
-			vertConstrainedSingleSelectViewController.overlay = overlay;
-			[self.navigationController pushViewController:vertConstrainedSingleSelectViewController animated:YES];
-			[vertConstrainedSingleSelectViewController release];
-		}
-			break;
-			
-		case 2:
-		{
-			HorzConstrainedMultiSelectViewController* horzConstrainedMultiSelectViewController = [[HorzConstrainedMultiSelectViewController alloc] init];
-			[self.navigationController pushViewController:horzConstrainedMultiSelectViewController animated:YES];
-			[horzConstrainedMultiSelectViewController release];
-		}
-			break;
-			
-		case 3:
-		{
-			HeaderFooterViewController* headerFooterViewController = [[HeaderFooterViewController alloc] init];
-			[self.navigationController pushViewController:headerFooterViewController animated:YES];
-			[headerFooterViewController release];
-		}
-			break;
-			
-		case 4:
-		{
-			UnconstrainedViewController* unconstrainedViewController = [[UnconstrainedViewController alloc] init];
-			[self.navigationController pushViewController:unconstrainedViewController animated:YES];
-			[unconstrainedViewController release];
-		}
-			break;
-			
-		case 5:
-		{
-			GridOnScrollViewController* gridOnScrollViewController = [[GridOnScrollViewController alloc] initWithNibName:@"GridOnScroll" bundle:nil];
-			[self.navigationController pushViewController:gridOnScrollViewController animated:YES];
-			[gridOnScrollViewController release];
-		}
-			break;
-			
-		case 6:
-		{
-			SpanningViewController* vc = [[SpanningViewController alloc] init];
+			HorzContrainedSingleHeaderViewController* vc = [[HorzContrainedSingleHeaderViewController alloc] init];
 			[self.navigationController pushViewController:vc animated:YES];
 			[vc release];
 		}
 			break;
+			
+//		case 1:
+//		{
+//			VertConstrainedSingleSelectViewController* vertConstrainedSingleSelectViewController = [[VertConstrainedSingleSelectViewController alloc] init];
+//			vertConstrainedSingleSelectViewController.overlay = overlay;
+//			[self.navigationController pushViewController:vertConstrainedSingleSelectViewController animated:YES];
+//			[vertConstrainedSingleSelectViewController release];
+//		}
+//			break;
+//			
+//		case 2:
+//		{
+//			HorzConstrainedMultiSelectViewController* horzConstrainedMultiSelectViewController = [[HorzConstrainedMultiSelectViewController alloc] init];
+//			[self.navigationController pushViewController:horzConstrainedMultiSelectViewController animated:YES];
+//			[horzConstrainedMultiSelectViewController release];
+//		}
+//			break;
+//			
+//		case 3:
+//		{
+//			HeaderFooterViewController* headerFooterViewController = [[HeaderFooterViewController alloc] init];
+//			[self.navigationController pushViewController:headerFooterViewController animated:YES];
+//			[headerFooterViewController release];
+//		}
+//			break;
+//			
+//		case 4:
+//		{
+//			UnconstrainedViewController* unconstrainedViewController = [[UnconstrainedViewController alloc] init];
+//			[self.navigationController pushViewController:unconstrainedViewController animated:YES];
+//			[unconstrainedViewController release];
+//		}
+//			break;
+//			
+//		case 5:
+//		{
+//			GridOnScrollViewController* gridOnScrollViewController = [[GridOnScrollViewController alloc] initWithNibName:@"GridOnScroll" bundle:nil];
+//			[self.navigationController pushViewController:gridOnScrollViewController animated:YES];
+//			[gridOnScrollViewController release];
+//		}
+//			break;
+//			
+//		case 6:
+//		{
+//			SpanningViewController* vc = [[SpanningViewController alloc] init];
+//			[self.navigationController pushViewController:vc animated:YES];
+//			[vc release];
+//		}
+//			break;
 			
 	}
 }

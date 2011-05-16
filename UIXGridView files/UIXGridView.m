@@ -49,7 +49,7 @@
 @synthesize customSelect;
 @synthesize cellInsets;
 @synthesize style;
-@synthesize selectionColor;
+//@synthesize selectionColor;
 @synthesize headerView;
 @synthesize footerView;
 
@@ -60,6 +60,9 @@
 
 @synthesize cellWidth;
 @synthesize cellHeight;
+
+@synthesize gridStyle;
+@synthesize selectionStyle;
 
 //////////////////////////////////////
 //
@@ -86,7 +89,6 @@
 	spannedCells = [[NSMutableDictionary dictionary] retain];
 }
 
-
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -98,16 +100,21 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) s
+- (id)initWithFrame:(CGRect) frame 
+           andStyle:(UIXGridViewStyle) s 
+      selectionType:(UIXGridViewSelectionStyle) selectionType
 {
 	
-	if (self = [super initWithFrame:frame])
+	if ((self = [super initWithFrame:frame]))
 	{
 		style = s;
+        gridStyle = s;
+        selectionStyle = selectionType;
+        
 		initialSetupDone = NO;
-
+        
 		super.delegate = self;
-		self.selectionColor = [UIColor blueColor];
+//		self.selectionColor = [UIColor blueColor];
 	}
 	
 	return self;
@@ -116,9 +123,19 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
+- (id)initWithFrame:(CGRect) frame andStyle:(UIXGridViewStyle) s
+{
+    return [self initWithFrame:frame 
+                      andStyle:s
+                 selectionType:UIXGridViewSelectionStyleSingle];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void) dealloc
 {
-	self.selectionColor = nil;	
+//	self.selectionColor = nil;	
 	self.headerView = nil;
 	self.footerView = nil;
 	self.gridLineColor = nil;
@@ -170,7 +187,7 @@
 	
 	switch (style)
 	{
-		case UIXGridViewStyle_Constrained:
+		case UIXGridViewStyleConstrained:
 		{
 			columns = [self.dataSource numberOfColumnsForGrid:self];
 			rows = [self.dataSource numberOfRowsForGrid:self];	
@@ -194,7 +211,7 @@
 		}
 			break;
 			
-		case UIXGridViewStyle_HorzConstrained:
+		case UIXGridViewStyleHorzConstrained:
 		{
 			//set rows cols
 			columns = [self.dataSource numberOfColumnsForGrid:self];
@@ -220,7 +237,7 @@
 		}
 			break;
 			
-		case UIXGridViewStyle_VertConstrained:
+		case UIXGridViewStyleVertConstrained:
 		{
 			//set rows cols
 			columns = [self.dataSource numberOfColumnsForGrid:self];
@@ -247,7 +264,7 @@
 		}
 			break;
 			
-		case UIXGridViewStyle_Unconstrained:
+		case UIXGridViewStyleUnconstrained:
 		{
 			columns = [self.dataSource numberOfColumnsForGrid:self];
 			rows = [self.dataSource numberOfRowsForGrid:self];
@@ -406,6 +423,8 @@
 	{
 		[cell setSelected:YES animated:NO];
 	}
+    
+    NSLog(@"ip=%@ rect=%@",ip ,NSStringFromCGRect(frame));
 }
 
 //////////////////////////////////////
@@ -457,6 +476,8 @@
 //////////////////////////////////////
 - (void)layoutSubviews
 {
+    NSLog(@"grid layout subviews");
+    
 	if (!initialSetupDone)
 	{
 		[self setup];
@@ -485,15 +506,15 @@
 		frame = headerView.frame;
 		frame.size.width = contentSize.width;
 		headerView.frame = frame;
-		contentSize.height += frame.size.height;
+//		contentSize.height += frame.size.height;
 	}
 		
 	if (footerView)
 	{
 		frame = footerView.frame;
-		frame.size.width = contentSize.width;
-		footerView.frame = frame;
-		contentSize.height += frame.size.height;
+//		frame.size.width = contentSize.width;
+//		footerView.frame = frame;
+//		contentSize.height += frame.size.height;
 	}
 		
 	//clear out the old
@@ -564,8 +585,9 @@
 	if (footerView)
 	{
 		frame = footerView.frame;
-		
-		frame.origin.y = baseY+(cellHeight * rows);
+		frame.size.width = contentSize.width;
+        frame.origin.y = contentSize.height - frame.size.height;
+//		frame.origin.y = baseY+(cellHeight * rows);
 		footerView.frame = frame;
 	}
 		
@@ -759,7 +781,24 @@
 			frame.origin.x = insetAdjust;
 			frame.origin.y = insetAdjust;
 			frame.size.width = contentSize.width-borderGridLineWidth;
-			frame.size.height = contentSize.height-borderGridLineWidth;
+//			frame.size.height = contentSize.height-borderGridLineWidth;
+			frame.size.height = contentSize.height;
+            
+            //adjust for header & footer
+            if (headerView != nil)
+            {
+                CGRect headerFrame = headerView.bounds;
+                frame.origin.y += headerFrame.size.height;
+                frame.size.height -= headerFrame.size.height;
+            }
+
+            if (footerView != nil)
+            {
+                CGRect footerFrame = footerView.bounds;
+                frame.size.height -= footerFrame.size.height;
+            }
+            
+            frame.size.height -= borderGridLineWidth;
 			CGContextAddRect (context,frame);
 		}
 		
@@ -770,7 +809,14 @@
 			{
 				start.x = borderGridLineWidth;
 				end.x = contentSize.width - borderGridLineWidth;
-				start.y = end.y = (borderGridLineWidth + (cellHeight * ndx) + (horizontalGridLineWidth * ndx)) - (horizontalGridLineWidth/2);
+				start.y = (borderGridLineWidth + (cellHeight * ndx) + (horizontalGridLineWidth * ndx)) - (horizontalGridLineWidth/2);
+                if (headerView != nil)
+                {
+                    start.y += headerView.bounds.size.height;
+                }
+                
+                end.y = start.y;
+                
 				CGContextMoveToPoint(context, start.x, start.y);
 				CGContextAddLineToPoint(context, end.x, end.y);
 			}	
@@ -781,8 +827,20 @@
 			CGContextSetLineWidth(context, verticalGridLineWidth);
 			for (CGFloat ndx = 1.0; ndx < (columns); ++ndx)
 			{
-				start.y = borderGridLineWidth;
+				//start.y = borderGridLineWidth;
+                start.y = borderGridLineWidth;
+                if (headerView != nil)
+                {
+                    start.y += headerView.bounds.size.height;
+                }
+                
+				//end.y = contentSize.height - borderGridLineWidth;
 				end.y = contentSize.height - borderGridLineWidth;
+                if (footerView != nil)
+                {
+                    end.y -= footerView.bounds.size.height;
+                }
+                
 				start.x = end.x = (borderGridLineWidth + (cellWidth * ndx) + (verticalGridLineWidth * ndx)) - (verticalGridLineWidth/2);
 				CGContextMoveToPoint(context, start.x, start.y);
 				CGContextAddLineToPoint(context, end.x, end.y);
@@ -1144,15 +1202,19 @@
 /////////////////////////////////////////////////
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell
 {
-	UIColor* result = self.selectionColor;
+	//UIColor* result = self.selectionColor;
+	UIColor* result = [UIColor blueColor];
 	
-	NSIndexPath* p = [self indexPathForCell:cell];
-	
-	if ([gridDelegate respondsToSelector:@selector(UIXGridView:selectionBackgroundColorForCellAtIndexPath:)])
-	{
-		result = [gridDelegate UIXGridView: self selectionBackgroundColorForCellAtIndexPath:p];
-	}
-	
+//	NSIndexPath* p = [self indexPathForCell:cell];
+//	
+//	if ([gridDelegate respondsToSelector:@selector(UIXGridView:selectionBackgroundColorForCellAtIndexPath:)])
+//	{
+//		result = [gridDelegate UIXGridView: self selectionBackgroundColorForCellAtIndexPath:p];
+//	}
+//	else
+//    {
+//        result = 
+//    }
 	return result;
 }
 

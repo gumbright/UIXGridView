@@ -10,6 +10,32 @@
 #import "UIXGridViewCell.h"
 #import "UIXGridView.h"
 
+void dumpViews(UIView* view, NSString *text, NSString *indent) 
+{
+    Class cl = [view class];
+    NSString *classDescription = [cl description];
+    while ([cl superclass]) 
+    {
+        cl = [cl superclass];
+        classDescription = [classDescription stringByAppendingFormat:@":%@", [cl description]];
+    }
+    
+    if ([text compare:@""] == NSOrderedSame)
+        NSLog(@"%@ %@", classDescription, NSStringFromCGRect(view.frame));
+    else
+        NSLog(@"%@ %@ %@", text, classDescription, NSStringFromCGRect(view.frame));
+    
+    for (NSUInteger i = 0; i < [view.subviews count]; i++)
+    {
+        UIView *subView = [view.subviews objectAtIndex:i];
+        NSString *newIndent = [[NSString alloc] initWithFormat:@"  %@", indent];
+        NSString *msg = [[NSString alloc] initWithFormat:@"%@%d:", newIndent, i];
+        dumpViews(subView, msg, newIndent);
+        [msg release];
+        [newIndent release];
+    }
+}
+
 @implementation UIXGridViewCell
 
 @dynamic selected;
@@ -19,11 +45,12 @@
 
 @dynamic textLabel;
 @dynamic imageView;
-@dynamic overlayView;
+@dynamic selectionOverlayView;
 
 @synthesize contentView;
 @synthesize backgroundView;
 @synthesize selectedBackgroundView;
+@synthesize overlayOnlySelection;
 
 @synthesize reuseIdentifier = _reuseIdentifier;
 
@@ -32,7 +59,7 @@
 //////////////////////////////////////
 - (id)initWithStyle:(UIXGridViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-	if (self = [super initWithFrame:CGRectZero])
+	if ((self = [super initWithFrame:CGRectZero]))
 	{
 		UIView* v;
 		
@@ -50,7 +77,7 @@
 		v = [[UIView alloc] initWithFrame:CGRectZero];
 //		v.tag = 222;
 		[self addSubview:v];
-		self.backgroundColor = [UIColor clearColor];
+		v.backgroundColor = [UIColor clearColor];
 		[v release];
 		contentView = v;
 		
@@ -63,6 +90,7 @@
 			_reuseIdentifier = nil;
 		}
 
+        overlayOnlySelection = YES;
 	}
 	
     return self;
@@ -84,8 +112,16 @@
 	[savedViewState release];
 	[selectedBackgroundView release];
 	[backgroundView release];
-	[overlayView release];
+	[selectionOverlayView release];
     [super dealloc];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (UIXGridView*) gridView
+{
+    return (UIXGridView*) self.superview;
 }
 
 //////////////////////////////////////
@@ -95,7 +131,9 @@
 {
 	BOOL hasHighlight;
 	
-	for (NSUInteger ndx = 0; ndx < [view.subviews count]; ndx++)
+    NSInteger ndx=0;
+    
+	for (ndx = 0; ndx < [view.subviews count]; ++ndx)
 	{
 		UIView* subview = [view.subviews objectAtIndex:ndx];
 		
@@ -122,6 +160,17 @@
 		if (hasHighlight)
 		{
 			[((id) subview) setHighlighted:YES];
+//            [subview setNeedsDisplay];
+//
+//            if ([[subview class] isEqual:[UILabel class]])
+//            {
+//                UILabel* l = (UILabel*) subview;
+//                UIColor* c = l.highlightedTextColor;
+//                BOOL h = l.highlighted;
+//                int x = 999;
+//                //l.textColor = [UIColor whiteColor];
+//            }
+            
 		}
 		 
 		 subview.opaque = NO;
@@ -138,37 +187,35 @@
 {
 
 	// note: animation not currently supported
-#if 0	
-	UIColor* bgColor;
 	
+	[savedViewState release];
+	savedViewState = [[NSMutableDictionary dictionary] retain];
+	[self highlightSubviews:contentView savingStateIn: savedViewState];
+	[contentView setNeedsDisplay]; //???
+    
+	UIColor* bgColor;
+    
 	if (selectedBackgroundView == nil)
 	{
 		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		_displayedSelectedBackgroundView.tag = 333;
-		UIXGridView* grid = (UIXGridView*) self.superview;
-		bgColor = [grid selectionBackgroundColorForCell:self];
+		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
 		_displayedSelectedBackgroundView.backgroundColor = bgColor;
 	}
 	else 
 	{
 		_displayedSelectedBackgroundView = selectedBackgroundView;
 	}
-
-//	[self insertSubview:_displayedSelectedBackgroundView  atIndex:0];
-	[self insertSubview:_displayedSelectedBackgroundView aboveSubview:backgroundView];
-	
-	
+    
 	CGRect frame;
 	frame.size = self.frame.size;
-	frame.origin = CGPointMake(0, 0);
+	frame.origin = CGPointMake(0,0);
 	_displayedSelectedBackgroundView.frame = frame;
-#endif
-	
-	[savedViewState release];
-	savedViewState = [[NSMutableDictionary dictionary] retain];
-	[self highlightSubviews:contentView savingStateIn: savedViewState];
-	
+
+	[self insertSubview:_displayedSelectedBackgroundView aboveSubview:backgroundView];
+
 	highlighted = YES;
+    
 }
 
 //////////////////////////////////////
@@ -321,7 +368,7 @@
 		_textLabel = nil;
 	}
 	
-	self.overlayView = nil;
+	self.selectionOverlayView = nil;
 }
 
 //////////////////////////////////////
@@ -344,7 +391,7 @@
 		_textLabel.highlightedTextColor = [UIColor whiteColor];
 		
 		[self.contentView insertSubview:_textLabel atIndex:0];
-		[self setNeedsLayout];
+		//[self setNeedsLayout];
 				
 		[_textLabel release];
 		
@@ -420,6 +467,24 @@
 ///////////////////////////////////
 - (void) selectCell: (BOOL) animate
 {
+	selected = YES;
+    UIView* overlayView;
+    
+    if (selectionOverlayView == nil)
+    {
+        overlayView = [[UIXGridViewSelectionOverlayView alloc] init];
+        //alloc default
+    }
+    else
+    {
+        overlayView = selectionOverlayView;
+    }
+    
+    _displayedSelectionOverlayView = overlayView;
+    _displayedSelectionOverlayView.frame = self.bounds;
+    [self addSubview:_displayedSelectionOverlayView];
+    
+#if 0
 	// note: animation on selection not currently supported
 	
 	UIColor* bgColor;
@@ -428,8 +493,7 @@
 	{
 		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		_displayedSelectedBackgroundView.tag = 333;
-		UIXGridView* grid = (UIXGridView*) self.superview;
-		bgColor = [grid selectionBackgroundColorForCell:self];
+		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
 		_displayedSelectedBackgroundView.backgroundColor = bgColor;
 	}
 	else 
@@ -447,6 +511,7 @@
 	selected = YES;
 	
 	self.highlighted = YES;
+#endif    
 }
 
 ///////////////////////////////////
@@ -454,6 +519,14 @@
 ///////////////////////////////////
 - (void) unselectCell: (BOOL) animated
 {
+	selected = NO;
+    if (_displayedSelectionOverlayView != nil)
+    {
+        [_displayedSelectionOverlayView removeFromSuperview];
+        _displayedSelectionOverlayView = nil;
+    }
+    
+#if 0    
 	if (animated)
 	{
 		[UIView beginAnimations:@"backgroundFade1" context:nil];
@@ -475,9 +548,10 @@
 		{
 			selectedBackgroundView.alpha = 1.0;
 		}
-		selected = NO;		
+		selected = NO;	//does not use accessor as it causes a cycle	
 		self.highlighted = NO;
 	}
+#endif    
 }
 
 ///////////////////////////////////
@@ -518,7 +592,6 @@
 ///////////////////////////////////
 - (void) setHighlighted:(BOOL) f animated:(BOOL) animated
 {
-//	NSLog(@"set highlight: %d",f);
 	if (f)
 	{
 		[self highlightCell: animated];
@@ -541,7 +614,7 @@
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (BOOL) highlighted
+- (BOOL) isHighlighted
 {
 	return highlighted;
 }
@@ -550,25 +623,25 @@
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (UIView*) overlayView
+- (UIView*) selectionOverlayView
 {
-	return overlayView;
+	return selectionOverlayView;
 }
 
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (void) setOverlayView:(UIView*) overlay
+- (void) setSelectionOverlayView:(UIView*) overlay
 {
-	if (overlayView != nil) 
+	if (selectionOverlayView != nil) 
 	{
-		[overlayView removeFromSuperview];
-		overlayView = nil;
+		[selectionOverlayView removeFromSuperview];
+		selectionOverlayView = nil;
 	}
 
-	if (overlay != nil)
+	if (selectionOverlayView != nil)
 	{
-		overlayView = overlay;
+		selectionOverlayView = overlay;
 		CGRect frame = self.contentView.frame;
 		frame.origin = CGPointZero;
 		overlay.frame = frame;
@@ -581,7 +654,44 @@
 //////////////////////////////////////
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//	NSLog(@"touches ended");
+    if (self.highlighted)
+    {
+        [self setHighlighted:NO animated:YES]; 
+
+        switch ([[self gridView] selectionStyle])
+        {
+            case UIXGridViewSelectionStyleSingle:
+            {
+                // !!!:get rid of old selection
+                [[self gridView] clearSelection];
+                [self setSelected:YES animated:YES];
+                [[self gridView] informDidSelectCell:self];
+            }
+                break;
+                
+            case UIXGridViewSelectionStyleMultiple:
+            {
+                // !!!:need to toggle selection
+                [self setSelected:!self.selected animated:YES];
+                [[self gridView] informDidSelectCell:self];
+            }
+                break;
+                
+            case UIXGridViewSelectionStyleMomentary:
+            {
+                [[self gridView] informDidSelectCell:self];
+            }
+                break;
+        }
+        // ???: should this logic be moved into setSelection?  Yes because I need to account programatically
+        //if single
+        //   undo old selection
+        //endif
+        //set selected
+    }
+    
+    
+#if 0    
 	if (self.highlighted /*&& !unhighlighting*/)
 	{
 		UIXGridView* grid = (UIXGridView*) self.superview;
@@ -592,19 +702,18 @@
 		
 		[grid informDidSelectCell:self];
 	}
+#endif    
 }
 
 //////////////////////////////////////
 //
 //////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{	
-	//	NSLog(@"touches began");
-	if ([touches count] == 1)
-	{		
-		self.selected = YES;
-		[self setNeedsDisplay];
-	}
+{
+    if (!self.highlighted)
+    {
+        [self setHighlighted:YES animated:YES];
+    }    
 }
 
 //////////////////////////////////////
@@ -612,11 +721,10 @@
 //////////////////////////////////////
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//	NSLog(@"touches moved");
-	if (self.selected)
-	{
-		[self unselectCell:NO];
-	}	
+    if (self.highlighted)
+    {
+        [self setHighlighted:NO animated:YES];
+    }
 }
 
 //////////////////////////////////////
@@ -624,10 +732,39 @@
 //////////////////////////////////////
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	//	NSLog(@"touches cancelled");
-	if (self.selected)
-	{
-		[self unselectCell:NO];
-	}	
+    if (self.highlighted)
+    {
+        [self setHighlighted:NO animated:YES];
+    }
 }
+
+@end
+
+#pragma mark -
+#pragma mark -
+#pragma mark UIXGridViewSelectionOverlayView
+
+@implementation UIXGridViewSelectionOverlayView
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (id) init
+{
+    self = [super initWithFrame:CGRectMake(0, 0, 50, 50)];
+    if (self != nil)
+    {
+        self.backgroundColor = [UIColor clearColor];
+        
+        icon = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
+        icon.backgroundColor = [UIColor redColor];
+        icon.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        [self addSubview:icon];
+        [icon release];
+    }
+    
+    return self;
+}
+
+
 @end

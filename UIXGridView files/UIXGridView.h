@@ -43,19 +43,25 @@
 @protocol UIXGridViewDataSource, UIXGridViewDelegate;
 
 
-#define UIXGridViewStyle_Constrained		0
-#define UIXGridViewStyle_HorzConstrained	1
-#define UIXGridViewStyle_VertConstrained	2
-#define UIXGridViewStyle_Unconstrained		3
-	
-//#define UIXGridViewSelectionType_Momentary	0
-//#define UIXGridViewSelectionType_Single		1
-//#define UIXGridViewSelectionType_Multiple	2
+typedef enum
+{
+    UIXGridViewStyleConstrained=0,
+    UIXGridViewStyleHorzConstrained,
+    UIXGridViewStyleVertConstrained,
+    UIXGridViewStyleUnconstrained
+} UIXGridViewStyle;
+
+typedef enum
+{
+    UIXGridViewSelectionStyleSingle=0,
+    UIXGridViewSelectionStyleMultiple,
+    UIXGridViewSelectionStyleMomentary
+} UIXGridViewSelectionStyle;
 
 @interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
 	//configuration
-	UIColor* selectionColor;
+//	UIColor* selectionColor;
 	UIEdgeInsets cellInsets;
 	
 	id <UIXGridViewDataSource> dataSource;
@@ -107,6 +113,10 @@
 	NSIndexPath* selectedCellIndexPath;
 	
 	NSMutableDictionary* spannedCells; //indexPaths, data is parent cell
+    
+    UIXGridViewStyle gridStyle;
+    UIXGridViewSelectionStyle selectionStyle;
+    
 }
 
 @property (readonly) NSInteger columns;
@@ -121,7 +131,7 @@
 @property (assign) id dataSource;
 @property (assign) id gridDelegate;
 @property UIEdgeInsets cellInsets;
-@property (nonatomic, retain) UIColor* selectionColor;
+//@property (nonatomic, retain) UIColor* selectionColor;
 
 @property (nonatomic, retain) UIView* headerView;
 @property (nonatomic, retain) UIView* footerView;
@@ -134,8 +144,14 @@
 @property (readonly) CGFloat cellWidth;
 @property (readonly) CGFloat cellHeight;
 
-- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style;
-//- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style selectionType:(NSInteger) selectionType;
+@property (readonly) UIXGridViewStyle gridStyle;
+@property (assign) UIXGridViewSelectionStyle selectionStyle;
+
+- (id)initWithFrame:(CGRect) frame 
+           andStyle:(UIXGridViewStyle) style;
+- (id)initWithFrame:(CGRect) frame 
+           andStyle:(UIXGridViewStyle) style 
+      selectionType:(UIXGridViewSelectionStyle) selectionType;
 
 - (UIXGridViewCell*) cellAtIndexPath:(NSIndexPath*) path;
 - (NSArray*) visibleCells;
@@ -171,16 +187,17 @@
 - (BOOL) shouldRespondToTouch:(UIXGridViewCell*) cell;
 - (void) informWillSelectCell:(UIXGridViewCell*) cell;
 - (void) informDidSelectCell:(UIXGridViewCell*) cell;
+
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell;
 
 @end
 
-typedef enum 
-{
-	UIXGridViewCellSelectionStyleNone,
-	UIXGridViewCellSelectionStyleRect,
-	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
-} UIXGridViewCellSelectionStyle;
+//typedef enum 
+//{
+//	UIXGridViewCellSelectionStyleNone,
+//	UIXGridViewCellSelectionStyleRect,
+//	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
+//} UIXGridViewCellSelectionStyle;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -215,9 +232,9 @@ typedef enum
 - (NSIndexPath*) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 
-- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath;
+//- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath;
 
-- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
+//- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
 
 //- (void)UIXGridView:(UITableView *)tableView willDisplayCell:(UIXGridViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 @end

@@ -19,6 +19,7 @@
 		9F14624112EE181A00B8D746 /* UIXGridViewSpanningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F14624012EE181A00B8D746 /* UIXGridViewSpanningCell.m */; };
 		9F26CB8711F650390087E694 /* GridOnScroll.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F26CB8611F650390087E694 /* GridOnScroll.xib */; };
 		9F26CB8B11F6512E0087E694 /* GridOnScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */; };
+		9F416D83137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F416D82137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m */; };
 		9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F556DBC12E8AED50066B955 /* SpanningViewController.m */; };
 		9F66415511807DB600D5EF09 /* UIXGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */; };
 		9F9AF4821039EECE003E68D7 /* ConstrainedMomentaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */; };
@@ -37,6 +38,8 @@
 		9FE07FCD103D9F4D001503E8 /* UIXGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE07FCA103D9F4D001503E8 /* UIXGridView.m */; };
 		9FE6996211AC88D300C9423E /* LAT-PhotoCircle-Base.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */; };
 		9FE6997811AD51EE00C9423E /* UnconstrainedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */; };
+		E4DABB82136F15FF00ACF022 /* redcheck.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DABB80136F15FF00ACF022 /* redcheck.png */; };
+		E4DABB83136F15FF00ACF022 /* redcheck@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4DABB81136F15FF00ACF022 /* redcheck@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +62,8 @@
 		9F26CB8611F650390087E694 /* GridOnScroll.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GridOnScroll.xib; sourceTree = "<group>"; };
 		9F26CB8911F6512E0087E694 /* GridOnScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridOnScrollViewController.h; sourceTree = "<group>"; };
 		9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridOnScrollViewController.m; sourceTree = "<group>"; };
+		9F416D81137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorzContrainedSingleHeaderViewController.h; sourceTree = "<group>"; };
+		9F416D82137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorzContrainedSingleHeaderViewController.m; sourceTree = "<group>"; };
 		9F556DBB12E8AED50066B955 /* SpanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpanningViewController.h; sourceTree = "<group>"; };
 		9F556DBC12E8AED50066B955 /* SpanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpanningViewController.m; sourceTree = "<group>"; };
 		9F66415311807DB600D5EF09 /* UIXGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell.h; path = "../UIXGridView files/UIXGridViewCell.h"; sourceTree = SOURCE_ROOT; };
@@ -85,6 +90,8 @@
 		9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LAT-PhotoCircle-Base.png"; path = "images/LAT-PhotoCircle-Base.png"; sourceTree = "<group>"; };
 		9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnconstrainedViewController.m; sourceTree = "<group>"; };
 		9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnconstrainedViewController.h; sourceTree = "<group>"; };
+		E4DABB80136F15FF00ACF022 /* redcheck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redcheck.png; path = images/redcheck.png; sourceTree = "<group>"; };
+		E4DABB81136F15FF00ACF022 /* redcheck@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "redcheck@2x.png"; path = "images/redcheck@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,22 +114,10 @@
 				9F556DB612E8ACEA0066B955 /* UIXGridView files */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
-				9FE07EF6103C9E7D001503E8 /* HeaderFooterViewController.h */,
-				9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */,
 				1D3623240D0F684500981E51 /* GridViewExamplesAppDelegate.h */,
 				1D3623250D0F684500981E51 /* GridViewExamplesAppDelegate.m */,
-				9F9AF4801039EECE003E68D7 /* ConstrainedMomentaryViewController.h */,
-				9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */,
-				9F9AF54B103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.h */,
-				9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */,
-				9F9AF576103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.h */,
-				9F9AF577103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m */,
-				9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */,
-				9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */,
-				9F26CB8911F6512E0087E694 /* GridOnScrollViewController.h */,
-				9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */,
-				9F556DBB12E8AED50066B955 /* SpanningViewController.h */,
-				9F556DBC12E8AED50066B955 /* SpanningViewController.m */,
+				9F416D80137DC9D1006A804F /* controllers */,
+				9F416D7F137DC985006A804F /* obsolete */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -159,6 +154,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E4DABB80136F15FF00ACF022 /* redcheck.png */,
+				E4DABB81136F15FF00ACF022 /* redcheck@2x.png */,
 				9F14621A12EE0D8B00B8D746 /* album9e.jpg */,
 				9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */,
 				9F9AF4931039F2E5003E68D7 /* earth.jpeg */,
@@ -186,6 +183,36 @@
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9F416D7F137DC985006A804F /* obsolete */ = {
+			isa = PBXGroup;
+			children = (
+				9FE07EF6103C9E7D001503E8 /* HeaderFooterViewController.h */,
+				9FE07EF7103C9E7D001503E8 /* HeaderFooterViewController.m */,
+				9F9AF54B103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.h */,
+				9F9AF54C103C2B16003E68D7 /* VertConstrainedSingleSelectViewController.m */,
+				9F9AF576103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.h */,
+				9F9AF577103C2E6D003E68D7 /* HorzConstrainedMultiSelectViewController.m */,
+				9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */,
+				9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */,
+				9F26CB8911F6512E0087E694 /* GridOnScrollViewController.h */,
+				9F26CB8A11F6512E0087E694 /* GridOnScrollViewController.m */,
+				9F556DBB12E8AED50066B955 /* SpanningViewController.h */,
+				9F556DBC12E8AED50066B955 /* SpanningViewController.m */,
+			);
+			name = obsolete;
+			sourceTree = "<group>";
+		};
+		9F416D80137DC9D1006A804F /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9F9AF4801039EECE003E68D7 /* ConstrainedMomentaryViewController.h */,
+				9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */,
+				9F416D81137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.h */,
+				9F416D82137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 		9F556DB612E8ACEA0066B955 /* UIXGridView files */ = {
@@ -265,6 +292,8 @@
 				9FE6996211AC88D300C9423E /* LAT-PhotoCircle-Base.png in Resources */,
 				9F26CB8711F650390087E694 /* GridOnScroll.xib in Resources */,
 				9F14621B12EE0D8B00B8D746 /* album9e.jpg in Resources */,
+				E4DABB82136F15FF00ACF022 /* redcheck.png in Resources */,
+				E4DABB83136F15FF00ACF022 /* redcheck@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +317,7 @@
 				9F26CB8B11F6512E0087E694 /* GridOnScrollViewController.m in Sources */,
 				9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */,
 				9F14624112EE181A00B8D746 /* UIXGridViewSpanningCell.m in Sources */,
+				9F416D83137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

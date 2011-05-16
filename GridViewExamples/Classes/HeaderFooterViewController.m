@@ -29,14 +29,11 @@
 	CGRect frame = CGRectMake(0,0,320,416);
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
-//	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_HorzConstrained selectionType: UIXGridViewSelectionType_Multiple];
-	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_HorzConstrained];
-	//gv.momentary = NO;
-	//gv.multiSelect = YES;
+	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleHorzConstrained];
 	gv.delegate = self;
 	gv.dataSource = self;
 	gv.backgroundColor = [UIColor whiteColor];
-	gv.selectionColor = [UIColor redColor];
+//	gv.selectionColor = [UIColor redColor];
 	self.title = @"Header/Footer";
 	[view addSubview:gv];
 	[gv release];
@@ -156,7 +153,7 @@
 			
 		case 8:
 		{
-			cell.textLabel.text = @"Pluo";
+			cell.textLabel.text = @"Pluto";
 			cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
 		}
 			break;

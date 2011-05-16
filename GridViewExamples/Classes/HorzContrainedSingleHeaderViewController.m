@@ -1,37 +1,48 @@
 //
-//  HorzConstrainedMultiSelectViewController.m
+//  HorzContrainedSingleHeaderViewController.m
 //  GridViewExamples
 //
-//  Created by gumbright on 8/19/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Created by Guy Umbright on 5/13/11.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "HorzConstrainedMultiSelectViewController.h"
-#import "UIXGridView.h"
-#import "UIXGridViewCell.h"
+#import "HorzContrainedSingleHeaderViewController.h"
 
 
-@implementation HorzConstrainedMultiSelectViewController
+@implementation HorzContrainedSingleHeaderViewController
 
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
         // Custom initialization
     }
     return self;
 }
-*/
 
+- (void)dealloc
+{
+    [super dealloc];
+}
 
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
+- (void)didReceiveMemoryWarning
+{
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+#pragma mark - View lifecycle
+
 - (void)loadView 
 {
 	CGRect frame = CGRectMake(0,0,320,416);
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
 	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleHorzConstrained];
-
+    gv.selectionStyle = UIXGridViewSelectionStyleSingle;
+    
 	gv.gridDelegate = self;
 	gv.dataSource = self;
 	gv.backgroundColor = [UIColor whiteColor];
@@ -40,42 +51,41 @@
 	gv.verticalGridLineWidth = 3;
 	gv.borderGridLineWidth = 3;
 	
-	self.title = @"Horz Constrained Multi Select";
+	self.title = @"Horz Constrained Single";
 	[view addSubview:gv];
 	[gv release];
+    
+	frame = CGRectMake(0,0,0,50);
+	view = [[UIView alloc] initWithFrame:frame];
+	view.backgroundColor = [UIColor yellowColor];
+	gv.headerView = view;
+	
+	frame = CGRectMake(0,0,0,50);
+	view = [[UIView alloc] initWithFrame:frame];
+	view.backgroundColor = [UIColor orangeColor];
+	gv.footerView = view;
+    
 }
-
 
 /*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
 }
 */
 
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
 }
 
 - (UIXGridViewCell*) UIXGridView:(UIXGridView*) gridView cellForIndexPath:(NSIndexPath*) indexPath
@@ -87,8 +97,8 @@
 	if (cell == nil)
 	{
 		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"HorzMultiCell"] autorelease];
-				}
-				
+    }
+    
 	switch (indexPath.row)
 	{
 		case 0:
@@ -96,68 +106,68 @@
 			cell.textLabel.text = @"Mercury";
 			cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 1:
 		{
 			cell.textLabel.text = @"Venus";
 			cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 2:
 		{
 			cell.textLabel.text = @"Earth";
 			cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 3:
 		{
 			cell.textLabel.text = @"Mars";
 			cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 4:
 		{
 			cell.textLabel.text = @"Jupiter";
 			cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
 		}
-		break;
-						
+            break;
+            
 		case 5:
 		{
 			cell.textLabel.text = @"Saturn";
 			cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 6:
 		{
 			cell.textLabel.text = @"Neptune";
 			cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 7:
 		{
 			cell.textLabel.text = @"Uranus";
 			cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		case 8:
 		{
 			cell.textLabel.text = @"Pluo";
 			cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
 		}
-		break;
-					
+            break;
+            
 		default:
 			cell = nil;
-		break;
-					
+            break;
+            
 	}
 	
 	

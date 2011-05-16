@@ -38,10 +38,10 @@
 	scroll.contentSize = CGSizeMake(sz.width*2, sz.height);
 	
 	grid = [[UIXGridView alloc] initWithFrame:CGRectMake(0, 0, gridContainer.frame.size.width, gridContainer.frame.size.height) 
-											   andStyle:UIXGridViewStyle_Constrained];
+											   andStyle:UIXGridViewStyleConstrained];
 	grid.gridDelegate = self;
 	grid.dataSource = self;
-	grid.selectionColor = [UIColor clearColor];
+//	grid.selectionColor = [UIColor clearColor];
 	[gridContainer addSubview:grid];
 	[grid release];
 }

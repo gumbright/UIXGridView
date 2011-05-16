@@ -30,13 +30,13 @@
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
 //	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Constrained selectionType: UIXGridViewSelectionType_Momentary];
-	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Unconstrained];
+	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleUnconstrained];
 
 	gv.gridDelegate = self;
 	gv.dataSource = self;
 	
 	gv.backgroundColor = [UIColor whiteColor];
-	gv.selectionColor = [UIColor redColor];
+//	gv.selectionColor = [UIColor redColor];
 	
 	self.title = @"Constrained Momentary";
 	[view addSubview:gv];

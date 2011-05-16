@@ -19,11 +19,12 @@ typedef enum
 	UIView* contentView;
 	UIView* backgroundView;
 	UIView* selectedBackgroundView;
-	UIView* overlayView;
+	UIView* selectionOverlayView;
 	
 	//selection
 	BOOL selected;
 	BOOL highlighted;
+    BOOL overlayOnlySelection;
 	
 	UIXGridViewCellStyle* _style;
 	
@@ -34,6 +35,7 @@ typedef enum
 	UILabel* _textLabel;
 	UIImageView* _imageView;
 	UIView* _displayedSelectedBackgroundView;
+	UIView* _displayedSelectionOverlayView;
 	
 	NSMutableDictionary* savedViewState;
 	
@@ -41,7 +43,8 @@ typedef enum
 }
 
 @property (nonatomic, getter=isSelected) BOOL selected;
-@property (nonatomic, assign) BOOL highlighted;
+@property (nonatomic, assign, getter=isHighlighted) BOOL highlighted;
+@property (nonatomic, assign) BOOL overlayOnlySelection;
 
 @property (readonly) UIXGridViewCellStyle* style;
 
@@ -51,7 +54,7 @@ typedef enum
 @property (readonly) UIView* contentView;
 @property (nonatomic, retain) UIView* backgroundView;
 @property (nonatomic, retain) UIView* selectedBackgroundView;
-@property (nonatomic, retain) UIView* overlayView;
+@property (nonatomic, retain) UIView* selectionOverlayView;
 
 @property (readonly) NSString* reuseIdentifier;
 
@@ -61,4 +64,13 @@ typedef enum
 - (void)prepareForReuse;
 
 - (void) setSelected:(BOOL) f animated:(BOOL) animate;
+- (void) setHighlighted:(BOOL) f animated:(BOOL) animated;
+@end
+
+@interface UIXGridViewSelectionOverlayView : UIView 
+{
+    UIView* icon;
+}
+
+- (id) init;
 @end

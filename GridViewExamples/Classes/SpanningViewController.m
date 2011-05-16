@@ -31,13 +31,13 @@
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
 	//	UIXGridView* gv = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_Constrained selectionType: UIXGridViewSelectionType_Momentary];
-	grid = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_VertConstrained];
+	grid = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleVertConstrained];
 	
 	grid.gridDelegate = self;
 	grid.dataSource = self;
 	
 	grid.backgroundColor = [UIColor whiteColor];
-	grid.selectionColor = [UIColor redColor];
+//	grid.selectionColor = [UIColor redColor];
 	
 	grid.verticalGridLineWidth = 10;
 	grid.horizontalGridLineWidth = 10;

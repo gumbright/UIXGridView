@@ -32,14 +32,15 @@
 	UIView* view = [[UIView alloc] initWithFrame:frame];
 	self.view = view;
 //	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_VertConstrained selectionType: UIXGridViewSelectionType_Single];
-	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyle_VertConstrained];
+	UIXGridView* gv =[[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleVertConstrained];
 	//gv.momentary = NO;
 	//gv.multiSelect = NO;
 	gv.gridDelegate = self;
 	gv.dataSource = self;
 	gv.backgroundColor = [UIColor whiteColor];
-	gv.selectionColor = [UIColor redColor];
-	self.title = @"Constrained Momentary";
+//	gv.selectionColor = [UIColor whiteColor];
+    gv.selectionStyle = UIXGridViewSelectionStyleSingle;
+	self.title = @"Vert Constr. Single";
 //	[gv reloadData];
 	[view addSubview:gv];
 	[gv release];
@@ -167,7 +168,7 @@
 					
 				case 3:
 				{
-					cell.textLabel.text = @"Pluo";
+					cell.textLabel.text = @"Pluto";
 					cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
 				}
 					break;
@@ -182,13 +183,24 @@
 			
 	}
 	
+//    cell.textLabel.highlightedTextColor = cell.textLabel.textColor;
 //	if ([indexPath isEqual:self.currentSelection])
 	if ([indexPath compare:self.currentSelection] == NSOrderedSame)
 	{
-//		NSLog(@"place overlay on %@",indexPath);
-		CGRect frame = cell.contentView.frame;
-		overlay.frame = frame;
-		[cell setOverlayView:overlay];
+//		CGRect frame = cell.contentView.frame;
+//		overlay.frame = frame;
+//		[cell setOverlayView:overlay];
+        CGRect frame = cell.contentView.bounds;
+        
+        UIView* v = [[UIView alloc] initWithFrame:frame];
+        v.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.50];
+        UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redcheck"]];
+        frame = CGRectMake(v.bounds.size.width - 28, v.bounds.size.height - 28, 28, 28);
+        iv.frame = frame;
+        
+        [v addSubview:iv];
+        
+        [cell setSelectionOverlayView:v];
 	}
 	
 	return cell;
@@ -211,27 +223,27 @@
 
 - (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath
 {
-#if 0	
-	UIXGridViewCell* cell = [gridView cellAtIndexPath:indexPath];
-	UIAlertView* v = [[[UIAlertView alloc] initWithTitle:@"You picked" 
-												 message:cell.textLabel.text
-												delegate:nil 
-									   cancelButtonTitle:@"Why yes I did!" 
-									   otherButtonTitles:nil] autorelease];
-	[v show];
-#endif	
-	[gridView deselectCellAtIndexPath:indexPath animated:YES];
-	[[gridView cellAtIndexPath:currentSelection] setOverlayView:nil];
+//	[gridView deselectCellAtIndexPath:indexPath animated:YES];
+//	[[gridView cellAtIndexPath:currentSelection] setSelectionOverlayView:nil];
 	self.currentSelection = indexPath;
 	UIXGridViewCell* cell = [gridView cellAtIndexPath:currentSelection];
-	CGRect frame = cell.contentView.frame;
-	overlay.frame = frame;
-	[cell setOverlayView:overlay];
+
+	CGRect frame = cell.contentView.bounds;
+
+    UIView* v = [[UIView alloc] initWithFrame:frame];
+    v.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.50];
+    UIImageView* iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"redcheck"]];
+    frame = CGRectMake(v.bounds.size.width - 28, v.bounds.size.height - 28, 28, 28);
+    iv.frame = frame;
+    
+    [v addSubview:iv];
+    
+	[cell setSelectionOverlayView:v];
 }
 
-- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath
-{
-	return [UIColor orangeColor];
-}
+//- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath
+//{
+//	return [UIColor orangeColor];
+//}
 
 @end
