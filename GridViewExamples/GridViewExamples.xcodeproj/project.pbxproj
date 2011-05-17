@@ -22,6 +22,7 @@
 		9F416D83137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F416D82137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m */; };
 		9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F556DBC12E8AED50066B955 /* SpanningViewController.m */; };
 		9F66415511807DB600D5EF09 /* UIXGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F66415411807DB600D5EF09 /* UIXGridViewCell.m */; };
+		9F66A45A1381D81F00EA7FA2 /* VertConstrainedMultipleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F66A4591381D81F00EA7FA2 /* VertConstrainedMultipleViewController.m */; };
 		9F9AF4821039EECE003E68D7 /* ConstrainedMomentaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */; };
 		9F9AF49C1039F2E5003E68D7 /* earth.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F9AF4931039F2E5003E68D7 /* earth.jpeg */; };
 		9F9AF49D1039F2E5003E68D7 /* jupiter.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9F9AF4941039F2E5003E68D7 /* jupiter.jpeg */; };
@@ -68,6 +69,8 @@
 		9F556DBC12E8AED50066B955 /* SpanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpanningViewController.m; sourceTree = "<group>"; };
 		9F66415311807DB600D5EF09 /* UIXGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIXGridViewCell.h; path = "../UIXGridView files/UIXGridViewCell.h"; sourceTree = SOURCE_ROOT; };
 		9F66415411807DB600D5EF09 /* UIXGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIXGridViewCell.m; path = "../UIXGridView files/UIXGridViewCell.m"; sourceTree = SOURCE_ROOT; };
+		9F66A4581381D81F00EA7FA2 /* VertConstrainedMultipleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VertConstrainedMultipleViewController.h; sourceTree = "<group>"; };
+		9F66A4591381D81F00EA7FA2 /* VertConstrainedMultipleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VertConstrainedMultipleViewController.m; sourceTree = "<group>"; };
 		9F9AF4801039EECE003E68D7 /* ConstrainedMomentaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstrainedMomentaryViewController.h; sourceTree = "<group>"; };
 		9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstrainedMomentaryViewController.m; sourceTree = "<group>"; };
 		9F9AF4931039F2E5003E68D7 /* earth.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = earth.jpeg; path = images/earth.jpeg; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				9F9AF4811039EECE003E68D7 /* ConstrainedMomentaryViewController.m */,
 				9F416D81137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.h */,
 				9F416D82137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m */,
+				9F66A4581381D81F00EA7FA2 /* VertConstrainedMultipleViewController.h */,
+				9F66A4591381D81F00EA7FA2 /* VertConstrainedMultipleViewController.m */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -318,6 +323,7 @@
 				9F556DBD12E8AED50066B955 /* SpanningViewController.m in Sources */,
 				9F14624112EE181A00B8D746 /* UIXGridViewSpanningCell.m in Sources */,
 				9F416D83137DCDCE006A804F /* HorzContrainedSingleHeaderViewController.m in Sources */,
+				9F66A45A1381D81F00EA7FA2 /* VertConstrainedMultipleViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

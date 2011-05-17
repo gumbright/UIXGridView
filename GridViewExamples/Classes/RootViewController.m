@@ -15,6 +15,7 @@
 //#import "GridOnScrollViewController.h"
 //#import "SpanningViewController.h"
 #import "HorzContrainedSingleHeaderViewController.h"
+#import "VertConstrainedMultipleViewController.h"
 
 @implementation RootViewController
 
@@ -80,7 +81,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 2;
+    return 3;
 }
 
 
@@ -106,11 +107,11 @@
 		cell.textLabel.text = @"Horz Constrained";
 		cell.detailTextLabel.text = @"Single Select w/ header & footer";
 	}
-//	else if ([indexPath row] == 2)
-//	{
-//		cell.textLabel.text = @"Horz Constrainted w/ Borders";
-//		cell.detailTextLabel.text = @"lines single select";
-//	}	
+	else if ([indexPath row] == 2)
+	{
+		cell.textLabel.text = @"Vert Constrainted";
+		cell.detailTextLabel.text = @"Multiple selection";
+	}	
 //	else if ([indexPath row] == 3)
 //	{
 //		cell.textLabel.text = @"Header/Footer";
@@ -155,22 +156,14 @@
 		}
 			break;
 			
-//		case 1:
-//		{
-//			VertConstrainedSingleSelectViewController* vertConstrainedSingleSelectViewController = [[VertConstrainedSingleSelectViewController alloc] init];
-//			vertConstrainedSingleSelectViewController.overlay = overlay;
-//			[self.navigationController pushViewController:vertConstrainedSingleSelectViewController animated:YES];
-//			[vertConstrainedSingleSelectViewController release];
-//		}
-//			break;
-//			
-//		case 2:
-//		{
-//			HorzConstrainedMultiSelectViewController* horzConstrainedMultiSelectViewController = [[HorzConstrainedMultiSelectViewController alloc] init];
-//			[self.navigationController pushViewController:horzConstrainedMultiSelectViewController animated:YES];
-//			[horzConstrainedMultiSelectViewController release];
-//		}
-//			break;
+		case 2:
+		{
+			VertConstrainedMultipleViewController* vc = [[VertConstrainedMultipleViewController alloc] init];
+			[self.navigationController pushViewController:vc animated:YES];
+			[vc release];
+		}
+			break;
+			
 //			
 //		case 3:
 //		{
