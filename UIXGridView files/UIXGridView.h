@@ -110,12 +110,14 @@ typedef enum
 	
 	NSMutableSet* selectionIndexPaths;  //selected cell paths
 	
-	NSIndexPath* selectedCellIndexPath;
+//	NSIndexPath* selectedCellIndexPath;
 	
 	NSMutableDictionary* spannedCells; //indexPaths, data is parent cell
     
     UIXGridViewStyle gridStyle;
     UIXGridViewSelectionStyle selectionStyle;
+    
+    BOOL calculateGeometryOnLayout;
     
 }
 
@@ -187,6 +189,7 @@ typedef enum
 - (BOOL) shouldRespondToTouch:(UIXGridViewCell*) cell;
 - (void) informWillSelectCell:(UIXGridViewCell*) cell;
 - (void) informDidSelectCell:(UIXGridViewCell*) cell;
+- (void) informDidUnselectCell:(UIXGridViewCell*) cell;
 
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell;
 

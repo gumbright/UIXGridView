@@ -82,17 +82,11 @@
 - (UIXGridViewCell*) UIXGridView:(UIXGridView*) gridView cellForIndexPath:(NSIndexPath*) indexPath
 {
 	UIXGridViewCell* cell;
-	
-	NSLog(@"cell for %@ curSel = %@",indexPath,self.currentSelection);
-	
+		
 	cell = [gridView dequeueReusableCellWithIdentifier:@"VertSingleCell"];
 	if (cell == nil)
 	{
 		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"VertSingleCell"] autorelease];
-	}
-	else 
-	{
-		NSLog(@"reused cell %08X",cell);
 	}
 
 	switch (indexPath.row)
@@ -147,7 +141,6 @@
 				case 0:
 				{
 					cell.textLabel.text = @"Saturn";
-					NSLog(@"set saturn");
 					cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
 				}
 					break;
@@ -199,8 +192,9 @@
         iv.frame = frame;
         
         [v addSubview:iv];
-        
+        [iv release];
         [cell setSelectionOverlayView:v];
+        [v release];
 	}
 	
 	return cell;
@@ -237,8 +231,9 @@
     iv.frame = frame;
     
     [v addSubview:iv];
-    
+    [iv release];
 	[cell setSelectionOverlayView:v];
+    [v release];
 }
 
 //- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath

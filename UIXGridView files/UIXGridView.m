@@ -87,6 +87,9 @@
 
 	reusableCells = [[NSMutableDictionary dictionary] retain];
 	spannedCells = [[NSMutableDictionary dictionary] retain];
+    
+    calculateGeometryOnLayout = YES;
+    initialSetupDone = YES;
 }
 
 //////////////////////////////////////
@@ -114,6 +117,8 @@
 		initialSetupDone = NO;
         
 		super.delegate = self;
+        
+        [self setup];
 //		self.selectionColor = [UIColor blueColor];
 	}
 	
@@ -154,6 +159,7 @@
 //////////////////////////////////////
 - (void) reloadData
 {
+    calculateGeometryOnLayout = YES;
 	hasNewData = YES;
 	[self layoutSubviews];
 }
@@ -184,7 +190,6 @@
 //////////////////////////////////////
 - (void) calcGeometry
 {
-	
 	switch (style)
 	{
 		case UIXGridViewStyleConstrained:
@@ -291,6 +296,8 @@
 	work = self.frame.size.height - (borderGridLineWidth * 2);
 	work -= cellHeight;
 	numVertCellsVisible = (work / (cellHeight + horizontalGridLineWidth))+1;
+    
+    calculateGeometryOnLayout = NO;
 }
 
 //////////////////////////////////////
@@ -325,12 +332,9 @@
 //////////////////////////////////////
 - (void) clearUnneededCells:(CGRect) workingCells
 {
-//	UIXGridViewCell* cell;
-	
 	CGRect contentRect = self.bounds;
 	contentRect.origin = self.contentOffset;
 
-#if 1	
 	for (UIXGridViewCell* cell in [cells allValues])
 	{
 		CGRect cellRect = cell.frame;
@@ -350,42 +354,6 @@
 			[cells removeObjectForKey:ip];
 		}
 	}
-	
-#else	
-	for (NSIndexPath* ip in [cells allKeys])
-	{
-		BOOL removeCell = YES;
-		
-		CGPoint p = CGPointMake([ip column], [ip row]);
-		if (!CGRectContainsPoint(workingCells, p) || hasNewData) //clear if not displayed or reload
-		{
-			cell = (UIXGridViewCell*)[cells objectForKey:ip];
-			if ([cell isKindOfClass:[UIXGridViewSpanningCell class]])
-			{
-				UIXGridViewSpanningCell* spanningCell = (UIXGridViewSpanningCell*) cell;
-				CGRect spanningRect = CGRectMake([ip column], [ip row], spanningCell.widthInCells, spanningCell.heightInCells);
-				
-				CGRect result = CGRectIntersection(workingCells, spanningRect);
-				if (CGRectIsNull(result))
-				{
-					[self clearSpanned:(UIXGridViewSpanningCell*) cell];
-				}
-				else 
-				{
-					removeCell = NO;
-				}
-
-			}
-
-			if (removeCell)
-			{
-				[cell removeFromSuperview];
-				[self enqueueCell:cell];
-				[cells removeObjectForKey:ip];
-			}
-		}
-	}
-#endif	
 }
 
 
@@ -419,12 +387,11 @@
 	}
 	
 	[self addSubview:cell];
-	if ([selectedCellIndexPath isEqual:ip])
-	{
-		[cell setSelected:YES animated:NO];
-	}
     
-    NSLog(@"ip=%@ rect=%@",ip ,NSStringFromCGRect(frame));
+    if ([selectionIndexPaths containsObject:ip])
+    {
+        [cell setSelected:YES animated:NO];
+    }
 }
 
 //////////////////////////////////////
@@ -466,7 +433,6 @@
 		}
 	}
 	
-//	NSLog(@"xmin=%f xmax=%f ymin=%f ymax=%f",xmin,xmax,ymin,ymax);
 	CGRect r =  CGRectMake(xmin, ymin, MIN(columns,(xmax-xmin)+1), MIN(rows,(ymax-ymin)+1));
 	return r;
 }
@@ -474,31 +440,16 @@
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (void)layoutSubviews
+- (void) updateVisibleCells:(CGRect) workingCells
 {
-    NSLog(@"grid layout subviews");
-    
-	if (!initialSetupDone)
-	{
-		[self setup];
-		initialSetupDone = YES;
-	}
-
-	[self calcGeometry];
-	
-	CGRect workingCells;
-	CGRect frame;
+    CGRect frame;
 	CGSize size;
 	UIXGridViewCell* cell;
-	
-	CGPoint currPos = self.contentOffset;
-
-	workingCells = [self calcWorkingCells];
-	
+    
 	//We have changed what is displaying (either through movement or data), so lets get to it
 	frame = self.frame;	
 	CGFloat baseY = 0;
-
+    
 	//adjust size based on header and footer
 	if (headerView)
 	{
@@ -506,54 +457,41 @@
 		frame = headerView.frame;
 		frame.size.width = contentSize.width;
 		headerView.frame = frame;
-//		contentSize.height += frame.size.height;
 	}
-		
-	if (footerView)
-	{
-		frame = footerView.frame;
-//		frame.size.width = contentSize.width;
-//		footerView.frame = frame;
-//		contentSize.height += frame.size.height;
-	}
-		
+    
 	//clear out the old
 	[self clearUnneededCells:workingCells];
 	
 	//add the new
 	for (NSInteger r = workingCells.origin.y; r < workingCells.origin.y + workingCells.size.height; r++)
 	{
-//		NSLog(@"r=%d",r);
 		for (NSInteger c = workingCells.origin.x; c < workingCells.origin.x + workingCells.size.width; c++)
 		{
-//			NSLog(@"c=%d",c);
 			NSIndexPath* ip = [NSIndexPath indexPathForColumn:c row:r];
-//			NSLog(@"checking %@",ip);
 			
 			UIXGridViewCell* spanningCell = [spannedCells objectForKey:ip];
 			if (spanningCell != nil)
 			{
-//				NSLog(@"bailed on spanned %@",ip);
 				continue; //this cell is covered by a spanning cell, screw it
 			}
 			
 			UIView* v = [cells objectForKey:ip];  
 			if (v == nil) //if cell not currently displayed
 			{
-//				NSLog(@"need cell for %@",ip);
 				cell = [self.dataSource UIXGridView:self cellForIndexPath:ip];   
 				if (cell != nil)
 				{
-//					NSLog(@"got %X for cell at %@",cell,ip);
 					if ([cell isKindOfClass:[UIXGridViewSpannedCell class]])
 					{
 						NSIndexPath* spanningIndexPath = nil;
 						
 						UIXGridViewSpanningCell* spanningCell = [self.dataSource UIXGridView:self
 																		 spanningCellAtIndex:&spanningIndexPath
-																					forSpannedCellAt:ip];
-
-						[self placeCell:spanningCell atIndex:spanningIndexPath size:[self spanningCellSize:spanningCell]];
+                                                                            forSpannedCellAt:ip];
+                        
+						[self placeCell:spanningCell 
+                                atIndex:spanningIndexPath 
+                                   size:[self spanningCellSize:spanningCell]];
 						
 						//skip the rest
 						continue;
@@ -568,35 +506,49 @@
 					{
 						size = CGSizeMake(cellWidth, cellHeight);
 					}
-						
+                    
 					[self placeCell:cell atIndex:ip size:size];
+                    [cell setNeedsLayout];
 					[self setNeedsDisplay];
 				}	
-				else 
-				{
-					// FIXME: throw exception
-				}
 			}
 		}//end for
 	}//end for
 	
-	currentlyDisplayedCells = workingCells;
 	
 	if (footerView)
 	{
 		frame = footerView.frame;
 		frame.size.width = contentSize.width;
         frame.origin.y = contentSize.height - frame.size.height;
-//		frame.origin.y = baseY+(cellHeight * rows);
 		footerView.frame = frame;
 	}
-		
+    
 	self.contentSize = contentSize;	
+    
+	hasNewData = NO;    
+}
 
-	hasNewData = NO;
-
-	[self setNeedsDisplay];
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void)layoutSubviews
+{
+    if (calculateGeometryOnLayout)
+    {
+        [self calcGeometry];
+    }
 	
+	CGRect workingCells;
+    
+	workingCells = [self calcWorkingCells];
+	
+    if (!CGRectEqualToRect(workingCells, currentlyDisplayedCells))
+    {
+        [self updateVisibleCells:workingCells];
+        currentlyDisplayedCells = workingCells;
+    }
+    
 	[super layoutSubviews];
 }
 
@@ -645,15 +597,41 @@
 	
 	if (p != nil)
 	{
-		[self clearSelection];
-		[selectedCellIndexPath release];
-		selectedCellIndexPath = [p retain];
-		
+        if (selectionStyle != UIXGridViewSelectionStyleMultiple)
+        {
+            [self clearSelection];
+            //            [selectedCellIndexPath release];
+		}
+        
+        [selectionIndexPaths addObject:p];
+        //		selectedCellIndexPath = [p retain];
+        
 		if (self.gridDelegate != nil)
 		{
 			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didSelectCellAtIndexPath:)])
 			{
 				[self.gridDelegate UIXGridView: self  didSelectCellAtIndexPath:p];
+			}
+		}
+	}
+}
+
+/////////////////////////////////////////////////
+// !!!: this only gets applied in multi, should be any
+/////////////////////////////////////////////////
+- (void) informDidUnselectCell:(UIXGridViewCell*) cell
+{
+	NSIndexPath* p = [self indexPathForCell:cell];
+	
+	if (p != nil)
+	{
+        [selectionIndexPaths removeObject:p];
+        
+		if (self.gridDelegate != nil)
+		{
+			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didDeselectCellAtIndexPath:)])
+			{
+				[self.gridDelegate UIXGridView: self  didDeselectCellAtIndexPath:p];
 			}
 		}
 	}
@@ -708,9 +686,6 @@
 	// FIXME: this will fail if try to deselect cell not selected
 	
 	[selectionIndexPaths removeObject:indexPath];
-	[selectedCellIndexPath release];
-	selectedCellIndexPath = nil;
-	//	[self setNeedsDisplay];
 }
 
 //////////////////////////////////////
@@ -750,9 +725,9 @@
 /////////////////////////////////////////////////
 //
 /////////////////////////////////////////////////
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//}
 
 
 //////////////////////////////////////
@@ -781,7 +756,6 @@
 			frame.origin.x = insetAdjust;
 			frame.origin.y = insetAdjust;
 			frame.size.width = contentSize.width-borderGridLineWidth;
-//			frame.size.height = contentSize.height-borderGridLineWidth;
 			frame.size.height = contentSize.height;
             
             //adjust for header & footer
@@ -827,14 +801,12 @@
 			CGContextSetLineWidth(context, verticalGridLineWidth);
 			for (CGFloat ndx = 1.0; ndx < (columns); ++ndx)
 			{
-				//start.y = borderGridLineWidth;
                 start.y = borderGridLineWidth;
                 if (headerView != nil)
                 {
                     start.y += headerView.bounds.size.height;
                 }
                 
-				//end.y = contentSize.height - borderGridLineWidth;
 				end.y = contentSize.height - borderGridLineWidth;
                 if (footerView != nil)
                 {
@@ -868,24 +840,6 @@
 	[super drawRect:rect];
 }
 
-/////////////////////////////////////////////
-//
-/////////////////////////////////////////////
-//- (NSArray*) selectedCells
-//{
-//	NSMutableArray* arr = [NSMutableArray array];
-//	
-//	for (UIXGridViewCell* cell in [cells allValues])
-//	{
-//		if (cell.selected)
-//		{
-//			[arr addObject:cell];
-//		}
-//	}
-//	
-//	return arr;
-//}
-
 ///////////////////////////////////////////////////////////////////////////////	
 ///////////////////////////////////////////////////////////////////////////////	
 // External methods
@@ -908,30 +862,6 @@
 {
 	return [selectionIndexPaths containsObject:path];
 }
-
-/////////////////////////////////////////////
-//
-/////////////////////////////////////////////
-//- (NSArray*) selectedCells
-//{
-//	NSMutableArray* arr = [NSMutableArray array];
-//	
-//	for (UIXGridViewCell* cell in [cells allValues])
-//	{
-//		if (cell.selected)
-//		{
-//			[arr addObject:cell];
-//		}
-//	}
-//	
-//	return arr;
-//}
-
-///////////////////////////////////////////////////////////////////////////////	
-///////////////////////////////////////////////////////////////////////////////	
-// External methods
-///////////////////////////////////////////////////////////////////////////////	
-///////////////////////////////////////////////////////////////////////////////	
 
 /////////////////////////////////////////////////
 //
@@ -1148,17 +1078,6 @@
 	return result;
 }
 
-/////////////////////////////////////////////////
-//
-/////////////////////////////////////////////////
-//- (void) clearSelection
-//{
-//	while ([selectionIndexPaths count] > 0)
-//	{
-//		[self deselectCellAtIndexPath:[[selectionIndexPaths allObjects] objectAtIndex:0]];
-//	}
-//}
-
 #pragma mark new arch
 
 /////////////////////////////////////////////////
@@ -1188,12 +1107,19 @@
 /////////////////////////////////////////////////
 - (void) clearSelection
 {
-	if (selectedCellIndexPath != nil)
-	{
-		[self deselectCellAtIndexPath:selectedCellIndexPath animated:NO];
-		[selectedCellIndexPath release];
-		selectedCellIndexPath = nil;
-	}
+//	if (selectedCellIndexPath != nil)
+//	{
+//		[self deselectCellAtIndexPath:selectedCellIndexPath animated:NO];
+//		[selectedCellIndexPath release];
+//		selectedCellIndexPath = nil;
+//	}
+    
+    for (NSIndexPath* ip in  [selectionIndexPaths allObjects])
+    {
+		[self deselectCellAtIndexPath:ip animated:NO];
+    }
+    
+    [selectionIndexPaths removeAllObjects];
 }
 
 

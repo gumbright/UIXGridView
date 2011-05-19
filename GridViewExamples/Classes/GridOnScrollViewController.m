@@ -98,7 +98,7 @@
 	
 	if (cell == nil)
 	{
-		cell = [[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"goscell"];
+		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"goscell"] autorelease];
 		
 		UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 140, 130)];
 		iv.tag = 111;
@@ -179,7 +179,7 @@
 	UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"goscell"];
 	if (cell == nil)
 	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"goscell"];
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"goscell"] autorelease];
 	}
 	
 	cell.textLabel.text = @"Banana";
@@ -188,7 +188,6 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSLog(@"will select cell");
 	return indexPath;
 }
 
@@ -206,7 +205,6 @@
 
 - (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath
 {
-	NSLog(@"did select cell");
 	[self performSelector:@selector(removeSelection:) withObject: indexPath afterDelay:0];
 }
 @end

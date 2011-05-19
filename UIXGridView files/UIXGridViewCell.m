@@ -30,7 +30,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
         UIView *subView = [view.subviews objectAtIndex:i];
         NSString *newIndent = [[NSString alloc] initWithFormat:@"  %@", indent];
         NSString *msg = [[NSString alloc] initWithFormat:@"%@%d:", newIndent, i];
-        dumpViews(subView, msg, newIndent);
+        //dumpViews(subView, msg, newIndent);
         [msg release];
         [newIndent release];
     }
@@ -198,7 +198,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	if (selectedBackgroundView == nil)
 	{
 		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-		_displayedSelectedBackgroundView.tag = 333;
 		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
 		_displayedSelectedBackgroundView.backgroundColor = bgColor;
 	}
@@ -285,7 +284,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	{
 		[self restoreSubviews:contentView];
 		highlighted = NO;
-		selected = NO;
 
 		[_displayedSelectedBackgroundView removeFromSuperview];
 		_displayedSelectedBackgroundView = nil;
@@ -353,22 +351,32 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 - (void)prepareForReuse
 {
 	[self setSelected:NO animated:NO];
-	highlighted = NO;
-	selected = NO;
+	[self setHighlighted:NO animated:NO];
 	unhighlighting = NO;
-	self.selectedBackgroundView = nil;
+    
 	if (_displayedSelectedBackgroundView != nil)
 	{
 		[_displayedSelectedBackgroundView removeFromSuperview];
 		_displayedSelectedBackgroundView = nil;
 	}
+    
 	if (_textLabel != nil)
 	{
 		[_textLabel removeFromSuperview];
 		_textLabel = nil;
 	}
 	
-	self.selectionOverlayView = nil;
+	if (_imageView != nil)
+	{
+		[_imageView removeFromSuperview];
+		_imageView = nil;
+	}
+	
+    if (_displayedSelectionOverlayView != nil)
+    {
+        [_displayedSelectionOverlayView removeFromSuperview];
+        _displayedSelectionOverlayView = nil;
+    }
 }
 
 //////////////////////////////////////
@@ -379,7 +387,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	if (_textLabel == nil)
 	{
 		_textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_textLabel.tag = 444;
 		
 		UIFont* font = _textLabel.font;
 		CGRect frame = _textLabel.frame;
@@ -391,7 +398,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		_textLabel.highlightedTextColor = [UIColor whiteColor];
 		
 		[self.contentView insertSubview:_textLabel atIndex:0];
-		//[self setNeedsLayout];
 				
 		[_textLabel release];
 		
@@ -458,7 +464,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	{
 		_imageView.frame = remaining;
 	}
-
+    //dumpViews(self, @"laidout", @" ");
 }
 
 
@@ -484,6 +490,8 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     _displayedSelectionOverlayView.frame = self.bounds;
     [self addSubview:_displayedSelectionOverlayView];
     
+//    dumpViews(self, @"select", @"  ");
+    
 #if 0
 	// note: animation on selection not currently supported
 	
@@ -492,7 +500,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	if (selectedBackgroundView == nil)
 	{
 		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-		_displayedSelectedBackgroundView.tag = 333;
 		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
 		_displayedSelectedBackgroundView.backgroundColor = bgColor;
 	}
@@ -525,6 +532,8 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
         [_displayedSelectionOverlayView removeFromSuperview];
         _displayedSelectionOverlayView = nil;
     }
+    
+//    dumpViews(self, @"unselect", @"  ");
     
 #if 0    
 	if (animated)
@@ -584,7 +593,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		[self unselectCell: animate];
 	}
 	
-	selected = f;
+//	selected = f;
 }
 
 ///////////////////////////////////
@@ -672,8 +681,16 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
             case UIXGridViewSelectionStyleMultiple:
             {
                 // !!!:need to toggle selection
-                [self setSelected:!self.selected animated:YES];
-                [[self gridView] informDidSelectCell:self];
+                BOOL newState = !self.selected;
+                [self setSelected:newState animated:YES];
+                if (newState == YES)
+                {
+                    [[self gridView] informDidSelectCell:self];
+                }
+                else
+                {
+                    [[self gridView] informDidUnselectCell:self];
+                }
             }
                 break;
                 
@@ -709,7 +726,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //
 //////////////////////////////////////
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+{    
     if (!self.highlighted)
     {
         [self setHighlighted:YES animated:YES];
@@ -766,5 +783,8 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     return self;
 }
 
-
+- (void) dealloc
+{
+    [super dealloc];
+}
 @end

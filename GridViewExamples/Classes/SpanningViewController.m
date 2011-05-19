@@ -126,10 +126,10 @@
 	UIXGridViewSpanningCell* cell = [gridView dequeueReusableCellWithIdentifier:@"spanning"];
 	if (cell == nil)
 	{
-		cell = [[UIXGridViewSpanningCell alloc] initWithStyle:UIXGridViewCellStyleDefault 
+		cell = [[[UIXGridViewSpanningCell alloc] initWithStyle:UIXGridViewCellStyleDefault 
 											  reuseIdentifier:@"spanning"
 												 widthInCells:2 
-												heightInCells:2];
+												heightInCells:2] autorelease];
 		UIImageView* v = [[UIImageView alloc] initWithFrame:cell.contentView.bounds];
 		v.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		v.image = [UIImage imageNamed:@"album9e.jpg"];

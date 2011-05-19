@@ -75,58 +75,64 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (UIXGridViewCell*) UIXGridView:(UIXGridView*) gridView cellForIndexPath:(NSIndexPath*) indexPath
+- (UIXGridViewCell*) getCellForGridView:(UIXGridView*) gridView
 {
-	UIXGridViewCell* cell;
-		
+	UIXGridViewCell* cell=nil;
+    
 	cell = [gridView dequeueReusableCellWithIdentifier:@"VertSingleCell"];
 	if (cell == nil)
 	{
 		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:@"VertSingleCell"] autorelease];
-	}
-	else 
-	{
-		NSLog(@"reused cell %08X",cell);
+//		cell = [[[UIXGridViewCell alloc] initWithStyle:UIXGridViewCellStyleDefault reuseIdentifier:nil] autorelease];
 	}
     
+    return cell;
+}
+
+- (UIXGridViewCell*) UIXGridView:(UIXGridView*) gridView cellForIndexPath:(NSIndexPath*) indexPath
+{
+	UIXGridViewCell* cell=nil;
+		
 	switch (indexPath.row)
 	{
 		case 0:
 		{
+            cell = [self getCellForGridView:gridView];
+            
 			switch (indexPath.column)
 			{
 				case 0:
 				{
-					cell.textLabel.text = @"Mercury";
 					cell.imageView.image = [UIImage imageNamed:@"mercury.jpeg"];
+					cell.textLabel.text = @"Mercury";
 				}
 					break;
 					
 				case 1:
 				{
-					cell.textLabel.text = @"Venus";
 					cell.imageView.image = [UIImage imageNamed:@"venus.jpeg"];
+					cell.textLabel.text = @"Venus";
 				}
 					break;
 					
 				case 2:
 				{
-					cell.textLabel.text = @"Earth";
 					cell.imageView.image = [UIImage imageNamed:@"earth.jpeg"];
+					cell.textLabel.text = @"Earth";
 				}
 					break;
 					
 				case 3:
 				{
-					cell.textLabel.text = @"Mars";
 					cell.imageView.image = [UIImage imageNamed:@"mars.jpeg"];
+					cell.textLabel.text = @"Mars";
 				}
 					break;
 					
 				case 4:
 				{
-					cell.textLabel.text = @"Jupiter";
 					cell.imageView.image = [UIImage imageNamed:@"jupiter.jpeg"];
+					cell.textLabel.text = @"Jupiter";
 				}
 					break;
 			}
@@ -140,30 +146,33 @@
 					
 				case 0:
 				{
-					cell.textLabel.text = @"Saturn";
-					NSLog(@"set saturn");
+                    cell = [self getCellForGridView:gridView];
 					cell.imageView.image = [UIImage imageNamed:@"saturn.jpeg"];
+					cell.textLabel.text = @"Saturn";
 				}
 					break;
 					
 				case 1:
 				{
-					cell.textLabel.text = @"Neptune";
+                    cell = [self getCellForGridView:gridView];
 					cell.imageView.image = [UIImage imageNamed:@"neptune.jpeg"];
+					cell.textLabel.text = @"Neptune";
 				}
 					break;
 					
 				case 2:
 				{
-					cell.textLabel.text = @"Uranus";
+                    cell = [self getCellForGridView:gridView];
 					cell.imageView.image = [UIImage imageNamed:@"uranus.jpeg"];
+					cell.textLabel.text = @"Uranus";
 				}
 					break;
 					
 				case 3:
 				{
-					cell.textLabel.text = @"Pluto";
+                    cell = [self getCellForGridView:gridView];
 					cell.imageView.image = [UIImage imageNamed:@"pluto.jpeg"];
+					cell.textLabel.text = @"Pluto";
 				}
 					break;
 					
@@ -176,6 +185,7 @@
 			break;
 	}
 		
+    //dumpViews(cell,@"cell",@" ");
 	return cell;
 }
 
