@@ -63,6 +63,7 @@
 
 @synthesize gridStyle;
 @synthesize selectionStyle;
+@synthesize overlayStyle;
 
 //////////////////////////////////////
 //
@@ -171,16 +172,19 @@
 {
 //	NSLog(@"cell enqueued: %08X",cell);
 
-	NSMutableArray* arr = [reusableCells objectForKey:cell.reuseIdentifier];
-	if (arr == nil)
-	{
-		arr = [NSMutableArray array];
-		[reusableCells setObject:arr forKey:cell.reuseIdentifier];
-	}
-	
-	[cell prepareForReuse];
-	
-	[arr addObject:cell]; 
+    if (cell.reuseIdentifier != nil)
+    {
+        NSMutableArray* arr = [reusableCells objectForKey:cell.reuseIdentifier];
+        if (arr == nil)
+        {
+            arr = [NSMutableArray array];
+            [reusableCells setObject:arr forKey:cell.reuseIdentifier];
+        }
+        
+        [cell prepareForReuse];
+        
+        [arr addObject:cell]; 
+    }
 }
 
 //////////////////////////////////////

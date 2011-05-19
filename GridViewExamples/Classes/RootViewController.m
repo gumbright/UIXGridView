@@ -8,12 +8,7 @@
 
 #import "RootViewController.h"
 #import "ConstrainedMomentaryViewController.h"
-//#import "VertConstrainedSingleSelectViewController.h"
-//#import "HorzConstrainedMultiSelectViewController.h"
-//#import "HeaderFooterViewController.h"
-//#import "UnconstrainedViewController.h"
-//#import "GridOnScrollViewController.h"
-//#import "SpanningViewController.h"
+#import "SpanningViewController.h"
 #import "HorzContrainedSingleHeaderViewController.h"
 #import "VertConstrainedMultipleViewController.h"
 
@@ -81,7 +76,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 3;
+    return 4;
 }
 
 
@@ -112,11 +107,11 @@
 		cell.textLabel.text = @"Vert Constrainted";
 		cell.detailTextLabel.text = @"Multiple selection";
 	}	
-//	else if ([indexPath row] == 3)
-//	{
-//		cell.textLabel.text = @"Header/Footer";
-//		cell.detailTextLabel.text = @"simple select";
-//	}
+	else if ([indexPath row] == 3)
+	{
+		cell.textLabel.text = @"Spanning cells";
+		cell.detailTextLabel.text = @"simple select";
+	}
 //	else if ([indexPath row] == 4)
 //	{
 //		cell.textLabel.text = @"Unconstrained";
@@ -163,7 +158,15 @@
 			[vc release];
 		}
 			break;
-			
+
+		case 3:
+        {
+            SpanningViewController* vc = [[SpanningViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+        }
+            break;
+
 //			
 //		case 3:
 //		{

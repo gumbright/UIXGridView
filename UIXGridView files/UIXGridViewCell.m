@@ -788,3 +788,39 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     [super dealloc];
 }
 @end
+
+@implementation UIXGridViewCheckView
+#pragma mark -
+#pragma mark UIXGridViewCheckView
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (id) init
+{
+    self = [super initWithFrame:CGRectMake(0, 0, 30, 30)];
+    if (self != nil)
+    {
+        
+    }
+    
+    return self;
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void) drawRect:(CGRect)rect
+{
+	CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [[UIColor blackColor] set];
+    
+    CGContextMoveToPoint(context, 5, 15);
+    CGContextAddLineToPoint(context, 15, 25);    
+    CGContextAddLineToPoint(context, 25, 5);
+
+    CGContextClosePath(context);  
+    CGContextDrawPath(context, kCGPathStroke);	
+
+}
+@end

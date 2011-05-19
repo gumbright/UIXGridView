@@ -58,23 +58,15 @@ typedef enum
     UIXGridViewSelectionStyleMomentary
 } UIXGridViewSelectionStyle;
 
+typedef enum
+{
+    UIXGridViewOverlayStyleCheckmark=0,
+    UIXGridViewOverlayStyleImage
+} UIXGridViewOverlayStyle;
+
 @interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
-	//configuration
-//	UIColor* selectionColor;
-	UIEdgeInsets cellInsets;
-	
-	id <UIXGridViewDataSource> dataSource;
-	id <UIXGridViewDelegate> gridDelegate;
-	
-	NSInteger style;
-//	NSInteger selectionType;
 	BOOL initialSetupDone;
-	
-	//attribute
-	BOOL constrainHorzToScreenSize;
-	BOOL constrainVertToScreenSize;
-	BOOL customSelect;
 	
 	//operational
 	BOOL startSelect;
@@ -86,21 +78,7 @@ typedef enum
 	NSInteger numHorzCellsVisible;
 	NSInteger numVertCellsVisible;
 	
-	//geometry
-	NSInteger columns;
-	NSInteger rows;
-	CGFloat cellWidth;
-	CGFloat cellHeight;
 	CGSize contentSize;
-	
-	//gridlines
-	CGFloat horizontalGridLineWidth;
-	CGFloat verticalGridLineWidth;
-	CGFloat borderGridLineWidth;
-	UIColor* gridLineColor;
-	
-	UIView* headerView;
-	UIView* footerView;
 	
 	BOOL hasNewData;
 	
@@ -110,12 +88,7 @@ typedef enum
 	
 	NSMutableSet* selectionIndexPaths;  //selected cell paths
 	
-//	NSIndexPath* selectedCellIndexPath;
-	
 	NSMutableDictionary* spannedCells; //indexPaths, data is parent cell
-    
-    UIXGridViewStyle gridStyle;
-    UIXGridViewSelectionStyle selectionStyle;
     
     BOOL calculateGeometryOnLayout;
     
@@ -128,12 +101,10 @@ typedef enum
 @property (assign) BOOL customSelect;
 
 @property (readonly) NSInteger style;
-//@property (readonly) NSInteger selectionType;
 
 @property (assign) id dataSource;
 @property (assign) id gridDelegate;
 @property UIEdgeInsets cellInsets;
-//@property (nonatomic, retain) UIColor* selectionColor;
 
 @property (nonatomic, retain) UIView* headerView;
 @property (nonatomic, retain) UIView* footerView;
@@ -148,6 +119,7 @@ typedef enum
 
 @property (readonly) UIXGridViewStyle gridStyle;
 @property (assign) UIXGridViewSelectionStyle selectionStyle;
+@property (assign) UIXGridViewOverlayStyle overlayStyle;
 
 - (id)initWithFrame:(CGRect) frame 
            andStyle:(UIXGridViewStyle) style;
@@ -176,11 +148,6 @@ typedef enum
 
 - (UIXGridViewCell *)dequeueReusableCellWithIdentifier:(NSString *)identifier;
 
-//touch notifications from cells (best treated private)
-//- (void) cellTouched:(UIXGridViewCell*) cell;
-//- (void) cellReleased:(UIXGridViewCell*) cell;
-//- (void) cellTouchMoved:(UIXGridViewCell*) cell withEvent:(UIEvent*) event;
-
 //////////////////////////////////
 // new cell arch
 //////////////////////////////////
@@ -194,13 +161,6 @@ typedef enum
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell;
 
 @end
-
-//typedef enum 
-//{
-//	UIXGridViewCellSelectionStyleNone,
-//	UIXGridViewCellSelectionStyleRect,
-//	UIXGridViewCellSelectionStyleRoundRect  //going to need the radius eventually
-//} UIXGridViewCellSelectionStyle;
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////

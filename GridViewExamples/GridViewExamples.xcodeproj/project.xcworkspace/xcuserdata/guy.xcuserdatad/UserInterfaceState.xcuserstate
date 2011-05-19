@@ -1002,10 +1002,10 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>327468907.18240702</real>
-		<string>{3383, 2251}</string>
+		<real>327470023.32191402</real>
+		<string>{3396, 2238}</string>
 		<false/>
-		<string>{4583, 0}</string>
+		<string>{3983, 0}</string>
 		<dict>
 			<key>$classes</key>
 			<array>
@@ -5513,9 +5513,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>327468907.18635601</real>
-		<string>{3383, 2251}</string>
-		<string>{4583, 0}</string>
+		<real>327470023.32435697</real>
+		<string>{3396, 2238}</string>
+		<string>{3983, 0}</string>
 		<string>-allocSpanningCellForGrid:</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
