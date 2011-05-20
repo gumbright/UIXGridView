@@ -50,6 +50,8 @@
 	gv.backgroundColor = [UIColor whiteColor];
 	self.title = @"Vert Constr. Multiple";
 
+    gv.overlayStyle = UIXGridViewOverlayStyleImage;
+    gv.overlayIconImage = [UIImage imageNamed:@"redcheck"];
 	[view addSubview:gv];
 	[gv release];
 }

@@ -464,7 +464,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	{
 		_imageView.frame = remaining;
 	}
-    //dumpViews(self, @"laidout", @" ");
 }
 
 
@@ -478,8 +477,20 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     
     if (selectionOverlayView == nil)
     {
-        overlayView = [[UIXGridViewSelectionOverlayView alloc] init];
-        //alloc default
+        switch ([[self gridView] selectionStyle])
+        {
+            case UIXGridViewOverlayStyleCheckmark:
+            {
+                overlayView = [[UIXGridViewSelectionOverlayView alloc] init];               
+            }
+                break;
+                
+            case UIXGridViewOverlayStyleImage:
+            {
+                overlayView = [[UIXGridViewSelectionOverlayView alloc] initWithImage:[[self gridView] overlayIconImage]];
+            }
+                break;
+        }
     }
     else
     {
@@ -489,36 +500,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     _displayedSelectionOverlayView = overlayView;
     _displayedSelectionOverlayView.frame = self.bounds;
     [self addSubview:_displayedSelectionOverlayView];
-    
-//    dumpViews(self, @"select", @"  ");
-    
-#if 0
-	// note: animation on selection not currently supported
-	
-	UIColor* bgColor;
-	
-	if (selectedBackgroundView == nil)
-	{
-		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
-		_displayedSelectedBackgroundView.backgroundColor = bgColor;
-	}
-	else 
-	{
-		_displayedSelectedBackgroundView = selectedBackgroundView;
-	}
-	
-	[self insertSubview:_displayedSelectedBackgroundView aboveSubview:backgroundView];
-	
-	CGRect frame;
-	frame.size = self.frame.size;
-	frame.origin = CGPointMake(0, 0);
-	_displayedSelectedBackgroundView.frame = frame;
-	
-	selected = YES;
-	
-	self.highlighted = YES;
-#endif    
 }
 
 ///////////////////////////////////
@@ -531,36 +512,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     {
         [_displayedSelectionOverlayView removeFromSuperview];
         _displayedSelectionOverlayView = nil;
-    }
-    
-//    dumpViews(self, @"unselect", @"  ");
-    
-#if 0    
-	if (animated)
-	{
-		[UIView beginAnimations:@"backgroundFade1" context:nil];
-		[UIView setAnimationDuration:0.15];
-		[UIView setAnimationDelegate:self];
-		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-		_displayedSelectedBackgroundView.alpha = 0.5;
-		[UIView commitAnimations];
-	}
-	else 
-	{
-		[self unhighlightSubviews:contentView];
-		[self restoreSubviews:contentView];
-		highlighted = NO;
-		
-		[_displayedSelectedBackgroundView removeFromSuperview];
-		_displayedSelectedBackgroundView = nil;
-		if (selectedBackgroundView != nil)
-		{
-			selectedBackgroundView.alpha = 1.0;
-		}
-		selected = NO;	//does not use accessor as it causes a cycle	
-		self.highlighted = NO;
-	}
-#endif    
+    }    
 }
 
 ///////////////////////////////////
@@ -766,22 +718,38 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //////////////////////////////////////
 //
 //////////////////////////////////////
-- (id) init
+- (id) initWithImage:(UIImage*) image
 {
     self = [super initWithFrame:CGRectMake(0, 0, 50, 50)];
     if (self != nil)
     {
         self.backgroundColor = [UIColor clearColor];
         
-        icon = [[UIXGridViewCheckView alloc] init];
-        //icon = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
-        //icon.backgroundColor = [UIColor redColor];
-        icon.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        [self addSubview:icon];
-        [icon release];
+        if (image == nil)
+        {
+            icon = [[UIXGridViewCheckView alloc] init];
+            icon.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+            [self addSubview:icon];
+            [icon release];
+        }
+        else
+        {
+            iconImage = [[UIImageView alloc] initWithImage:image];
+            icon.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+            [self addSubview:iconImage];
+            [iconImage release];
+        }
     }
     
     return self;
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (id) init
+{
+    return [self initWithImage:nil];
 }
 
 //////////////////////////////////////
@@ -797,11 +765,23 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //////////////////////////////////////
 - (void) layoutSubviews
 {
-    CGRect r = icon.frame;
-    r.origin.x = self.bounds.size.width - (r.size.width + 10);
-    r.origin.y = self.bounds.size.height - (r.size.height + 10);
-    
-    icon.frame = r;
+    if (icon != nil)
+    {
+        CGRect r = icon.frame;
+        r.origin.x = self.bounds.size.width - (r.size.width + 10);
+        r.origin.y = self.bounds.size.height - (r.size.height + 10);
+        
+        icon.frame = r;
+    }
+    else
+    {
+        CGRect r = iconImage.frame;
+        CGSize isz = iconImage.image.size;
+        r.size = isz;
+        r.origin.x = self.bounds.size.width - (r.size.width + 10);
+        r.origin.y = self.bounds.size.height - (r.size.height + 10);
+        iconImage.frame = r;
+    }
 }
 @end
 

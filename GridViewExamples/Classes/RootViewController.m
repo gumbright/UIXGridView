@@ -105,7 +105,7 @@
 	else if ([indexPath row] == 2)
 	{
 		cell.textLabel.text = @"Vert Constrainted";
-		cell.detailTextLabel.text = @"Multiple selection";
+		cell.detailTextLabel.text = @"Multiple selection, custom icon";
 	}	
 	else if ([indexPath row] == 3)
 	{

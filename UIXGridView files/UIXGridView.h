@@ -120,6 +120,7 @@ typedef enum
 @property (readonly) UIXGridViewStyle gridStyle;
 @property (assign) UIXGridViewSelectionStyle selectionStyle;
 @property (assign) UIXGridViewOverlayStyle overlayStyle;
+@property (nonatomic, retain) UIImage* overlayIconImage;
 
 - (id)initWithFrame:(CGRect) frame 
            andStyle:(UIXGridViewStyle) style;

@@ -64,6 +64,7 @@
 @synthesize gridStyle;
 @synthesize selectionStyle;
 @synthesize overlayStyle;
+@synthesize overlayIconImage;
 
 //////////////////////////////////////
 //
@@ -91,6 +92,8 @@
     
     calculateGeometryOnLayout = YES;
     initialSetupDone = YES;
+    overlayIconImage = nil;
+    overlayStyle = UIXGridViewOverlayStyleCheckmark;
 }
 
 //////////////////////////////////////

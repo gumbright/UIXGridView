@@ -85,8 +85,9 @@ typedef enum
 @interface UIXGridViewSelectionOverlayView : UIView 
 {
     UIView* icon;
-    UIImageView* v;
+    UIImageView* iconImage;
 }
 
 - (id) init;
+- (id) initWithImage:(UIImage*) image;
 @end
