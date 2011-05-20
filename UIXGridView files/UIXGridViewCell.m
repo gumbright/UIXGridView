@@ -773,8 +773,9 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     {
         self.backgroundColor = [UIColor clearColor];
         
-        icon = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
-        icon.backgroundColor = [UIColor redColor];
+        icon = [[UIXGridViewCheckView alloc] init];
+        //icon = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 30, 30)];
+        //icon.backgroundColor = [UIColor redColor];
         icon.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         [self addSubview:icon];
         [icon release];
@@ -783,9 +784,24 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     return self;
 }
 
+//////////////////////////////////////
+//
+//////////////////////////////////////
 - (void) dealloc
 {
     [super dealloc];
+}
+
+//////////////////////////////////////
+//
+//////////////////////////////////////
+- (void) layoutSubviews
+{
+    CGRect r = icon.frame;
+    r.origin.x = self.bounds.size.width - (r.size.width + 10);
+    r.origin.y = self.bounds.size.height - (r.size.height + 10);
+    
+    icon.frame = r;
 }
 @end
 
@@ -800,7 +816,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     self = [super initWithFrame:CGRectMake(0, 0, 30, 30)];
     if (self != nil)
     {
-        
+        self.backgroundColor = [UIColor clearColor];
     }
     
     return self;
@@ -814,12 +830,14 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	CGContextRef context = UIGraphicsGetCurrentContext();
     
     [[UIColor blackColor] set];
+    CGContextSetLineWidth(context, 5);
+    CGContextSetLineCap(context, kCGLineCapRound);
     
-    CGContextMoveToPoint(context, 5, 15);
+    CGContextMoveToPoint(context, 8, 18);
     CGContextAddLineToPoint(context, 15, 25);    
     CGContextAddLineToPoint(context, 25, 5);
 
-    CGContextClosePath(context);  
+//    CGContextClosePath(context);  
     CGContextDrawPath(context, kCGPathStroke);	
 
 }
