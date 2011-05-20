@@ -68,14 +68,12 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		
 		v = [[UIView alloc] initWithFrame:CGRectZero];
 		[self addSubview:v];
-//		v.tag = 111;
 		self.backgroundView = v;
 		[v release];
 		backgroundView.backgroundColor = [UIColor whiteColor];
 		selectedBackgroundView = nil;
 		
 		v = [[UIView alloc] initWithFrame:CGRectZero];
-//		v.tag = 222;
 		[self addSubview:v];
 		v.backgroundColor = [UIColor clearColor];
 		[v release];
@@ -160,17 +158,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		if (hasHighlight)
 		{
 			[((id) subview) setHighlighted:YES];
-//            [subview setNeedsDisplay];
-//
-//            if ([[subview class] isEqual:[UILabel class]])
-//            {
-//                UILabel* l = (UILabel*) subview;
-//                UIColor* c = l.highlightedTextColor;
-//                BOOL h = l.highlighted;
-//                int x = 999;
-//                //l.textColor = [UIColor whiteColor];
-//            }
-            
 		}
 		 
 		 subview.opaque = NO;
@@ -295,15 +282,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 
 		
 }
-
-//////////////////////////////////////
-//
-//////////////////////////////////////
-//- (void) unhighlightCell
-//{
-//	[self restoreSubviews:contentView];
-//}
-
 
 //////////////////////////////////////
 //
@@ -544,8 +522,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	{
 		[self unselectCell: animate];
 	}
-	
-//	selected = f;
 }
 
 ///////////////////////////////////
@@ -652,26 +628,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
             }
                 break;
         }
-        // ???: should this logic be moved into setSelection?  Yes because I need to account programatically
-        //if single
-        //   undo old selection
-        //endif
-        //set selected
-    }
-    
-    
-#if 0    
-	if (self.highlighted /*&& !unhighlighting*/)
-	{
-		UIXGridView* grid = (UIXGridView*) self.superview;
-		
-		//		[grid informWillSelectCell:self];
-		//		[self unhighlightCell:NO];
-		[self setNeedsDisplay];
-		
-		[grid informDidSelectCell:self];
-	}
-#endif    
+    }    
 }
 
 //////////////////////////////////////

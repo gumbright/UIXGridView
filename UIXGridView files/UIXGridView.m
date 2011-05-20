@@ -49,7 +49,6 @@
 @synthesize customSelect;
 @synthesize cellInsets;
 @synthesize style;
-//@synthesize selectionColor;
 @synthesize headerView;
 @synthesize footerView;
 
@@ -123,7 +122,6 @@
 		super.delegate = self;
         
         [self setup];
-//		self.selectionColor = [UIColor blueColor];
 	}
 	
 	return self;
@@ -144,7 +142,6 @@
 //////////////////////////////////////
 - (void) dealloc
 {
-//	self.selectionColor = nil;	
 	self.headerView = nil;
 	self.footerView = nil;
 	self.gridLineColor = nil;
@@ -155,6 +152,8 @@
 	[reusableCells release];
 	[spannedCells release];
 	
+    [overlayIconImage release];
+    
 	[super dealloc];
 }
 
@@ -729,14 +728,6 @@
 }
 
 
-/////////////////////////////////////////////////
-//
-/////////////////////////////////////////////////
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//}
-
-
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -1006,8 +997,6 @@
 		{
 			cell = [[arr objectAtIndex:0] retain];
 			[arr removeObjectAtIndex:0];
-//			NSLog(@"cell reused: %08X",cell);
-
 		}
 		
 	}
@@ -1090,37 +1079,8 @@
 /////////////////////////////////////////////////
 //
 /////////////////////////////////////////////////
-- (BOOL) shouldRespondToTouch:(UIXGridViewCell*) cell
-{
-	BOOL result = YES;
-	
-	NSIndexPath* p = [self indexPathForCell:cell];
-	if (p != nil)
-	{
-		if (self.gridDelegate != nil)
-		{
-//			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:shouldSelectCellAtIndexPath:)])
-//			{
-//				result = [self.gridDelegate UIXGridView: self  shouldSelectCellAtIndexPath:p];
-//			}
-		}
-	}
-	
-	return result;
-}
-
-/////////////////////////////////////////////////
-//
-/////////////////////////////////////////////////
 - (void) clearSelection
 {
-//	if (selectedCellIndexPath != nil)
-//	{
-//		[self deselectCellAtIndexPath:selectedCellIndexPath animated:NO];
-//		[selectedCellIndexPath release];
-//		selectedCellIndexPath = nil;
-//	}
-    
     for (NSIndexPath* ip in  [selectionIndexPaths allObjects])
     {
 		[self deselectCellAtIndexPath:ip animated:NO];
@@ -1135,7 +1095,6 @@
 /////////////////////////////////////////////////
 - (UIColor*) selectionBackgroundColorForCell:(UIXGridViewCell*) cell
 {
-	//UIColor* result = self.selectionColor;
 	UIColor* result = [UIColor blueColor];
 	
 //	NSIndexPath* p = [self indexPathForCell:cell];

@@ -88,7 +88,9 @@
 }
 
 
-- (void)dealloc {
+- (void)dealloc 
+{
+    [planetData release];
     [super dealloc];
 }
 

@@ -154,7 +154,6 @@ typedef enum
 //////////////////////////////////
 - (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath animated:(BOOL) animate;
 
-- (BOOL) shouldRespondToTouch:(UIXGridViewCell*) cell;
 - (void) informWillSelectCell:(UIXGridViewCell*) cell;
 - (void) informDidSelectCell:(UIXGridViewCell*) cell;
 - (void) informDidUnselectCell:(UIXGridViewCell*) cell;
