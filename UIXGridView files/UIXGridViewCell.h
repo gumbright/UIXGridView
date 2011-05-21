@@ -13,6 +13,18 @@ typedef enum
 	UIXGridViewCellStyleDefault
 } UIXGridViewCellStyle;
 
+typedef enum
+{
+    UIXGridViewOverlayImagePositionBottomRight,
+    UIXGridViewOverlayImagePositionBottomCenter,
+    UIXGridViewOverlayImagePositionBottomLeft,
+    UIXGridViewOverlayImagePositionCenterLeft,
+    UIXGridViewOverlayImagePositionCenter,
+    UIXGridViewOverlayImagePositionCenterRight,
+    UIXGridViewOverlayImagePositionTopLeft,
+    UIXGridViewOverlayImagePositionTopCenter,
+    UIXGridViewOverlayImagePositionTopRight
+} UIXGridViewOverlayImagePosition;
 
 @interface UIXGridViewCell : UIView 
 {
@@ -86,7 +98,10 @@ typedef enum
 {
     UIView* icon;
     UIImageView* iconImage;
+    UIXGridViewOverlayImagePosition position;
 }
+
+@property (assign) UIXGridViewOverlayImagePosition position;
 
 - (id) init;
 - (id) initWithImage:(UIImage*) image;

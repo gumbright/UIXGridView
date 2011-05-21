@@ -34,8 +34,8 @@
  */ 
 
 #import "UIXGridView.h"
-#import "UIXGridViewCell.h"
-#import "UIXGridViewSpanningCell.h"
+//#import "UIXGridViewCell.h"
+//#import "UIXGridViewSpanningCell.h"
 
 @implementation UIXGridView
 
@@ -62,8 +62,10 @@
 
 @synthesize gridStyle;
 @synthesize selectionStyle;
+
 @synthesize overlayStyle;
 @synthesize overlayIconImage;
+@synthesize overlayIconPosition;
 
 //////////////////////////////////////
 //
@@ -93,6 +95,7 @@
     initialSetupDone = YES;
     overlayIconImage = nil;
     overlayStyle = UIXGridViewOverlayStyleCheckmark;
+//    overlayIconPosition = UIXGridViewOverlayImagePositionBottomRight;
 }
 
 //////////////////////////////////////
@@ -826,9 +829,7 @@
 //
 //////////////////////////////////////
 - (void)drawRect:(CGRect)rect
-{	
-	NSIndexPath* indexPath;
-	
+{		
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
 	CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);

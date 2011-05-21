@@ -52,6 +52,7 @@
 
     gv.overlayStyle = UIXGridViewOverlayStyleImage;
     gv.overlayIconImage = [UIImage imageNamed:@"redcheck"];
+    gv.overlayIconPosition = UIXGridViewOverlayImagePositionTopLeft;
 	[view addSubview:gv];
 	[gv release];
 }

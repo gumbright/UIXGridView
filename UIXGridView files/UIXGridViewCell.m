@@ -27,7 +27,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     
     for (NSUInteger i = 0; i < [view.subviews count]; i++)
     {
-        UIView *subView = [view.subviews objectAtIndex:i];
+        //UIView *subView = [view.subviews objectAtIndex:i];
         NSString *newIndent = [[NSString alloc] initWithFormat:@"  %@", indent];
         NSString *msg = [[NSString alloc] initWithFormat:@"%@%d:", newIndent, i];
         //dumpViews(subView, msg, newIndent);
@@ -455,24 +455,28 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     
     if (selectionOverlayView == nil)
     {
-        switch ([[self gridView] selectionStyle])
+        UIXGridViewSelectionOverlayView* sov;
+        switch ([[self gridView] overlayStyle])
         {
             case UIXGridViewOverlayStyleCheckmark:
             {
-                overlayView = [[UIXGridViewSelectionOverlayView alloc] init];               
+                sov = [[UIXGridViewSelectionOverlayView alloc] init];               
             }
                 break;
                 
             case UIXGridViewOverlayStyleImage:
             {
-                overlayView = [[UIXGridViewSelectionOverlayView alloc] initWithImage:[[self gridView] overlayIconImage]];
+                sov = [[UIXGridViewSelectionOverlayView alloc] initWithImage:[[self gridView] overlayIconImage]];
             }
                 break;
         }
+        
+        sov.position = [[self gridView] overlayIconPosition];
+        overlayView = sov;
     }
     else
     {
-        overlayView = selectionOverlayView;
+        overlayView = (UIXGridViewSelectionOverlayView*) selectionOverlayView;
     }
     
     _displayedSelectionOverlayView = overlayView;
@@ -672,6 +676,8 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 
 @implementation UIXGridViewSelectionOverlayView
 
+@synthesize position;
+
 //////////////////////////////////////
 //
 //////////////////////////////////////
@@ -722,23 +728,97 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //////////////////////////////////////
 - (void) layoutSubviews
 {
+    UIView* v;
+    CGRect r;
+    
     if (icon != nil)
     {
-        CGRect r = icon.frame;
-        r.origin.x = self.bounds.size.width - (r.size.width + 10);
-        r.origin.y = self.bounds.size.height - (r.size.height + 10);
-        
-        icon.frame = r;
+        v = icon;
     }
     else
     {
+        v = iconImage;
+        
         CGRect r = iconImage.frame;
-        CGSize isz = iconImage.image.size;
-        r.size = isz;
+//        CGSize isz = iconImage.image.size;
+//        r.size = isz;
         r.origin.x = self.bounds.size.width - (r.size.width + 10);
         r.origin.y = self.bounds.size.height - (r.size.height + 10);
         iconImage.frame = r;
     }
+ 
+    r = v.frame;
+    
+    switch (position) 
+    {
+        case UIXGridViewOverlayImagePositionBottomRight:
+        {
+            r.origin.x = self.bounds.size.width - (r.size.width + 10);
+            r.origin.y = self.bounds.size.height - (r.size.height + 10);
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionBottomCenter:
+        {
+            r.origin.x = (self.bounds.size.width - r.size.width) / 2;
+            r.origin.y = self.bounds.size.height - (r.size.height + 10);
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionBottomLeft:
+        {
+            r.origin.x = 10;
+            r.origin.y = self.bounds.size.height - (r.size.height + 10);
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionCenterLeft:
+        {
+            r.origin.x = 10;
+            r.origin.y = (self.bounds.size.height - r.size.height) / 2;
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionCenter:
+        {
+            r.origin.x = (self.bounds.size.width - r.size.width) / 2;
+            r.origin.y = (self.bounds.size.height - r.size.height) / 2;
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionCenterRight:
+        {
+            r.origin.x = self.bounds.size.width - (r.size.width + 10);
+            r.origin.y = (self.bounds.size.height - r.size.height) / 2;
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionTopLeft:
+        {
+            r.origin.x = 10;
+            r.origin.y = 10;
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionTopCenter:
+        {
+            r.origin.x = (self.bounds.size.width - r.size.width) / 2;
+            r.origin.y = 10;
+        }
+            break;
+
+        case UIXGridViewOverlayImagePositionTopRight:
+        {
+            r.origin.x = self.bounds.size.width - (r.size.width + 10);
+            r.origin.y = 10;
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+    v.frame = r;
 }
 @end
 

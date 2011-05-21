@@ -38,10 +38,7 @@
 #import "UIXGridViewCell.h"
 #import "UIXGridViewSpanningCell.h"
 
-//#import "UIXGridViewCell.h"
-
 @protocol UIXGridViewDataSource, UIXGridViewDelegate;
-
 
 typedef enum
 {
@@ -63,6 +60,7 @@ typedef enum
     UIXGridViewOverlayStyleCheckmark=0,
     UIXGridViewOverlayStyleImage
 } UIXGridViewOverlayStyle;
+
 
 @interface UIXGridView : UIScrollView <UIScrollViewDelegate>
 {
@@ -121,6 +119,7 @@ typedef enum
 @property (assign) UIXGridViewSelectionStyle selectionStyle;
 @property (assign) UIXGridViewOverlayStyle overlayStyle;
 @property (nonatomic, retain) UIImage* overlayIconImage;
+@property (assign) UIXGridViewOverlayImagePosition overlayIconPosition;
 
 - (id)initWithFrame:(CGRect) frame 
            andStyle:(UIXGridViewStyle) style;
@@ -180,7 +179,9 @@ typedef enum
 - (NSInteger) cellWidthForGrid:(UIXGridView*) grid;
 - (NSInteger) cellHeightForGrid:(UIXGridView*) grid;
 
-- (UIXGridViewSpanningCell*) UIXGridView:(UIXGridView*) grid spanningCellAtIndex:(NSIndexPath**) spanningCellIndex forSpannedCellAt:(NSIndexPath*) indexPath;
+- (UIXGridViewSpanningCell*) UIXGridView:(UIXGridView*) grid 
+                     spanningCellAtIndex:(NSIndexPath**) spanningCellIndex 
+                        forSpannedCellAt:(NSIndexPath*) indexPath;
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -194,12 +195,6 @@ typedef enum
 
 - (NSIndexPath*) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 - (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
-
-//- (UIColor*) UIXGridView: (UIXGridView*) gridView selectionBackgroundColorForCellAtIndexPath:(NSIndexPath*) indexPath;
-
-//- (UIXGridViewCellSelectionStyle) UIXGridView: (UIXGridView*) gridView  selectionStyleForCellAtIndexPath:(NSIndexPath*) indexPath;
-
-//- (void)UIXGridView:(UITableView *)tableView willDisplayCell:(UIXGridViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 @end
 
 /////////////////////////////////////////////////////////////////////////
