@@ -27,10 +27,10 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     
     for (NSUInteger i = 0; i < [view.subviews count]; i++)
     {
-        //UIView *subView = [view.subviews objectAtIndex:i];
+        UIView *subView = [view.subviews objectAtIndex:i];
         NSString *newIndent = [[NSString alloc] initWithFormat:@"  %@", indent];
         NSString *msg = [[NSString alloc] initWithFormat:@"%@%d:", newIndent, i];
-        //dumpViews(subView, msg, newIndent);
+        dumpViews(subView, msg, newIndent);
         [msg release];
         [newIndent release];
     }
@@ -45,11 +45,11 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 
 @dynamic textLabel;
 @dynamic imageView;
-@dynamic selectionOverlayView;
+@synthesize selectionOverlayView;
 
 @synthesize contentView;
 @synthesize backgroundView;
-@synthesize selectedBackgroundView;
+@synthesize highlightBackgroundView;
 @synthesize overlayOnlySelection;
 
 @synthesize reuseIdentifier = _reuseIdentifier;
@@ -71,11 +71,12 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		self.backgroundView = v;
 		[v release];
 		backgroundView.backgroundColor = [UIColor whiteColor];
-		selectedBackgroundView = nil;
+		highlightBackgroundView = nil;
 		
 		v = [[UIView alloc] initWithFrame:CGRectZero];
 		[self addSubview:v];
 		v.backgroundColor = [UIColor clearColor];
+        v.opaque = NO;
 		[v release];
 		contentView = v;
 		
@@ -108,7 +109,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 - (void)dealloc 
 {
 	[savedViewState release];
-	[selectedBackgroundView release];
+	[highlightBackgroundView release];
 	[backgroundView release];
 	[selectionOverlayView release];
     [super dealloc];
@@ -172,34 +173,34 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //////////////////////////////////////
 - (void) highlightCell: (BOOL) animated
 {
-
 	// note: animation not currently supported
+    dumpViews(self, @"prehighlight", @" ");
 	
 	[savedViewState release];
 	savedViewState = [[NSMutableDictionary dictionary] retain];
 	[self highlightSubviews:contentView savingStateIn: savedViewState];
-	[contentView setNeedsDisplay]; //???
     
 	UIColor* bgColor;
     
-	if (selectedBackgroundView == nil)
+	if (highlightBackgroundView == nil)
 	{
-		_displayedSelectedBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		_displayedHighlightBackgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 		bgColor = [[self gridView] selectionBackgroundColorForCell:self];
-		_displayedSelectedBackgroundView.backgroundColor = bgColor;
+		_displayedHighlightBackgroundView.backgroundColor = bgColor;
 	}
 	else 
 	{
-		_displayedSelectedBackgroundView = selectedBackgroundView;
+		_displayedHighlightBackgroundView = highlightBackgroundView;
 	}
     
 	CGRect frame;
 	frame.size = self.frame.size;
 	frame.origin = CGPointMake(0,0);
-	_displayedSelectedBackgroundView.frame = frame;
+	_displayedHighlightBackgroundView.frame = frame;
 
-	[self insertSubview:_displayedSelectedBackgroundView aboveSubview:backgroundView];
+	[self insertSubview:_displayedHighlightBackgroundView aboveSubview:backgroundView];
 
+    dumpViews(self, @"highlight", @" ");
 	highlighted = YES;
     
 }
@@ -264,7 +265,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDuration:0.15];
 		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-		 _displayedSelectedBackgroundView.alpha = 0.0;
+		 _displayedHighlightBackgroundView.alpha = 0.0;
 		 [UIView commitAnimations];
 	}
 	else 
@@ -272,11 +273,11 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		[self restoreSubviews:contentView];
 		highlighted = NO;
 
-		[_displayedSelectedBackgroundView removeFromSuperview];
-		_displayedSelectedBackgroundView = nil;
-		if (selectedBackgroundView != nil)
+		[_displayedHighlightBackgroundView removeFromSuperview];
+		_displayedHighlightBackgroundView = nil;
+		if (highlightBackgroundView != nil)
 		{
-			selectedBackgroundView.alpha = 1.0;
+			highlightBackgroundView.alpha = 1.0;
 		}
 	}
 
@@ -299,27 +300,8 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 		[UIView setAnimationDuration:0.1];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-		_displayedSelectedBackgroundView.alpha = 0.5;
+		_displayedHighlightBackgroundView.alpha = 0.5;
 		[UIView commitAnimations];
-	}
-	else 
-	{
-//		self.highlighted = NO;
-//		[self unhighlightSubviews:contentView];
-//		[self restoreSubviews:contentView];
-//		[savedViewState release];
-//		savedViewState = nil;
-//		self.highlighted = NO;
-		
-#if 0		
-		[_displayedSelectedBackgroundView removeFromSuperview];
-//		v =  _displayedSelectedBackgroundView.superview;
-		_displayedSelectedBackgroundView = nil;
-		if (selectedBackgroundView != nil)
-		{
-			selectedBackgroundView.alpha = 1.0;
-		}
-#endif		
 	}
 }
 
@@ -332,10 +314,10 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	[self setHighlighted:NO animated:NO];
 	unhighlighting = NO;
     
-	if (_displayedSelectedBackgroundView != nil)
+	if (_displayedHighlightBackgroundView != nil)
 	{
-		[_displayedSelectedBackgroundView removeFromSuperview];
-		_displayedSelectedBackgroundView = nil;
+		[_displayedHighlightBackgroundView removeFromSuperview];
+		_displayedHighlightBackgroundView = nil;
 	}
     
 	if (_textLabel != nil)
@@ -418,9 +400,9 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 	CGRect workFrame;
 	
 	backgroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-	if (selectedBackgroundView)
+	if (highlightBackgroundView)
 	{
-		selectedBackgroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+		highlightBackgroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 	}
 	contentView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 	
@@ -572,23 +554,20 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (void) setSelectionOverlayView:(UIView*) overlay
-{
-	if (selectionOverlayView != nil) 
-	{
-		[selectionOverlayView removeFromSuperview];
-		selectionOverlayView = nil;
-	}
-
-	if (selectionOverlayView != nil)
-	{
-		selectionOverlayView = overlay;
-		CGRect frame = self.contentView.frame;
-		frame.origin = CGPointZero;
-		overlay.frame = frame;
-		[self addSubview:overlay];
-	}
-}
+//- (void) setSelectionOverlayView:(UIView*) overlay
+//{
+//	if (selectionOverlayView != nil) 
+//	{
+//		[selectionOverlayView removeFromSuperview];
+//		selectionOverlayView = nil;
+//	}
+//
+//    selectionOverlayView = overlay;
+//    CGRect frame = self.contentView.frame;
+//    frame.origin = CGPointZero;
+//    overlay.frame = frame;
+//    [self addSubview:overlay];
+//}
 
 //////////////////////////////////////
 //
@@ -667,6 +646,19 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
         [self setHighlighted:NO animated:YES];
     }
 }
+
+//- (void) setHighlightBackgroundView:(UIView *)hbv
+//{
+//    dumpViews(self, @"presethigh", @" ");
+//    if (hbv != highlightBackgroundView)
+//    {
+//        [highlightBackgroundView removeFromSuperview];
+//        [highlightBackgroundView release];
+//        highlightBackgroundView = [hbv retain];
+//        [self insertSubview:highlightBackgroundView aboveSubview:backgroundView];
+//    }
+//    dumpViews(self, @"postsethigh", @" ");
+//}
 
 @end
 

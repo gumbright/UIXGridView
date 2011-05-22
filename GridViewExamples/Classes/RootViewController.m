@@ -11,9 +11,9 @@
 #import "SpanningViewController.h"
 #import "HorzContrainedSingleHeaderViewController.h"
 #import "VertConstrainedMultipleViewController.h"
+#import "CustomViewsController.h"
 
 @implementation RootViewController
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -76,7 +76,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;
+    return 5;
 }
 
 
@@ -112,11 +112,11 @@
 		cell.textLabel.text = @"Spanning cells";
 		cell.detailTextLabel.text = @"simple select";
 	}
-//	else if ([indexPath row] == 4)
-//	{
-//		cell.textLabel.text = @"Unconstrained";
-//		cell.detailTextLabel.text = @"simple select";
-//	}
+	else if ([indexPath row] == 4)
+	{
+		cell.textLabel.text = @"Constrained";
+		cell.detailTextLabel.text = @"custom highlight & select";
+	}
 //	else if ([indexPath row] == 5)
 //	{
 //		cell.textLabel.text = @"Grid on scroll";
@@ -166,7 +166,15 @@
             [vc release];
         }
             break;
-
+            
+		case 4:
+        {
+            CustomViewsController* vc = [[CustomViewsController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            [vc release];
+        }
+            break;
+            
 //			
 //		case 3:
 //		{

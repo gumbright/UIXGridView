@@ -30,7 +30,7 @@ typedef enum
 {
 	UIView* contentView;
 	UIView* backgroundView;
-	UIView* selectedBackgroundView;
+	UIView* highlightBackgroundView;
 	UIView* selectionOverlayView;
 	
 	//selection
@@ -46,7 +46,7 @@ typedef enum
 	//default views
 	UILabel* _textLabel;
 	UIImageView* _imageView;
-	UIView* _displayedSelectedBackgroundView;
+	UIView* _displayedHighlightBackgroundView;
 	UIView* _displayedSelectionOverlayView;
 	
 	NSMutableDictionary* savedViewState;
@@ -65,7 +65,7 @@ typedef enum
 
 @property (readonly) UIView* contentView;
 @property (nonatomic, retain) UIView* backgroundView;
-@property (nonatomic, retain) UIView* selectedBackgroundView;
+@property (nonatomic, retain) UIView* highlightBackgroundView;
 @property (nonatomic, retain) UIView* selectionOverlayView;
 
 @property (readonly) NSString* reuseIdentifier;
