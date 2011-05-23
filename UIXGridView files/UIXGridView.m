@@ -633,7 +633,7 @@
 		{
 			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didDeselectCellAtIndexPath:)])
 			{
-				[self.gridDelegate UIXGridView: self  didDeselectCellAtIndexPath:p];
+				[self.gridDelegate UIXGridView: self  didSDeselectCellAtIndexPath:p];
 			}
 		}
 	}
@@ -650,7 +650,7 @@
 	{
 		if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didDeselectCellAtIndexPath:)])
 		{
-			[self.gridDelegate UIXGridView: self didDeselectCellAtIndexPath: path];
+			[self.gridDelegate UIXGridView: self didSDeselectCellAtIndexPath: path];
 		}
 	}
 }
