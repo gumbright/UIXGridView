@@ -132,10 +132,8 @@ typedef enum
 
 - (NSArray*) selection;
 
-//- (void) selectCell:(UIXGridViewCell*) cell;  //the questionis whether this should be external, and I think not, should be index path based
 - (void) selectCellAtIndexPath:(NSIndexPath*) indexPath animated:(BOOL) animated;
 - (void) deselectCell:(UIXGridViewCell*) cell;
-//- (void) deselectCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (NSArray*) selectedCellsIndexPaths;
 - (NSArray*) selectedCells;

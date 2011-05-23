@@ -173,8 +173,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 //////////////////////////////////////
 - (void) highlightCell: (BOOL) animated
 {
-	// note: animation not currently supported
-    dumpViews(self, @"prehighlight", @" ");
+ //   dumpViews(self, @"prehighlight", @" ");
 	
 	[savedViewState release];
 	savedViewState = [[NSMutableDictionary dictionary] retain];
@@ -200,7 +199,7 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 
 	[self insertSubview:_displayedHighlightBackgroundView aboveSubview:backgroundView];
 
-    dumpViews(self, @"highlight", @" ");
+ //   dumpViews(self, @"highlight", @" ");
 	highlighted = YES;
     
 }
@@ -732,8 +731,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
         v = iconImage;
         
         CGRect r = iconImage.frame;
-//        CGSize isz = iconImage.image.size;
-//        r.size = isz;
         r.origin.x = self.bounds.size.width - (r.size.width + 10);
         r.origin.y = self.bounds.size.height - (r.size.height + 10);
         iconImage.frame = r;
@@ -846,7 +843,6 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     CGContextAddLineToPoint(context, 15, 25);    
     CGContextAddLineToPoint(context, 25, 5);
 
-//    CGContextClosePath(context);  
     CGContextDrawPath(context, kCGPathStroke);	
 
 }

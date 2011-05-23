@@ -37,7 +37,7 @@
 	widthInCells: (NSUInteger) w
 	heightInCells: (NSUInteger) h
 {
-	if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])
+	if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
 	{
 		self.widthInCells = w;
 		self.heightInCells = h;

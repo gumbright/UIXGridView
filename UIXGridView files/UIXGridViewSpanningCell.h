@@ -14,7 +14,6 @@
 
 @interface UIXGridViewSpannedCell : UIXGridViewCell 
 
-//- (id)initWithFrame:(CGRect) frame andStyle:(NSInteger) style;
 - (id)init;
 
 @end

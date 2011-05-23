@@ -34,8 +34,6 @@
  */ 
 
 #import "UIXGridView.h"
-//#import "UIXGridViewCell.h"
-//#import "UIXGridViewSpanningCell.h"
 
 @implementation UIXGridView
 
@@ -95,7 +93,7 @@
     initialSetupDone = YES;
     overlayIconImage = nil;
     overlayStyle = UIXGridViewOverlayStyleCheckmark;
-//    overlayIconPosition = UIXGridViewOverlayImagePositionBottomRight;
+    overlayIconPosition = UIXGridViewOverlayImagePositionBottomRight;
 }
 
 //////////////////////////////////////
@@ -175,8 +173,6 @@
 //////////////////////////////////////
 - (void) enqueueCell:(UIXGridViewCell*) cell
 {
-//	NSLog(@"cell enqueued: %08X",cell);
-
     if (cell.reuseIdentifier != nil)
     {
         NSMutableArray* arr = [reusableCells objectForKey:cell.reuseIdentifier];
@@ -586,7 +582,6 @@
 	NSIndexPath* p = [self indexPathForCell:cell];
 	if (p != nil)
 	{
-		//		[self clearSelection];
 		if (self.gridDelegate != nil)
 		{
 			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:willSelectCellAtIndexPath:)])
@@ -609,11 +604,9 @@
         if (selectionStyle != UIXGridViewSelectionStyleMultiple)
         {
             [self clearSelection];
-            //            [selectedCellIndexPath release];
 		}
         
         [selectionIndexPaths addObject:p];
-        //		selectedCellIndexPath = [p retain];
         
 		if (self.gridDelegate != nil)
 		{
