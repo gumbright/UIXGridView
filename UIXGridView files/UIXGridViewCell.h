@@ -77,6 +77,8 @@ typedef enum
 
 - (void) setSelected:(BOOL) f animated:(BOOL) animate;
 - (void) setHighlighted:(BOOL) f animated:(BOOL) animated;
+
+- (void) applySelectionOverlay;
 @end
 
 #pragma  mark -

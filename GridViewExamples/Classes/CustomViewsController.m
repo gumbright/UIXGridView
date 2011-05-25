@@ -11,17 +11,28 @@
 
 @implementation CustomViewsController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize gridContainer;
+
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    self = [super initWithNibName:@"CustomViews" bundle:nil];
+    if (self) 
+    {
+        contents = [[NSMutableArray arrayWithCapacity:16] retain];
+        
+        for (NSInteger ndx =0; ndx < 16; ++ndx)
+        {
+            [contents addObject:[NSNumber numberWithInt:ndx]];
+            
+            srandom(time(NULL));
+        }
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [contents release];
     [super dealloc];
 }
 
@@ -47,9 +58,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	CGRect frame = CGRectMake(0,0,320,320);
+	CGRect frame = gridContainer.bounds;
     
-	grid = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleConstrained];
+	grid = [[UIXGridView alloc] initWithFrame:frame andStyle:UIXGridViewStyleHorzConstrained];
     
 	grid.gridDelegate = self;
 	grid.dataSource = self;
@@ -59,7 +70,7 @@
 	self.title = @"Custom views";
     grid.selectionStyle = UIXGridViewSelectionStyleSingle;
     
-	[self.view addSubview:grid];
+	[gridContainer addSubview:grid];
 	[grid release];
 }
 
@@ -84,6 +95,12 @@
 {
 	UIXGridViewCell* cell;
     UIImageView* iv;
+    
+    NSInteger cellNdx = ([indexPath row] * 4) + [indexPath column];
+    if (cellNdx >= [contents count])
+    {
+        return nil;
+    }
     
 	cell = [gridView dequeueReusableCellWithIdentifier:@"ConstrainedMomentaryCell"];
 	if (cell == nil)
@@ -110,8 +127,9 @@
 	
 	iv = [cell.contentView viewWithTag:1234];
     
-    NSInteger imageNdx = ([indexPath row] * 4) + [indexPath column];
-    UIImage* img = [UIImage imageNamed:[NSString stringWithFormat:@"%d",imageNdx]];
+    NSNumber* n = [contents objectAtIndex:cellNdx];
+    NSString* imageName = [NSString stringWithFormat:@"%@",n];
+    UIImage* img = [UIImage imageNamed:imageName];
     
     iv.image = img;
 	return cell;
@@ -130,7 +148,38 @@
 /////////////////////////////////////////////////////
 - (NSInteger) numberOfRowsForGrid: (UIXGridView*) grid
 {
-	return 4;
+    NSInteger n = ([contents count]/4) + (([contents count]%4 > 0) ? 1 : 0);
+	return n;
 }
 
+/////////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////////
+- (NSInteger) cellHeightForGrid: (UIXGridView*) grid
+{
+    return 80;
+}
+
+/////////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////////
+- (IBAction) plusPressed:(id) sender;
+{
+    NSNumber* n = [NSNumber numberWithInteger: random() % 16];
+    [contents addObject:n];
+    [grid reloadData];
+    
+}
+
+/////////////////////////////////////////////////////
+//
+/////////////////////////////////////////////////////
+- (IBAction) minusPressed:(id) sender;
+{
+    if ([contents count] > 0)
+    {
+        [contents removeLastObject];
+        [grid reloadData];
+    }
+}
 @end

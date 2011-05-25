@@ -429,15 +429,17 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
 ///////////////////////////////////
 //
 ///////////////////////////////////
-- (void) selectCell: (BOOL) animate
+- (void) applySelectionOverlay
 {
-	selected = YES;
     UIView* overlayView;
     
     if (selectionOverlayView == nil)
     {
         UIXGridViewSelectionOverlayView* sov;
-        switch ([[self gridView] overlayStyle])
+        UIXGridView* grid = [self gridView];
+        UIXGridViewOverlayStyle os = grid.overlayStyle;
+        
+        switch (os)
         {
             case UIXGridViewOverlayStyleCheckmark:
             {
@@ -463,6 +465,19 @@ void dumpViews(UIView* view, NSString *text, NSString *indent)
     _displayedSelectionOverlayView = overlayView;
     _displayedSelectionOverlayView.frame = self.bounds;
     [self addSubview:_displayedSelectionOverlayView];
+    
+}
+
+///////////////////////////////////
+//
+///////////////////////////////////
+- (void) selectCell: (BOOL) animate
+{
+	selected = YES;
+    if ([self gridView] != nil)
+    {
+        [self applySelectionOverlay];
+    }
 }
 
 ///////////////////////////////////

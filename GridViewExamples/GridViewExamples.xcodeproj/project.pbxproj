@@ -39,6 +39,7 @@
 		9FE07FCD103D9F4D001503E8 /* UIXGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE07FCA103D9F4D001503E8 /* UIXGridView.m */; };
 		9FE6996211AC88D300C9423E /* LAT-PhotoCircle-Base.png in Resources */ = {isa = PBXBuildFile; fileRef = 9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */; };
 		9FE6997811AD51EE00C9423E /* UnconstrainedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */; };
+		E4143B8B138B675B00A3AA1B /* CustomViews.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4143B8A138B675B00A3AA1B /* CustomViews.xib */; };
 		E43B7294138881A6009A49CD /* CustomViewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43B7293138881A6009A49CD /* CustomViewsController.m */; };
 		E43B72A6138885F4009A49CD /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = E43B7296138885F4009A49CD /* 0.png */; };
 		E43B72A7138885F4009A49CD /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = E43B7297138885F4009A49CD /* 1.png */; };
@@ -112,6 +113,7 @@
 		9FE6996111AC88D300C9423E /* LAT-PhotoCircle-Base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "LAT-PhotoCircle-Base.png"; path = "images/LAT-PhotoCircle-Base.png"; sourceTree = "<group>"; };
 		9FE6997611AD51EE00C9423E /* UnconstrainedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnconstrainedViewController.m; sourceTree = "<group>"; };
 		9FE6997711AD51EE00C9423E /* UnconstrainedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnconstrainedViewController.h; sourceTree = "<group>"; };
+		E4143B8A138B675B00A3AA1B /* CustomViews.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViews.xib; sourceTree = "<group>"; };
 		E43B7292138881A6009A49CD /* CustomViewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomViewsController.h; sourceTree = "<group>"; };
 		E43B7293138881A6009A49CD /* CustomViewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomViewsController.m; sourceTree = "<group>"; };
 		E43B7296138885F4009A49CD /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* GridViewExamples-Info.plist */,
 				9F26CB8611F650390087E694 /* GridOnScroll.xib */,
+				E4143B8A138B675B00A3AA1B /* CustomViews.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				E43B72B5138885F4009A49CD /* 9.png in Resources */,
 				E43B72B813888B41009A49CD /* highlight.png in Resources */,
 				E43B72B913888B41009A49CD /* select.png in Resources */,
+				E4143B8B138B675B00A3AA1B /* CustomViews.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

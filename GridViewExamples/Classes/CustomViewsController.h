@@ -13,6 +13,15 @@
 @interface CustomViewsController : UIViewController 
 {
 	UIXGridView* grid;
+    
+    NSMutableArray* contents;
 }
+
+@property (nonatomic, retain) IBOutlet UIView* gridContainer;
+
+- (IBAction) plusPressed:(id) sender;
+- (IBAction) minusPressed:(id) sender;
+
+- (id) init;
 
 @end

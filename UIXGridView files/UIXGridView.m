@@ -165,7 +165,8 @@
 {
     calculateGeometryOnLayout = YES;
 	hasNewData = YES;
-	[self layoutSubviews];
+    [self setNeedsLayout];
+//	[self layoutSubviews];
 }
 
 //////////////////////////////////////
@@ -392,6 +393,10 @@
 	}
 	
 	[self addSubview:cell];
+    if (cell.selected)
+    {
+        [cell applySelectionOverlay];
+    }
     
     if ([selectionIndexPaths containsObject:ip])
     {
@@ -548,11 +553,15 @@
     
 	workingCells = [self calcWorkingCells];
 	
-    if (!CGRectEqualToRect(workingCells, currentlyDisplayedCells))
-    {
+    // !!!: the problem of checking the old & current working cells is that what if you had 2 rows
+    // !!!: but only 1 col in the 2nd row and fill another column?  The working cells have not 
+    // !!!: changed so the new cell never gets added
+    
+    //if (!CGRectEqualToRect(workingCells, currentlyDisplayedCells))
+    //{
         [self updateVisibleCells:workingCells];
         currentlyDisplayedCells = workingCells;
-    }
+    //}
     
 	[super layoutSubviews];
 }
@@ -633,7 +642,7 @@
 		{
 			if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didDeselectCellAtIndexPath:)])
 			{
-				[self.gridDelegate UIXGridView: self  didSDeselectCellAtIndexPath:p];
+				[self.gridDelegate UIXGridView: self  didDeselectCellAtIndexPath:p];
 			}
 		}
 	}
@@ -650,7 +659,7 @@
 	{
 		if ([self.gridDelegate respondsToSelector:@selector(UIXGridView:didDeselectCellAtIndexPath:)])
 		{
-			[self.gridDelegate UIXGridView: self didSDeselectCellAtIndexPath: path];
+			[self.gridDelegate UIXGridView: self didDeselectCellAtIndexPath: path];
 		}
 	}
 }

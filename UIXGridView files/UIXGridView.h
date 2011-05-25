@@ -90,6 +90,7 @@ typedef enum
     
     BOOL calculateGeometryOnLayout;
     
+    UIXGridViewOverlayStyle overlayStyle;    
 }
 
 @property (readonly) NSInteger columns;
@@ -192,7 +193,7 @@ typedef enum
 - (void) UIXGridView: (UIXGridView*) gridView  didSelectCellAtIndexPath:(NSIndexPath*) indexPath;
 
 - (NSIndexPath*) UIXGridView: (UIXGridView*) gridView  willDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
-- (void) UIXGridView: (UIXGridView*) gridView  didSDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
+- (void) UIXGridView: (UIXGridView*) gridView  didDeselectCellAtIndexPath:(NSIndexPath*) indexPath;
 @end
 
 /////////////////////////////////////////////////////////////////////////
